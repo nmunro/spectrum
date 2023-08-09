@@ -210,3 +210,8 @@ pyrightconfig.json
 # Extra lines needed for Flint
 coverage
 media/*
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
