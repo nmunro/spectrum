@@ -17,6 +17,7 @@ django-opensearch-dsl = "^0.5.1"
 python-decouple = "^3.8"
 dj-database-url = "^2.0.0"
 psycopg2-binary = "^2.9.7"
+gunicorn = "^21.2.0"
 
 [tool.poetry.dev-dependencies]
 coverage = "^6.1"
