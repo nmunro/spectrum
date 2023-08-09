@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block nav %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+      <li class="breadcrumb-item active">Resources</li>
+    </ol>
+  </nav>
+{% endblock %}
+
+{% block content %}
+    <h1>Resources</h1>
+    {% for resource in resources %}
+            <div class="w-25">
+                <div class="card text-center">
+                    <a href="{% url 'organisation' resource.organisation.slug %}">{{ resource.organisation.name }}</a>
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="{% url 'resource' resource.id %}">{{ resource.name }}</a></h5>
+                        <p class="card-text">{{ resource.description|slice:":80" }}</p>
+                        <a href="" class="btn btn-primary">Details</a>
+                    </div>
+                </div>
+            </div>
+    {% empty %}
+        <h2>No Resources</h2>
+    {% endfor %}
+{% endblock %}

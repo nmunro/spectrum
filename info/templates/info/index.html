@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block nav %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active">Home</li>
+    </ol>
+  </nav>
+{% endblock %}
+
+{% block content %}
+    <h1>ResourceDB</h1>
+    <form method="POST" action="{% url 'index' %}" class="row form">
+      {% csrf_token %}
+      <div class="col-lg-8">
+        <input type="text" name="search" placeholder="search..." class="form-control" />
+      </div>
+      <div class="col-lg-4">
+        <button type="submit" class="btn btn-primary">Search</button>
+      </div>
+    </form>
+
+    <ul>
+    {% for result in results %}
+        <li><a href="{% url 'index' %}">{{ result }}</a></li>
+    {% endfor %}
+    </ul>
+{% endblock %}

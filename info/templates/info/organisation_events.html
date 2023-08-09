@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block nav %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'organisations' %}">Organisations</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'organisation' org.slug %}">{{ org.name }}</a></li>
+      <li class="breadcrumb-item active">Events</li>
+    </ol>
+  </nav>
+{% endblock %}
+
+
+{% block content %}
+    <h1>{{ org.name }}</h1>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Location</th>
+          <th>Date/Time</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for event in events %}
+            <tr>
+              <td><a href="{% url 'organisation_event' org.slug event.id %}">{{ event.name }}</a></td>
+              <td><a href="{% url 'location' event.location.id %}">{{ event.location.name }}</a></td>
+              <td>{{ event.date_time }}</td>
+              <td>{{ event.price }}</td>
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+{% endblock %}

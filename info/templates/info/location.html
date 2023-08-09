@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block nav %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'locations' %}">Locations</a></li>
+      <li class="breadcrumb-item active">{{ location.name }}</li>
+    </ol>
+  </nav>
+{% endblock %}
+
+{% block content %}
+    <h1>Location</h1>
+    <h4>{{ location.name }}</h4>
+{% endblock %}

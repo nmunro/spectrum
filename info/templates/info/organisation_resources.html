@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block nav %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'organisations' %}">Organisations</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'organisation' org.slug %}">{{ org.name }}</a></li>
+      <li class="breadcrumb-item active">Resources</li>
+    </ol>
+  </nav>
+{% endblock %}
+
+
+{% block content %}
+    <h1>{{ org.name }}</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for resource in resources %}
+            <tr>
+              <td><a href="{% url 'organisation_resource' org.slug resource.id %}">{{ resource.name }}</a></td>
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+{% endblock %}

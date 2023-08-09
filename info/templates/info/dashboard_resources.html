@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block nav %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'dashboard_org' org.slug %}">{{ org.name }}</a></li>
+      <li class="breadcrumb-item active">Resources</li>
+    </ol>
+  </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <h2>{{ org.name }}</h2>
+        <div class="col mt-4">
+            <div class="card" style="width: 18rem;">
+                <h4>Create New</h4>
+                <div class="card-body">
+                    <p>Create A New Resource</p>
+                    <a href="{% url 'new_dashboard_resource' org.slug %}" class="btn btn-primary">Create New</a>
+                </div>
+            </div>
+        </div>
+
+        {% for resource in resources %}
+            <div class="col mt-4">
+                <div class="card" style="width: 18rem;">
+                    <h4>{{ resource.name }}</h4>
+                    <div class="card-body">
+                        <p>{{ resource.description }}</p>
+                        <a href="{% url 'dashboard_resource' org.slug resource.id %}" class="btn btn-primary">Edit</a>
+                        <a href="{% url 'dashboard_resource' org.slug resource.id %}" class="btn btn-primary" id="delete-resource">Delete</a>
+                    </div>
+                </div>
+            </div>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        async function postData(event) {
+            const csrf_token = document.querySelector('input[name="csrfmiddlewaretoken"]');
+            const response = await fetch(event.target.href, {
+                method: "DELETE",
+                body: {
+                    csrfmiddlewaretoken: "{{ csrf_token }}"
+                },
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token  }}"
+                }
+            });
+            return await response.json();
+        }
+        
+
+        document.querySelectorAll("#delete-resource").forEach((item) => {
+            item.addEventListener("click", function(event) {
+                event.preventDefault();
+                swal({
+                    "title": "Are you sure?",
+                    "text": "This will delete this resource",
+                    "icon": "warning",
+                    "buttons": {
+                        "cancel": "No",
+                        "continue": "Yes",
+                    },
+                }).then((value) => {
+                    switch(value) {
+                        case "continue":
+                            postData(event).then((data) => location.reload());
+                            break;
+
+                        default:
+                            console.log("Leaving well alone");
+                    }
+                }).catch((error) => console.log(error));
+            })
+        });
+    </script>
+{% endblock %}

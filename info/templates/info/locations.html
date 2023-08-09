@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block nav %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+      <li class="breadcrumb-item active">Locations</li>
+    </ol>
+  </nav>
+{% endblock %}
+
+{% block content %}
+    <h1>Locations</h1>
+    {% for location in locations %}
+            <div class="w-25">
+                <div class="card text-center">
+                    <a href="{% url 'location' location.id %}">{{ location.name }}</a>
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="{% url 'location' location.id %}">{{ location.address }}</a></h5>
+                        <p class="card-text"></p>
+                        <a href="" class="btn btn-primary">Details</a>
+                    </div>
+                </div>
+            </div>
+    {% empty %}
+        <h2>No Resources</h2>
+    {% endfor %}
+
+{% endblock %}

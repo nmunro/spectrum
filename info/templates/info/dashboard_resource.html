@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block nav %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'dashboard_org' org.slug %}">{{ org.name }}</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'dashboard_resources' org.slug %}">Resources</a></li>
+      <li class="breadcrumb-item active">{{ resource.name }}</li>
+
+    </ol>
+  </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <form method="POST" action="{% url 'dashboard_resource' org.slug resource.id %}">
+            <h2>{{ org.name }}</h2>
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit" class="btn btn-primary" value="Save"/>
+        </form>
+    </div>
+{% endblock %}

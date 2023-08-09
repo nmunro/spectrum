@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "neurodb"
+version = "0.1.0"
+description = "A database of shared resources"
+authors = ["Neil Munro (NMunro)"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^4.2.3"
+django-money = "^3.2.0"
+pillow = "^10.0.0"
+django-crispy-forms = "^2.0"
+install = "^1.3.5"
+crispy-bootstrap5 = "^0.7"
+whitenoise = "^6.5.0"
+django-opensearch-dsl = "^0.5.1"
+python-decouple = "^3.8"
+
+[tool.poetry.dev-dependencies]
+coverage = "^6.1"
+isort = "^5.10"
+black = "^21.10b"
+sphinx = "^4.2"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
