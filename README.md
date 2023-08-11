@@ -6,29 +6,42 @@ A database of shared resources
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
+You *must* create a `.env` file to contain local environmental variables, the three that *must* be supplied are:
+
+* SECRET_KEY
+* DEBUG
+* ALLOWED_HOSTS="*"
+
 ### Installing
 
-Setting up a Flint project should be as simple as:
+The project is managed using the [https://3musketeers.io/](3 Musketeers) methodology and uses GNU Make to run project tasks. Please see the Makefile for all of the rules.
 
-```
-make env
-```
+To build the project
 
-## Running the tests
-
-```
-make tests
+``` sh
+make build
 ```
 
-## Generating the documentation
+To start the web server
 
+``` sh
+make start
 ```
-make docs
+
+To tail the web server logs
+
+``` sh
+make logs
+```
+
+You can combine these together as normal in Make
+``` sh
+make build start logs
 ```
 
 ## Authors
 
-* Neil Munro (NMunro) (neilmunro@gmail.com)
+* Neil Munro (NMunro) (nmunro@duck.com)
 
 ## Acknowledgments
 
