@@ -1,4 +1,4 @@
-.PHONY: build clean clean-docker clean-docs docs repl test shell start stop lint migrate migrations dev-tools-check lint-tools-check logs static
+.PHONY: build clean clean-docker clean-docs docs repl test shell start stop lint migrate migrations dev-tools-check lint-tools-check logs static poetry
 .DEFAULT_GOAL: build
 
 REPORT := $(or $(REPORT),report -m)
@@ -7,7 +7,7 @@ LINTING_TOOLS := $(and $(shell which black),$(shell which isort),$(shell which f
 DEV_TOOLS := $(and $(shell which docker git))
 COMPOSE_FILE := 'docker-compose.yml'
 RUNNING_CONTAINERS := $(shell docker ps -a -q -f name="neurodb-*")
-SERVICE = web
+SERVICE := $(or $(SERVICE),web)
 
 # define standard colors
 ifneq ($(TERM),)
@@ -75,9 +75,28 @@ endif
 	@rm -rf .coverage.*
 
 clean:
-	@docker volume prune -f
-	@docker image prune -f
-	@docker system prune -f
+	@docker container prune -f
+
+ifeq ($(IMAGES),true)
+	@docker image prune -fa
+	@docker builder prune -fa
+endif
+
+ifeq ($(VOLUMES),true)
+	@docker volume prune -fa
+endif
+
+ifeq ($(SYSTEM),true)
+	@docker system prune -fa
+	@docker builder prune -fa
+endif
 
 logs:
-	@docker logs $(SERVICE) -f
+	@docker logs resourcedb-web-1 -f
+
+poetry:
+ifeq ($(SERVICE),web)
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry $(CMD)
+else
+	$(error Command not available for service: '$(SERVICE)')
+endif

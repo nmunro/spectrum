@@ -89,7 +89,8 @@ DATABASES = {
     }
 }
 
-DATABASES['default'].update(dj_database_url.config(conn_max_age=600))
+if config("ENV", default="dev", cast=str) == "PRODUCTION":
+    DATABASES['default'].update(dj_database_url.config(conn_max_age=600))
 
 
 # Password validation
