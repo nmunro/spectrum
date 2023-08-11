@@ -14,7 +14,7 @@ You *must* create a `.env` file to contain local environmental variables, the th
 
 ### Installing
 
-The project is managed using the (https://3musketeers.io/)[3 Musketeers] methodology and uses GNU Make to run project tasks. Please see the Makefile for all of the rules.
+The project is managed using the [https://3musketeers.io/](3 Musketeers) methodology and uses GNU Make to run project tasks. Please see the Makefile for all of the rules.
 
 To build the project
 
