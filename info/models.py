@@ -35,6 +35,8 @@ class Organisation(models.Model):
         return self.name
 
 class Resource(models.Model):
+    CNAME = "resource"
+    
     organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     description = models.TextField()
@@ -42,10 +44,15 @@ class Resource(models.Model):
     def get_absolute_url(self):
         return reverse("resource", kwargs={"resource_id": self.id})
 
+    def __repr__(self):
+        return f"<Resource: {str(self)}>"
+
     def __str__(self):
         return f"{self.organisation.name}: {self.name}"
 
 class Event(models.Model):
+    CNAME = "event"
+
     organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
@@ -55,6 +62,9 @@ class Event(models.Model):
 
     def get_absolute_url(self):
         return reverse("event", kwargs={"event_id": self.id})
+
+    def __repr__(self):
+        return f"<Event: {str(self)}>"
 
     def __str__(self):
         return f"{self.organisation.name}: {self.name}"

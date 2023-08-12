@@ -20,9 +20,26 @@
       </div>
     </form>
 
-    <ul>
-    {% for result in results %}
-        <li><a href="{% url 'index' %}">{{ result }}</a></li>
-    {% endfor %}
-    </ul>
+    {% if results %}
+      <table class="table">
+        <thead>
+          <td>Organisation</td>
+          <th>Name</th>
+          <th>Type</th>
+        </thead>
+        <tbody>
+          <tr>
+          {% for result in results %}
+              <td><a href="{% url 'organisation' result.organisation.slug %}">{{ result.organisation.name }}</a></td>
+              <td><a href="{{ result.get_absolute_url }}">{{ result }}</a></td>
+              {% if result.CNAME == "event" %}
+                <td><a href="{% url 'events' %}">{{ result.CNAME }}</a></td>
+              {% elif result.CNAME == "resource" %}
+                <td><a href="{% url 'resources' %}">{{ result.CNAME }}</a></td>
+              {% endif %}
+          {% endfor %}
+          </tr>
+        </tbody>
+      </table>
+    {% endif %}
 {% endblock %}
