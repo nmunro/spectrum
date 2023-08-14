@@ -1,28 +1,46 @@
 {% extends "base.html" %}
 
+
 {% block nav %}
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
-      <li class="breadcrumb-item">Events</li>
-    </ol>
-  </nav>
+<nav aria-label="breadcrumb ">
+  <ol class="breadcrumb mx-3 mt-3">
+    <li class="breadcrumb-item fw-bold"><a href="{% url 'index' %}" class="text-uppercase text-decoration-none">Home</a></li>
+    <li class="breadcrumb-item text-uppercase">Events</li>
+  </ol>
+</nav>
 {% endblock %}
 
 {% block content %}
-    <h1>Events</h1>
+<div class="page">
+  <h1 class="page-title text-uppercase fw-bold">Events</h1>
+  <div class="row">
     {% for event in events %}
-            <div class="w-25">
-                <div class="card text-center">
-                    <a href="{% url 'organisation' event.organisation.slug %}">{{ event.organisation.name }}</a>
-                    <div class="card-body">
-                        <h5 class="card-title"><a href="{% url 'event' event.id %}">{{ event.name }}</a></h5>
-                        <p class="card-text">{{ event.description|slice:":80" }}</p>
-                        <a href="" class="btn btn-primary">Details</a>
-                    </div>
-                </div>
-            </div>
+    <div class="col-md-4 mb-4">
+      <div class="card p-2 p-md-4 {% if forloop.counter0|divisibleby:2 %}card-primary{% else %}card-secondary{% endif %} text-white">
+        <div class="card-header bg-transparent  border border-0">
+          <p class="event-month text-uppercase fw-medium m-0 p-0">{{ event.date_time|date:"M" }}</p>
+          <p class="event-day fw-bold m-0 p-0">{{ event.date_time|date:"d" }}</p>
+        </div>
+        <div class="card-body bg-transparent border border-0">
+          <h5 class="event-title fs-2 fw-bold m-0 p-0"><a href="{% url 'event' event.id %}" class="text-white text-decoration-none">{{ event.name }}</a></h5>
+          <p class="event-text mt-2">{{ event.description|slice:":80" }}</p>
+        </div>
+        <div class="card-footer bg-transparent border border-0 d-flex flex-row justify-content-between align-items-center">
+          <div class="event-location">
+            <p class="event-date fw-medium my-0 py-0">Time : {{ event.date_time|date:"h:m" }}</p>
+            <p class="d-flex align-items-center"><i class="bi bi-pin-map me-2 my-0 py-0 fw-medium"></i>{{ event.location }}</p>
+          </div>
+          <div class="event-button">
+            <a class="btn text-white fs-5 border border-2 px-2 m-0">Details <i class="bi bi-arrow-right fs-5"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
     {% empty %}
-        <h2>No Events</h2>
+    <div class="col-md-12">
+      <h2>No Events</h2>
+    </div>
     {% endfor %}
+  </div>
+</div>
 {% endblock %}
