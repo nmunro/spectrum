@@ -25,3 +25,12 @@
     </div>
 </div>
 {% endblock %}
+
+{% block js %}
+  <script>
+    flatpickr("#id_date_time", {
+      enableTime: true,
+      dateFormat: "Y-m-d H:i",
+    });
+  </script>
+{% endblock %}

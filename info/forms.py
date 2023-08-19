@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, DateTimeInput
 from .models import Organisation, Event, Resource
 
 class OrgForm(ModelForm):
