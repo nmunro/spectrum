@@ -1,4 +1,4 @@
-.PHONY: build clean clean-docker clean-docs docs repl test shell start stop lint migrate migrations dev-tools-check lint-tools-check logs static poetry
+.PHONY: build clean clean-docker clean-docs docs repl test shell start stop lint migrate migrations dev-tools-check lint-tools-check logs static poetry create-super-user
 .DEFAULT_GOAL: build
 
 REPORT := $(or $(REPORT),report -m)
@@ -100,3 +100,6 @@ ifeq ($(SERVICE),web)
 else
 	$(error Command not available for service: '$(SERVICE)')
 endif
+
+create-super-user:
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) python ./manage.py createsuperuser

@@ -18,7 +18,7 @@
                     <div class="card-body">
                         <h5 class="card-title"><a href="{% url 'resource' resource.id %}">{{ resource.name }}</a></h5>
                         <p class="card-text">{{ resource.description|slice:":80" }}</p>
-                        <a href="" class="btn btn-primary">Details</a>
+                        <a href="{% url 'resource' resource.id }" class="btn btn-primary">Details</a>
                     </div>
                 </div>
             </div>
