@@ -59,6 +59,9 @@ class Event(models.Model):
     description = models.TextField()
     date_time = models.DateTimeField()
     price = MoneyField(max_digits=19, decimal_places=4, default_currency="GBP")
+    ticketed = models.BooleanField(default=False)
+    tickets = models.IntegerField(default=0)
+    tickets_purchased = models.IntegerField(default=0)
 
     def get_absolute_url(self):
         return reverse("event", kwargs={"event_id": self.id})
