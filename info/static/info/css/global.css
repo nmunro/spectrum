@@ -1,0 +1,65 @@
+/* Colour Palette of Spirit of Christmas */
+
+
+:root {
+  --primary-blue: #003b51;
+  --secondary-blue: #007195;
+  --primary-red: #C91A37;
+  --secondary-red: #C10018;
+  --black: #000000;
+  --white: #FFFFFF;
+}
+
+body {
+  font-family: 'Maven Pro', sans-serif;
+  color: var(--primary-blue);
+}
+
+.breadcrumb, .breadcrumb a{
+  color: var(--primary-blue);
+}
+
+.page {
+  margin: 24px 16px;
+}
+
+.card-primary{
+  background-color: var(--primary-blue);
+}
+
+.card-secondary {
+  background-color: var(--primary-red);
+}
+
+.card {
+  transition: transform 0.3s, box-shadow 0.3s; /* Adding smooth transition */
+}
+
+.card:hover {
+  transform: translateY(-5px); /* Lift the card slightly on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow on hover */
+}
+
+.card-footer .btn:hover {
+  background-color: white;
+}
+
+.card-primary .btn:hover {
+  color: var(--primary-blue) !important;
+}
+
+.card-secondary .btn:hover {
+  color: var(--secondary-red) !important;
+}
+
+.event-title:hover {
+  text-decoration: underline;
+}
+
+.event-month {
+  font-size: 20px;
+}
+
+.event-day {
+  font-size: 32px;
+}
