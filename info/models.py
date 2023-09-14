@@ -20,7 +20,6 @@ class Location(models.Model):
 
 class Organisation(models.Model):
     name = models.CharField(max_length=255, unique=True)
-    logo = models.ImageField(upload_to="logos")
     region = models.ForeignKey(Region, on_delete=models.CASCADE)
     email = models.EmailField(max_length=255)
     website = models.URLField(max_length=255)

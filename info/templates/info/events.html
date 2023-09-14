@@ -2,7 +2,7 @@
 
 
 {% block nav %}
-<nav aria-label="breadcrumb ">
+<nav aria-label="breadcrumb">
   <ol class="breadcrumb mx-3 mt-3">
     <li class="breadcrumb-item fw-bold"><a href="{% url 'index' %}" class="text-uppercase text-decoration-none">Home</a></li>
     <li class="breadcrumb-item text-uppercase">Events</li>
@@ -17,7 +17,7 @@
     {% for event in events %}
     <div class="col-md-4 mb-4">
       <div class="card p-2 p-md-4 {% cycle "card-primary" "card-secondary" %} text-white">
-        <div class="card-header bg-transparent  border border-0">
+        <div class="card-header bg-transparent border border-0">
           <p class="event-month text-uppercase fw-medium m-0 p-0">{{ event.date_time|date:"M" }}</p>
           <p class="event-day fw-bold m-0 p-0">{{ event.date_time|date:"d" }}</p>
         </div>
@@ -27,11 +27,11 @@
         </div>
         <div class="card-footer bg-transparent border border-0 d-flex flex-row justify-content-between align-items-center">
           <div class="event-location">
-            <p class="event-date fw-medium my-0 py-0">Time : {{ event.date_time|date:"h:m" }}</p>
+            <p class="event-date fw-medium my-0 py-0">Time: {{ event.date_time|date:"h:m" }}</p>
             <p class="d-flex align-items-center"><i class="bi bi-pin-map me-2 my-0 py-0 fw-medium"></i>{{ event.location }}</p>
           </div>
           <div class="event-button">
-            <a class="btn text-white fs-5 border border-2 px-2 m-0">Details <i class="bi bi-arrow-right fs-5"></i></a>
+            <a class="btn text-white fs-5 border border-2 px-2 m-0" href="{% url 'event' event.id %}">Details <i class="bi bi-arrow-right fs-5"></i></a>
           </div>
         </div>
       </div>

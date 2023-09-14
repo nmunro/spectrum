@@ -2,27 +2,42 @@
 
 {% block nav %}
   <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
-      <li class="breadcrumb-item active">Resources</li>
+    <ol class="breadcrumb mx-3 mt-3">
+      <li class="breadcrumb-item fw-bold"><a href="{% url 'index' %}" class="text-uppercase text-decoration-none">Home</a></li>
+      <li class="breadcrumb-item text-uppercase">Resources</li>
     </ol>
   </nav>
 {% endblock %}
 
 {% block content %}
-    <h1>Resources</h1>
+  <div class="page">
+    <h1 class="page-title text-uppercase fw-bold">Resources</h1>
+    <div class="row">
     {% for resource in resources %}
-            <div class="w-25">
-                <div class="card text-center">
-                    <a href="{% url 'organisation' resource.organisation.slug %}">{{ resource.organisation.name }}</a>
-                    <div class="card-body">
-                        <h5 class="card-title"><a href="{% url 'resource' resource.id %}">{{ resource.name }}</a></h5>
-                        <p class="card-text">{{ resource.description|slice:":80" }}</p>
-                        <a href="{% url 'resource' resource.id %}" class="btn btn-primary">Details</a>
-                    </div>
-                </div>
+      <div class="col-md-4 mb-4">
+        <div class="card p-2 p-md-4 {% cycle 'card-primary' 'card-secondary' %} text-white">
+          <div class="card-body bg-transparent border border-0">
+            <h5 class="event-title fs-2 fw-bold m-0 p-0">
+                <a href="{% url 'resource' resource.id %}" class="text-white text-decoration-none">{{ resource.name }}</a>
+            </h5>
+            <p class="event-text mt-2"><a href="{% url 'organisation' resource.organisation.slug %}" class="text-white text-decoration-none">{{ resource.organisation.name }}</a></p>
+         </div>
+
+        <div class="card-body bg-transparent border border-0">
+          <h5 class="event-title fs-2 fw-bold m-0 p-0"><a href="{% url 'resource' resource.id %}" class="text-white text-decoration-none">{{ event.name }}</a></h5>
+          <p class="event-text mt-2">{{ resource.description|slice:":80" }}</p>
+        </div>
+
+          <div class="card-footer bg-transparent border border-0 d-flex flex-row justify-content-between align-items-center">
+            <div class="event-button">
+              <a class="btn text-white fs-5 border border-2 px-2 m-0" href="{% url 'resource' resource.id %}">Details <i class="bi bi-arrow-right fs-5"></i></a>
             </div>
+          </div>
+        </div>
+      </div>
     {% empty %}
+      <div class="col-md-12">
         <h2>No Resources</h2>
+      </div>
     {% endfor %}
 {% endblock %}
