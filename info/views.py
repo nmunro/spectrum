@@ -82,7 +82,9 @@ def location(request, location_id):
     return render(request, "info/location.html", {"location": location})
 
 class OrganisationListView(ListView):
+    template_name = "info/dashboard.html"
     model = models.Organisation
+    context_object_name = "organisations"
     paginate_by = 100
 
     def get_context_data(self, **kwargs):
