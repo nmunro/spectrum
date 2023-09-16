@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
 {% block nav %}
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
-      <li class="breadcrumb-item"><a href="{% url 'locations' %}">Locations</a></li>
-      <li class="breadcrumb-item active">{{ location.name }}</li>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb mx-3 mt-3">
+      <li class="breadcrumb-item fw-bold"><a href="{% url 'index' %}" class="text-uppercase text-decoration-none">Home</a></li>
+      <li class="breadcrumb-item fw-bold"><a href="{% url 'locations' %}" class="text-uppercase text-decoration-none">Locations</a></li>
+      <li class="breadcrumb-item active text-uppercase">{{ location.name }}</li>
     </ol>
-  </nav>
+</nav>
 {% endblock %}
 
 {% block content %}

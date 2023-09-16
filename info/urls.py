@@ -21,7 +21,7 @@ urlpatterns = [
     path("locations/", views.locations, name="locations"),
     path("location/<int:location_id>/", views.location, name="location"),
 
-    path("dashboard/", login_required(views.OrganisationListView.as_view()), name="dashboard"),
+    path("dashboard/organisations/", login_required(views.OrganisationListView.as_view()), name="dashboard_organisations"),
     path("dashboard/<str:org>/", views.dashboard_org, name="dashboard_org"),
     path("dashboard/<str:org>/events/", login_required(views.DashboardEventsView.as_view()), name="dashboard_events"),
     path("dashboard/<str:org>/events/new/", login_required(views.DashboardNewEventView.as_view()), name="new_dashboard_event"),

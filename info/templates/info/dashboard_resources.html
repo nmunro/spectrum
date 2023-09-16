@@ -1,43 +1,43 @@
 {% extends "base.html" %}
 
 {% block nav %}
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
-      <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
-      <li class="breadcrumb-item"><a href="{% url 'dashboard_org' org.slug %}">{{ org.name }}</a></li>
-      <li class="breadcrumb-item active">Resources</li>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb mx-3 mt-3">
+      <li class="breadcrumb-item fw-bold"><a href="{% url 'index' %}" class="text-uppercase text-decoration-none">Home</a></li>
+      <li class="breadcrumb-item fw-bold"><a href="{% url 'dashboard_organisations' %}" class="text-uppercase text-decoration-none">Dashboard</a></li>
+      <li class="breadcrumb-item fw-bold"><a href="{% url 'dashboard_org' org.slug %}" class="text-uppercase text-decoration-none">{{ org.name }}</a></li>
+      <li class="breadcrumb-item text-uppercase active">Resources</li>
     </ol>
-  </nav>
+</nav>
 {% endblock %}
 
 {% block content %}
-    <div class="row">
-        <h2>{{ org.name }}</h2>
-        <div class="col mt-4">
-            <div class="card" style="width: 18rem;">
+<div class="row">
+        {% csrf_token %}
+        <div class="col-md-4 mb-4">
+            <div class="card p-2 p-md-4 card-primary text-white">
                 <h4>Create New</h4>
-                <div class="card-body">
+                <div class="card-body bg-transparent border border-0">
                     <p>Create A New Resource</p>
                     <a href="{% url 'new_dashboard_resource' org.slug %}" class="btn btn-primary">Create New</a>
                 </div>
             </div>
         </div>
 
+
         {% for resource in resources %}
-            <div class="col mt-4">
-                <div class="card" style="width: 18rem;">
+            <div class="col-md-4 mb-4">
+                <div class="card p-2 p-md-4 {% cycle 'card-secondary' 'card-primary' %} text-white">
                     <h4>{{ resource.name }}</h4>
                     <div class="card-body">
                         <p>{{ resource.description }}</p>
                         <a href="{% url 'dashboard_resource' org.slug resource.id %}" class="btn btn-primary">Edit</a>
-                        <a href="{% url 'dashboard_resource' org.slug resource.id %}" class="btn btn-primary" id="delete-resource">Delete</a>
+                        <a href="{% url 'dashboard_resource' org.slug resource.id %}" class="btn btn-primary" id="delete-event">Delete</a>
                     </div>
                 </div>
             </div>
-    {% endfor %}
+        {% endfor %}
     </div>
-</div>
 {% endblock %}
 
 {% block js %}

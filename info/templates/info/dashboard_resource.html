@@ -4,12 +4,11 @@
 {% block nav %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
-      <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
-      <li class="breadcrumb-item"><a href="{% url 'dashboard_org' org.slug %}">{{ org.name }}</a></li>
-      <li class="breadcrumb-item"><a href="{% url 'dashboard_resources' org.slug %}">Resources</a></li>
-      <li class="breadcrumb-item active">{{ resource.name }}</li>
-
+      <li class="breadcrumb-item fw-bold"><a href="{% url 'index' %}" class="text-uppercase text-decoration-none">Home</a></li>
+      <li class="breadcrumb-item fw-bold"><a href="{% url 'dashboard_organisations' %}" class="text-uppercase text-decoration-none">Dashboard</a></li>
+      <li class="breadcrumb-item fw-bold"><a href="{% url 'dashboard_org' org.slug %}" class="text-uppercase text-decoration-none">{{ org.name }}</a></li>
+      <li class="breadcrumb-item fw-bold"><a href="{% url 'dashboard_resources' org.slug %}" class="text-uppercase text-decoration-none">Resources</a></li>
+      <li class="breadcrumb-item active text-uppercase text-decoration-none">{{ resource.name }}</li>
     </ol>
   </nav>
 {% endblock %}

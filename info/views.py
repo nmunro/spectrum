@@ -66,7 +66,7 @@ def resource(request, resource_id):
     return render(request, "info/resource.html", {"resource": resource})
 
 def events(request):
-    events = models.Event.objects.all()
+    events = models.Event.objects.all().order_by("date_time")
     return render(request, "info/events.html", {"events": events})
 
 def event(request, event_id):
@@ -82,7 +82,9 @@ def location(request, location_id):
     return render(request, "info/location.html", {"location": location})
 
 class OrganisationListView(ListView):
+    template_name = "info/dashboard.html"
     model = models.Organisation
+    context_object_name = "organisations"
     paginate_by = 100
 
     def get_context_data(self, **kwargs):

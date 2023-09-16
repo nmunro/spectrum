@@ -1,24 +1,23 @@
 {% extends "base.html" %}
 
 {% block nav %}
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
-      <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
-      <li class="breadcrumb-item"><a href="{% url 'dashboard_org' org.slug %}">{{ org.name }}</a></li>
-      <li class="breadcrumb-item active">Events</li>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb mx-3 mt-3">
+      <li class="breadcrumb-item fw-bold"><a href="{% url 'index' %}" class="text-uppercase text-decoration-none">Home</a></li>
+      <li class="breadcrumb-item fw-bold"><a href="{% url 'dashboard_organisations' %}" class="text-uppercase text-decoration-none">Dashboard</a></li>
+      <li class="breadcrumb-item fw-bold"><a href="{% url 'dashboard_org' org.slug %}" class="text-uppercase text-decoration-none">{{ org.name }}</a></li>
+      <li class="breadcrumb-item text-uppercase active">Events</li>
     </ol>
-  </nav>
+</nav>
 {% endblock %}
 
 {% block content %}
     <div class="row">
-        <h2>{{ org.name }}</h2>
         {% csrf_token %}
-        <div class="col mt-4">
-            <div class="card" style="width: 18rem;">
+        <div class="col-md-4 mb-4">
+            <div class="card p-2 p-md-4 card-primary text-white">
                 <h4>Create New</h4>
-                <div class="card-body">
+                <div class="card-body bg-transparent border border-0">
                     <p>Create A New Event</p>
                     <a href="{% url 'new_dashboard_event' org.slug %}" class="btn btn-primary">Create New</a>
                 </div>
@@ -27,8 +26,8 @@
 
 
         {% for event in events %}
-            <div class="col mt-4">
-                <div class="card" style="width: 18rem;">
+            <div class="col-md-4 mb-4">
+                <div class="card p-2 p-md-4 {% cycle 'card-secondary' 'card-primary' %} text-white">
                     <h4>{{ event.name }}</h4>
                     <div class="card-body">
                         <p>{{ event.description }}</p>
