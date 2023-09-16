@@ -66,7 +66,7 @@ def resource(request, resource_id):
     return render(request, "info/resource.html", {"resource": resource})
 
 def events(request):
-    events = models.Event.objects.all()
+    events = models.Event.objects.all().order_by("date_time")
     return render(request, "info/events.html", {"events": events})
 
 def event(request, event_id):

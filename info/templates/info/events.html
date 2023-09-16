@@ -18,7 +18,7 @@
     <div class="col-md-4 mb-4">
       <div class="card p-2 p-md-4 {% cycle "card-primary" "card-secondary" %} text-white">
         <div class="card-header bg-transparent border border-0">
-          <p class="event-month text-uppercase fw-medium m-0 p-0">{{ event.date_time|date:"M" }}</p>
+          <p class="event-month text-uppercase fw-medium m-0 p-0">{{ event.date_time|date:"M - Y" }}</p>
           <p class="event-day fw-bold m-0 p-0">{{ event.date_time|date:"d" }}</p>
         </div>
         <div class="card-body bg-transparent border border-0">
