@@ -35,55 +35,55 @@
 
     <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
         <div class="row row-cols-4">
-            <div class="col mt-4">
-                <div class="card" style="width: 18rem;">
+            <div class="col-md-4 mb-4">
+                <div class="card p-2 p-md-4 card-primary text-white">
                     <h4>Create New</h4>
-                    <div class="card-body">
-                        <p>Create a new Resource</p>
-                        <a href="{% url 'dashboard_resources' org.slug %}" class="btn btn-primary">Create New</a>
+                    <div class="card-body bg-transparent border border-0">
+                        <p>Create A New Resource</p>
+                        <a href="{% url 'new_dashboard_resource' org.slug %}" class="btn btn-primary">Create New</a>
                     </div>
                 </div>
             </div>
 
             {% for resource in resources %}
-                <div class="col mt-4">
-                    <div class="card" style="width: 18rem;">
+                <div class="col-md-4 mb-4">
+                    <div class="card p-2 p-md-4 {% cycle 'card-secondary' 'card-primary' %} text-white">
                         <h4>{{ resource.name }}</h4>
                         <div class="card-body">
                             <p>{{ resource.description }}</p>
-                            <a href="{% url 'dashboard_resources' org.slug %}" class="btn btn-primary">Edit</a>
-                            <a href="{% url 'dashboard_events' org.slug %}" class="btn btn-primary">Delete</a>
+                            <a href="{% url 'dashboard_resource' org.slug resource.id %}" class="btn btn-primary">Edit</a>
+                            <a href="{% url 'dashboard_resource' org.slug resource.id %}" class="btn btn-primary" id="delete-event">Delete</a>
                         </div>
                     </div>
                 </div>
-        {% endfor %}
+            {% endfor %}
         </div>
     </div>
 
     <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
         <div class="row row-cols-4">
-            <div class="col mt-4">
-                <div class="card" style="width: 18rem;">
+            <div class="col-md-4 mb-4">
+                <div class="card p-2 p-md-4 card-primary text-white">
                     <h4>Create New</h4>
-                    <div class="card-body">
-                        <p>Create a new Event</p>
-                        <a href="{% url 'dashboard_events' org.slug %}" class="btn btn-primary">Create New</a>
+                    <div class="card-body bg-transparent border border-0">
+                        <p>Create A New Event</p>
+                        <a href="{% url 'new_dashboard_event' org.slug %}" class="btn btn-primary">Create New</a>
                     </div>
                 </div>
             </div>
 
             {% for event in events %}
-                <div class="col mt-4">
-                    <div class="card" style="width: 18rem;">
+                <div class="col-md-4 mb-4">
+                    <div class="card p-2 p-md-4 {% cycle 'card-secondary' 'card-primary' %} text-white">
                         <h4>{{ event.name }}</h4>
                         <div class="card-body">
                             <p>{{ event.description }}</p>
-                            <a href="{% url 'dashboard_events' org.slug %}" class="btn btn-primary">Edit</a>
-                            <a href="{% url 'dashboard_events' org.slug %}" class="btn btn-primary">Delete</a>
+                            <a href="{% url 'dashboard_event' org.slug event.id %}" class="btn btn-primary">Edit</a>
+                            <a href="{% url 'dashboard_event' org.slug event.id %}" class="btn btn-primary" id="delete-event">Delete</a>
                         </div>
                     </div>
                 </div>
-        {% endfor %}
+            {% endfor %}
         </div>
     </div>
   </div>

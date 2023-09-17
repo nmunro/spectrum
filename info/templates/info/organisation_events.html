@@ -2,19 +2,17 @@
 
 {% block nav %}
   <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
-      <li class="breadcrumb-item"><a href="{% url 'organisations' %}">Organisations</a></li>
-      <li class="breadcrumb-item"><a href="{% url 'organisation' org.slug %}">{{ org.name }}</a></li>
-      <li class="breadcrumb-item active">Events</li>
+    <ol class="breadcrumb mx-3 mt-3">
+      <li class="breadcrumb-item fw-bold"><a href="{% url 'index' %}" class="text-uppercase text-decoration-none">Home</a></li>
+      <li class="breadcrumb-item fw-bold"><a href="{% url 'organisations' %}" class="text-uppercase text-decoration-none">Organisations</a></li>
+      <li class="breadcrumb-item fw-bold"><a href="{% url 'organisation' org.slug %}" class="text-uppercase text-decoration-none">{{ org.name }}</a></li>
+      <li class="breadcrumb-item active text-uppercase text-decoration-none">Events</li>
     </ol>
   </nav>
 {% endblock %}
 
 
 {% block content %}
-    <h1>{{ org.name }}</h1>
-
     <table class="table">
       <thead>
         <tr>
