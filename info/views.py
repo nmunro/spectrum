@@ -164,6 +164,7 @@ class DashboardEventView(TemplateView):
             context["event"].description = form.cleaned_data["description"]
             context["event"].location = form.cleaned_data["location"]
             context["event"].date_time = form.cleaned_data["date_time"]
+            context["event"].duration = form.cleaned_data["duration"]
             context["event"].price = form.cleaned_data["price"]
             context["event"].save()
 

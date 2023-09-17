@@ -32,10 +32,10 @@
           {% for result in results %}
               <td><a href="{% url 'organisation' result.organisation.slug %}">{{ result.organisation.name }}</a></td>
               <td><a href="{{ result.get_absolute_url }}">{{ result }}</a></td>
-              {% if result.CNAME == "event" %}
-                <td><a href="{% url 'events' %}">{{ result.CNAME }}</a></td>
-              {% elif result.CNAME == "resource" %}
-                <td><a href="{% url 'resources' %}">{{ result.CNAME }}</a></td>
+              {% if result.__class__.__name__ == "event" %}
+                <td><a href="{% url 'events' %}">{{ result.__class__.__name__ }}</a></td>
+              {% elif result.__class__.__name__ == "resource" %}
+                <td><a href="{% url 'resources' %}">{{ result.__class__.__name__ }}</a></td>
               {% endif %}
           {% endfor %}
           </tr>
