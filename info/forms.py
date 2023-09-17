@@ -9,7 +9,7 @@ class OrgForm(ModelForm):
 class EventForm(ModelForm):
     class Meta:
         model = Event
-        fields = ['name', 'description', 'location', 'date_time', 'price']
+        fields = ['name', 'description', 'location', 'date_time', 'duration', 'price']
 
 class ResourceForm(ModelForm):
     class Meta:

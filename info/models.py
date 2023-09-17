@@ -1,8 +1,11 @@
+import time
+
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 from djmoney.models.fields import MoneyField
+
 
 class Region(models.Model):
     name = models.CharField(max_length=255)
@@ -34,8 +37,6 @@ class Organisation(models.Model):
         return self.name
 
 class Resource(models.Model):
-    CNAME = "resource"
-    
     organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     description = models.TextField()
@@ -50,17 +51,20 @@ class Resource(models.Model):
         return f"{self.organisation.name}: {self.name}"
 
 class Event(models.Model):
-    CNAME = "event"
-
     organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     description = models.TextField()
     date_time = models.DateTimeField()
+    duration = models.DurationField()
     price = MoneyField(max_digits=19, decimal_places=4, default_currency="GBP")
     ticketed = models.BooleanField(default=False)
     tickets = models.IntegerField(default=0)
     tickets_purchased = models.IntegerField(default=0)
+
+    def format_duration(self):
+        res = time.gmtime(self.duration.seconds)
+        return time.strftime("%-H hours, %-M minutes", res)
 
     def get_absolute_url(self):
         return reverse("event", kwargs={"event_id": self.id})
