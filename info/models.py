@@ -64,7 +64,7 @@ class Event(models.Model):
 
     def format_duration(self):
         difference = self.end_date_time - self.start_date_time
-        return time.strftime("%-H hours, %-M minutes", res)
+        return time.strftime("%-H hours, %-M minutes", difference)
 
     def get_absolute_url(self):
         return reverse("event", kwargs={"event_id": self.id})
