@@ -32,7 +32,7 @@ class IndexView(TemplateView):
         )
 
 def organisations(request):
-    return render(request, "info/organisations.html", {"orgs": models.Organisation.objects.all()})
+    return render(request, "info/organisations.html", {"orgs": models.Organisation.objects.all().order_by("name")})
 
 def organisation(request, org):
     return render(request, "info/organisation.html", {"org": get_object_or_404(models.Organisation, slug=org)})
