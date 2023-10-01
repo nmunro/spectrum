@@ -89,6 +89,7 @@ class OrganisationListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["organisations"] = get_list_or_404(models.Organisation, admin=self.request.user)
         return context
 
 @login_required
