@@ -63,7 +63,7 @@ class Event(models.Model):
     tickets_purchased = models.IntegerField(default=0)
 
     def format_duration(self):
-        res = time.gmtime(self.duration.seconds)
+        difference = self.end_date_time - self.start_date_time
         return time.strftime("%-H hours, %-M minutes", res)
 
     def get_absolute_url(self):
