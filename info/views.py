@@ -66,7 +66,7 @@ def resource(request, resource_id):
     return render(request, "info/resource.html", {"resource": resource})
 
 def events(request):
-    events = models.Event.objects.all().order_by("date_time")
+    events = models.Event.objects.all().order_by("start_date_time")
     return render(request, "info/events.html", {"events": events})
 
 def event(request, event_id):
@@ -164,7 +164,8 @@ class DashboardEventView(TemplateView):
             context["event"].name = form.cleaned_data["name"]
             context["event"].description = form.cleaned_data["description"]
             context["event"].location = form.cleaned_data["location"]
-            context["event"].date_time = form.cleaned_data["date_time"]
+            context["event"].start_date_time = form.cleaned_data["start_date_time"]
+            context["event"].end_date_time = form.cleaned_data["end_date_time"]
             context["event"].duration = form.cleaned_data["duration"]
             context["event"].price = form.cleaned_data["price"]
             context["event"].save()
@@ -285,7 +286,8 @@ class DashboardNewEventView(TemplateView):
                 name=form.cleaned_data["name"],
                 description=form.cleaned_data["description"],
                 location=form.cleaned_data["location"],
-                date_time=form.cleaned_data["date_time"],
+                start_date_time=form.cleaned_data["start_date_time"],
+                end_date_time=form.cleaned_data["end_date_time"],
                 price=form.cleaned_data["price"],
                 organisation=get_object_or_404(models.Organisation, slug=org),
             )
