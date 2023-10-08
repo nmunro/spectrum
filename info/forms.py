@@ -1,5 +1,15 @@
 from django.forms import ModelForm, DateTimeInput
-from .models import Organisation, Event, Resource
+from .models import Contact, Event, Organisation, Resource
+
+
+class ContactForm(ModelForm):
+    class Meta:
+        model = Contact
+        fields = [
+            'name',
+            'email',
+            'phone_number',
+        ]
 
 class OrgForm(ModelForm):
     class Meta:
@@ -9,7 +19,15 @@ class OrgForm(ModelForm):
 class EventForm(ModelForm):
     class Meta:
         model = Event
-        fields = ['name', 'description', 'location', 'start_date_time', 'end_date_time', 'price']
+        fields = [
+            'name',
+            'description',
+            'location',
+            'contact',
+            'start_date_time',
+            'end_date_time',
+            'price',
+        ]
 
 class ResourceForm(ModelForm):
     class Meta:

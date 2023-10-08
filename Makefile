@@ -7,7 +7,7 @@ LINTING_TOOLS := $(and $(shell which black),$(shell which isort),$(shell which f
 DEV_TOOLS := $(and $(shell which docker git))
 COMPOSE_FILE := 'docker-compose.yml'
 RUNNING_CONTAINERS := $(shell docker ps -a -q -f name="neurodb-*")
-SERVICE := $(or $(SERVICE),web)
+SERVICE := $(or $(SERVICE),web-dev)
 
 # define standard colors
 ifneq ($(TERM),)
@@ -47,16 +47,16 @@ lint: lint-tools-check
 	@$(foreach file, $(GIT_CHANGED_PYTHON_FILES), $(shell black ${file}; isort ${file}; flake8 ${file}))
 
 static: dev-tools-check
-	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) python ./manage.py collectstatic
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py collectstatic
 
 migrate: dev-tools-check
-	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) python ./manage.py migrate
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py migrate
 
 migrations: dev-tools-check
-	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) python ./manage.py makemigrations $(ARGS)
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py makemigrations $(ARGS)
 
 repl: dev-tools-check
-	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) python manage.py shell
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py shell
 
 shell:
 	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) /bin/bash
@@ -92,7 +92,7 @@ ifeq ($(SYSTEM),true)
 endif
 
 logs:
-	@docker logs resourcedb-web-1 -f
+	@docker compose -f $(COMPOSE_FILE) logs -f $(SERVICE)
 
 poetry:
 ifeq ($(SERVICE),web)
@@ -102,4 +102,4 @@ else
 endif
 
 create-super-user:
-	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) python ./manage.py createsuperuser
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py createsuperuser

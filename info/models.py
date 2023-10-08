@@ -5,10 +5,14 @@ from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 from djmoney.models.fields import MoneyField
+from phone_field import PhoneField
 
 
 class Region(models.Model):
     name = models.CharField(max_length=255)
+
+    def __repr__(self):
+        return f"<Region: {str(self)}>"
 
     def __str__(self):
         return self.name
@@ -18,8 +22,22 @@ class Location(models.Model):
     address = models.TextField()
     post_code = models.CharField(max_length=10)
 
+    def __repr__(self):
+        return f"<Location: {str(self)}>"
+
     def __str__(self):
         return self.name
+
+class Contact(models.Model):
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    phone_number = PhoneField(blank=True, help_text='Contact phone number')
+
+    def __repr__(self):
+        return f"<Contact: {str(self)}>"
+
+    def __str__(self):
+        return f"{self.name}: {self.email} - {self.phone_number}"
 
 class Organisation(models.Model):
     name = models.CharField(max_length=255, unique=True)
@@ -32,6 +50,9 @@ class Organisation(models.Model):
 
     def get_absolute_url(self):
         return reverse("organisation", kwargs={"org": self.slug})
+
+    def __repr__(self):
+        return f"<Organisation: {str(self)}>"
 
     def __str__(self):
         return self.name
@@ -52,6 +73,7 @@ class Resource(models.Model):
 
 class Event(models.Model):
     organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE)
+    contact = models.ForeignKey(Contact, on_delete=models.CASCADE, null=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     description = models.TextField()
@@ -65,9 +87,9 @@ class Event(models.Model):
     def format_duration(self):
         total_seconds = int((self.end_date_time - self.start_date_time).total_seconds())
         hours, remainder = divmod(total_seconds, 60*60)
-        minutes, seconds = divmod(remainder, 60)
+        minutes, _ = divmod(remainder, 60)
 
-        return f"{hours} hrs, {minutes} mins {seconds} secs"
+        return f"{hours} hrs, {minutes} mins"
 
     def get_absolute_url(self):
         return reverse("event", kwargs={"event_id": self.id})
