@@ -5,7 +5,7 @@ services:
     build: 
         context: .
         target: dev
-    command: ["python", "-O", "manage.py", "runserver", "0.0.0.0:8000"]
+    command: ["poetry", "run", "python", "-O", "manage.py", "runserver", "0.0.0.0:8000"]
     ports:
       - target: 8000
         published: 8000

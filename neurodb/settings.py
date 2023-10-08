@@ -42,9 +42,9 @@ INSTALLED_APPS = [
     'djmoney',
     'crispy_forms',
     'crispy_bootstrap5',
+    'phone_field',
     'info',
     'whitenoise.runserver_nostatic',
-    # 'django_opensearch_dsl',
 ]
 
 MIDDLEWARE = [
