@@ -292,3 +292,91 @@ class DashboardNewEventView(TemplateView):
             )
 
         return redirect(obj)
+
+class DashboardContactsView(ListView):
+    model = models.Contact
+    form_class = forms.ContactForm
+    template_name = "info/dashboard_contacts.html"
+    object_list = []
+
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.user = request.user
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["org"] = get_object_or_404(models.Organisation, slug=kwargs["org"])
+        context["contacts"] = models.Contact.objects.filter(event__organisation=context["org"])
+
+        return context
+
+    def get(self, request, org):
+        return self.render_to_response(self.get_context_data(org=org))
+
+class DashboardNewContactView(TemplateView):
+    form_class = forms.ContactForm
+    template_name = "info/new_contact.html"
+
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.user = request.user
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["org"] = get_object_or_404(models.Organisation, slug=kwargs["org"])
+        context["form"] = self.form_class()
+
+        return context
+
+    def get(self, request, org):
+        return self.render_to_response(self.get_context_data(org=org))
+
+    def post(self, request, org):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            obj = models.Contact.objects.create(
+                name=form.cleaned_data["name"],
+                email=form.cleaned_data["email"],
+                phone_number=form.cleaned_data["phone_number"],
+            )
+
+        return redirect("dashboard_contacts", org=org)
+
+class DashboardContactView(TemplateView):
+    form_class = forms.ContactForm
+    template_name = "info/dashboard_contact.html"
+
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.user = request.user
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["org"] = get_object_or_404(models.Organisation, slug=kwargs["org"])
+        context["contact"] = get_object_or_404(models.Contact, id=kwargs["contact_id"])
+        context["form"] = self.form_class(instance=context["contact"])
+
+        return context
+
+    def get(self, request, org, contact_id):
+        return self.render_to_response(self.get_context_data(org=org, contact_id=contact_id))
+
+    def delete(self, request, org, contact_id):
+        contact = get_object_or_404(models.Contact, id=contact_id)
+        contact.delete()
+
+        return JsonResponse({
+            "org": get_object_or_404(models.Organisation, slug=org).name,
+            "contact": contact.name,
+        })
+
+    def post(self, request, org, contact_id):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            context = self.get_context_data(org=org, contact_id=contact_id)
+            context["contact"].name = form.cleaned_data["name"]
+            context["contact"].email = form.cleaned_data["email"]
+            context["contact"].phone_number = form.cleaned_data["phone_number"]
+            context["contact"].save()
+
+        return self.render_to_response(self.get_context_data(org=org, contact_id=contact_id))

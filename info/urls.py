@@ -23,10 +23,16 @@ urlpatterns = [
 
     path("dashboard/organisations/", login_required(views.OrganisationListView.as_view()), name="dashboard_organisations"),
     path("dashboard/<str:org>/", views.dashboard_org, name="dashboard_org"),
+
     path("dashboard/<str:org>/events/", login_required(views.DashboardEventsView.as_view()), name="dashboard_events"),
     path("dashboard/<str:org>/events/new/", login_required(views.DashboardNewEventView.as_view()), name="new_dashboard_event"),
     path("dashboard/<str:org>/events/<int:event_id>/", login_required(views.DashboardEventView.as_view()), name="dashboard_event"),
+
     path("dashboard/<str:org>/resources/", login_required(views.DashboardResourcesView.as_view()), name="dashboard_resources"),
     path("dashboard/<str:org>/resources/new/", login_required(views.DashboardNewResourceView.as_view()), name="new_dashboard_resource"),
     path("dashboard/<str:org>/resources/<int:resource_id>/", login_required(views.DashboardResourceView.as_view()), name="dashboard_resource"),
+
+    path("dashboard/<str:org>/contacts/", login_required(views.DashboardContactsView.as_view()), name="dashboard_contacts"),
+    path("dashboard/<str:org>/contacts/new/", login_required(views.DashboardNewContactView.as_view()), name="new_dashboard_contact"),
+    path("dashboard/<str:org>/contacts/<int:contact_id>/", login_required(views.DashboardContactView.as_view()), name="dashboard_contact"),
 ]
