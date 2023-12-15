@@ -12,24 +12,18 @@ from . import forms
 
 class IndexView(TemplateView):
     form_class = forms.EventForm
-    template_name = "info/dashboard_event.html"
+    template_name = "info/index.html"
 
     def get(self, request):
-        return render(request, "info/index.html", {})
+        return self.render_to_response({})
 
     def post(self, request):
         query = request.POST['search']
-        orgs = models.Organisation.objects.filter(Q(name__icontains=query) | Q(description__icontains=query))
+        # orgs = models.Organisation.objects.filter(Q(name__icontains=query) | Q(description__icontains=query))
         events = models.Event.objects.filter(Q(name__icontains=query) | Q(description__icontains=query))
         resources = models.Resource.objects.filter(Q(name__icontains=query) | Q(description__icontains=query))
 
-        return render(
-            request,
-            "info/index.html",
-            {
-                "results": [*orgs, *events, *resources],
-            }
-        )
+        return self.render_to_response({"results": [*events, *resources]})
 
 def organisations(request):
     return render(request, "info/organisations.html", {"orgs": models.Organisation.objects.all().order_by("name")})

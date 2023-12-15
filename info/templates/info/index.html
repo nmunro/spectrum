@@ -24,13 +24,13 @@
     {% if results %}
       <table class="table">
         <thead>
-          <td>Organisation</td>
+          <th>Organisation</th>
           <th>Name</th>
           <th>Type</th>
         </thead>
         <tbody>
-          <tr>
           {% for result in results %}
+            <tr>
               <td><a href="{% url 'organisation' result.organisation.slug %}">{{ result.organisation.name }}</a></td>
               <td><a href="{{ result.get_absolute_url }}">{{ result }}</a></td>
               {% if result|get_model_type == "Event" %}
@@ -38,8 +38,8 @@
               {% elif result|get_model_type == "Resource" %}
                 <td><a href="{% url 'resources' %}">{{ result|get_model_type }}</a></td>
               {% endif %}
+            </tr>
           {% endfor %}
-          </tr>
         </tbody>
       </table>
     {% endif %}
