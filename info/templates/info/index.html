@@ -33,11 +33,7 @@
             <tr>
               <td><a href="{% url 'organisation' result.organisation.slug %}">{{ result.organisation.name }}</a></td>
               <td><a href="{{ result.get_absolute_url }}">{{ result }}</a></td>
-              {% if result|get_model_type == "Event" %}
-                <td><a href="{% url 'events' %}">{{ result|get_model_type }}</a></td>
-              {% elif result|get_model_type == "Resource" %}
-                <td><a href="{% url 'resources' %}">{{ result|get_model_type }}</a></td>
-              {% endif %}
+              <td><a href="{{ result.get_list_url }}">{{ result.type }}</a></td>
             </tr>
           {% endfor %}
         </tbody>
