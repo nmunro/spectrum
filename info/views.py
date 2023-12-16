@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
+from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector, TrigramStrictWordSimilarity
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, get_list_or_404, render, redirect
@@ -20,22 +20,22 @@ class IndexView(TemplateView):
 
     def post(self, request):
         search_vector = SearchVector("name", weight="A") + SearchVector("description", weight="A")
-        query = request.POST['search']
+        query = request.POST["search"]
 
         events = models.Event.objects.annotate(
-            rank=SearchRank(search_vector, query)
+            similarity=TrigramStrictWordSimilarity(query, "name") + TrigramStrictWordSimilarity(query, "description"),
         ).filter(
-            rank__gte=0.3
+            similarity__gte=0.3
         ).order_by(
-            '-rank'
+            '-similarity'
         )
 
         resources = models.Resource.objects.annotate(
-            rank=SearchRank(search_vector, query)
+            similarity=TrigramStrictWordSimilarity(query, "name") + TrigramStrictWordSimilarity(query, "description"),
         ).filter(
-            rank__gte=0.3
+            similarity__gte=0.3
         ).order_by(
-            '-rank'
+            "-similarity"
         )
 
         return self.render_to_response({"results": [*events, *resources]})
