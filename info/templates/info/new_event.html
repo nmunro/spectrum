@@ -17,7 +17,7 @@
 {% block content %}
 <h2>{{ org.name }}</h2>
 
-<div class="row row-cols-4">
+<div class="row row-cols-12">
     <div class="col mt-4">
         <form method="POST" action="{% url 'new_dashboard_event' org.slug %}">
             {% csrf_token %}
