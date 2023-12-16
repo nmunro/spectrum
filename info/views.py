@@ -25,7 +25,7 @@ class IndexView(TemplateView):
         events = models.Event.objects.annotate(
             similarity=TrigramStrictWordSimilarity(query, "name") + TrigramStrictWordSimilarity(query, "description"),
         ).filter(
-            similarity__gte=0.3
+            similarity__gte=0.2
         ).order_by(
             '-similarity'
         )
@@ -33,7 +33,7 @@ class IndexView(TemplateView):
         resources = models.Resource.objects.annotate(
             similarity=TrigramStrictWordSimilarity(query, "name") + TrigramStrictWordSimilarity(query, "description"),
         ).filter(
-            similarity__gte=0.3
+            similarity__gte=0.2
         ).order_by(
             "-similarity"
         )
