@@ -1,10 +1,9 @@
 {% extends "base.html" %}
-{% load get_model_type %}
 
 {% block nav %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb mx-3 mt-3">
-      <li class="breadcrumb-item text-uppercase">Home</li>
+      <li class="breadcrumb-item fw-bold text-uppercase">Home</li>
     </ol>
   </nav>
 {% endblock %}
@@ -13,10 +12,10 @@
     <h1>ResourceDB</h1>
     <form method="POST" action="{% url 'index' %}" class="row form">
       {% csrf_token %}
-      <div class="col-lg-8">
+      <div class="col-lg-11 col-xl-11">
         <input type="text" name="search" placeholder="search..." class="form-control" />
       </div>
-      <div class="col-lg-4">
+      <div class="col-lg-1 col-xl-1">
         <button type="submit" class="btn btn-primary">Search</button>
       </div>
     </form>
@@ -24,22 +23,18 @@
     {% if results %}
       <table class="table">
         <thead>
-          <td>Organisation</td>
+          <th>Organisation</th>
           <th>Name</th>
           <th>Type</th>
         </thead>
         <tbody>
-          <tr>
           {% for result in results %}
+            <tr>
               <td><a href="{% url 'organisation' result.organisation.slug %}">{{ result.organisation.name }}</a></td>
               <td><a href="{{ result.get_absolute_url }}">{{ result }}</a></td>
-              {% if result|get_model_type == "Event" %}
-                <td><a href="{% url 'events' %}">{{ result|get_model_type }}</a></td>
-              {% elif result|get_model_type == "Resource" %}
-                <td><a href="{% url 'resources' %}">{{ result|get_model_type }}</a></td>
-              {% endif %}
+              <td><a href="{{ result.get_list_url }}">{{ result.type }}</a></td>
+            </tr>
           {% endfor %}
-          </tr>
         </tbody>
       </table>
     {% endif %}
