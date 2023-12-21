@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'neurodb.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {}
+DATABASES = {"default": {}}
 
 if config("ENV", default="dev", cast=str) == "PRODUCTION":
     DATABASES["default"].update(dj_database_url.config(conn_max_age=600))
