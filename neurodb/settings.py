@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.postgres',
     'djmoney',
     'crispy_forms',
     'crispy_bootstrap5',
@@ -82,15 +83,20 @@ WSGI_APPLICATION = 'neurodb.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+DATABASES = {"default": {}}
 
 if config("ENV", default="dev", cast=str) == "PRODUCTION":
-    DATABASES['default'].update(dj_database_url.config(conn_max_age=600))
+    DATABASES["default"].update(dj_database_url.config(conn_max_age=600))
+
+else:
+    DATABASES["default"] = {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "postgres",
+        "USER": "postgres",
+        "PASSWORD": "postgres",
+        "HOST": "db",  # set in docker-compose.yml
+        "PORT": 5432,  # default postgres port
+    }
 
 
 # Password validation

@@ -1,11 +1,13 @@
 FROM python:3.11 as DEV
 # Configure Poetry
 
-ENV POETRY_VERSION=1.5.1
+ENV PYTHONUNBUFFERED=1
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV POETRY_VERSION=1.7.0
 ENV POETRY_HOME=/opt/poetry
 ENV POETRY_VENV=/opt/poetry-venv
 ENV POETRY_CACHE_DIR=/opt/.cache
-
 
 WORKDIR /app/resourcedb
 # Install poetry separated from system interpreter
@@ -24,7 +26,14 @@ RUN chown -R docker /opt
 ENV PYTHONPATH $PYTHONPATH:/app
 
 FROM python:3.11 as PROD
+
 ENV PYTHONUNBUFFERED=1
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV POETRY_VERSION=1.7.0
+ENV POETRY_HOME=/opt/poetry
+ENV POETRY_VENV=/opt/poetry-venv
+ENV POETRY_CACHE_DIR=/opt/.cache
 
 WORKDIR /app/resourcedb
 RUN apt update -y && apt upgrade -y

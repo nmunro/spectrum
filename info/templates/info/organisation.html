@@ -11,11 +11,19 @@
 {% endblock %}
 
 {% block content %}
-    <h1>{{ org.name }}</h1>
+  <div class="container text-center">
+    <div class="row p-2 p-md-4 card-secondary text-white">
+      <div class="col bg-transparent">
+        <h1>{{ org.name }}</h1>
+      </div>
+    </div>
 
-    <h2>{{ org.location.name|capfirst }}</h2>
-
-    <p>
-      {{ org.description }}
-    </p>
+    <div class="row p-2 p-md-4 card-primary text-white">
+      <div class="col bg-transparent">
+        <p>
+          {{ org.description }}
+        </p>
+      </div>
+    </div>
+  </div>
 {% endblock %}

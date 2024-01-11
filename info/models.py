@@ -63,8 +63,15 @@ class Resource(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
 
+    @property
+    def type(self):
+        return "Resource"
+
     def get_absolute_url(self):
         return reverse("resource", kwargs={"resource_id": self.id})
+
+    def get_list_url(self):
+        return reverse("resources")
 
     def __repr__(self):
         return f"<Resource: {str(self)}>"
@@ -85,6 +92,10 @@ class Event(models.Model):
     tickets = models.IntegerField(default=0)
     tickets_purchased = models.IntegerField(default=0)
 
+    @property
+    def type(self):
+        return "Resource"
+
     def format_duration(self):
         total_seconds = int((self.end_date_time - self.start_date_time).total_seconds())
         hours, remainder = divmod(total_seconds, 60*60)
@@ -94,6 +105,9 @@ class Event(models.Model):
 
     def get_absolute_url(self):
         return reverse("event", kwargs={"event_id": self.id})
+
+    def get_list_url(self):
+        return reverse("events")
 
     def __repr__(self):
         return f"<Event: {str(self)}>"

@@ -1,6 +1,14 @@
 version: '3.7'
 
 services:
+  db:
+    image: postgres:16
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+
   web-dev:
     build: 
         context: .
@@ -11,6 +19,8 @@ services:
         published: 8000
         protocol: tcp
         mode: host
+    depends_on:
+      - db
     volumes:
       - type: bind
         source: .
@@ -32,6 +42,8 @@ services:
         published: 8000
         protocol: tcp
         mode: host
+    depends_on:
+      - db
     volumes:
       - type: bind
         source: .
@@ -46,6 +58,6 @@ services:
       - PYTHONUNBUFFERED=1
 
 volumes:
-  mysqldata:
+  postgres_data:
   resourcedb:
 
