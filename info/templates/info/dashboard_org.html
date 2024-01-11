@@ -11,7 +11,6 @@
     </ol>
 </nav>
 {% endblock %}
-      <li class="breadcrumb-item active">{{ org.name }}</li>
 
 {% block content %}
   <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
@@ -25,7 +24,7 @@
         <button class="nav-link" id="pills-events-tab" data-bs-toggle="pill" data-bs-target="#pills-events" type="button" role="tab" aria-controls="pills-events" aria-selected="false">Events</button>
     </li>
     <li class="nav-item" role="presentation">
-        <button class="nav-link" id="pills-users-tab" data-bs-toggle="pill" data-bs-target="#pills-users" type="button" role="tab" aria-controls="pills-usesr" aria-selected="false">Users</button>
+        <button class="nav-link" id="pills-contacts-tab" data-bs-toggle="pill" data-bs-target="#pills-contacts" type="button" role="tab" aria-controls="pills-contacts" aria-selected="false">Contacts</button>
     </li>
   </ul>
 
@@ -90,31 +89,31 @@
         </div>
     </div>
 
-    <div class="tab-pane fade" id="pills-users" role="tabpanel" aria-labelledby="pulls-users-tab">
+    <div class="tab-pane fade" id="pills-contacts" role="tabpanel" aria-labelledby="pills-contacts-tab">
         <div class="row row-cols-4">
             <div class="col-md-4 mb-4">
                 <div class="card p-2 p-md-4 card-primary text-white">
-                    <h4>Create New User...</h4>
+                    <h4>Create New</h4>
                     <div class="card-body bg-transparent border border-0">
-                        <p>... for {{ org.name }}</p>
-                        <a href="{% url 'new_dashboard_event' org.slug %}" class="btn btn-primary">Create New User</a>
+                        <p>Create A New Contact</p>
+                        <a href="{% url 'new_dashboard_contact' org.slug %}" class="btn btn-primary">Create New</a>
                     </div>
                 </div>
             </div>
 
-            {% for user in users %}
+            {% for contact in contacts %}
                 <div class="col-md-4 mb-4">
                     <div class="card p-2 p-md-4 {% cycle 'card-secondary' 'card-primary' %} text-white">
-                        <h4>{{ user.name }}</h4>
+                        <h4>{{ contact.name }}</h4>
                         <div class="card-body">
-                            <p>{{ user.description }}</p>
-                            <a href="{% url 'dashboard_event' org.slug event.id %}" class="btn btn-primary">Edit</a>
-                            <a href="{% url 'dashboard_event' org.slug event.id %}" class="btn btn-primary" id="delete-event">Delete</a>
+                            <p>{{ user }}</p>
+                            <a href="{% url 'dashboard_contact' org.slug user.id %}" class="btn btn-primary">Edit</a>
+                            <a href="{% url 'dashboard_contact' org.slug user.id %}" class="btn btn-primary" id="delete-event">Delete</a>
                         </div>
                     </div>
                 </div>
             {% endfor %}
-            </div>
+        </div>
     </div>
   </div>
 {% endblock %}
