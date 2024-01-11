@@ -104,6 +104,7 @@ def dashboard_org(request, org):
             "form": forms.OrgForm(instance=org),
             "resources": models.Resource.objects.filter(organisation=org),
             "events": models.Event.objects.filter(organisation=org),
+            "contacts": models.Contact.objects.filter(organisation=org),
         },
     )
 
@@ -306,7 +307,7 @@ class DashboardContactsView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["org"] = get_object_or_404(models.Organisation, slug=kwargs["org"])
-        context["contacts"] = models.Contact.objects.filter(event__organisation=context["org"])
+        context["contacts"] = models.Contact.objects.filter(organisation=context["org"])
 
         return context
 
@@ -323,18 +324,21 @@ class DashboardNewContactView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["org"] = get_object_or_404(models.Organisation, slug=kwargs["org"])
+
+        context["organisation"] = get_object_or_404(models.Organisation, slug=kwargs["organisation"])
         context["form"] = self.form_class()
 
         return context
 
     def get(self, request, org):
-        return self.render_to_response(self.get_context_data(org=org))
+        return self.render_to_response(self.get_context_data(organisation=org))
 
     def post(self, request, org):
         form = self.form_class(request.POST)
+
         if form.is_valid():
             obj = models.Contact.objects.create(
+                organisation=models.Organisation.objects.get(slug=org),
                 name=form.cleaned_data["name"],
                 email=form.cleaned_data["email"],
                 phone_number=form.cleaned_data["phone_number"],
