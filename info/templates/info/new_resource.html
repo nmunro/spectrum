@@ -15,10 +15,12 @@
 {% endblock %}
 
 {% block content %}
-<h2>{{ org.name }}</h2>
+<div class="row px-5">
+    <h2>{{ org.name }}</h2>
+</div>
 
-<div class="row row-cols-4">
-    <div class="col mt-4">
+<div class="row px-5 row-cols-auto">
+    <div class="col col-sm-12 col-md-8 col-lg-6 col-xl-4 col-xxl-3">
         <form method="POST" action="{% url 'new_dashboard_resource' org.slug %}">
             {% csrf_token %}
             {{ form|crispy }}
