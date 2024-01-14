@@ -28,17 +28,6 @@ class Location(models.Model):
     def __str__(self):
         return self.name
 
-class Contact(models.Model):
-    name = models.CharField(max_length=255)
-    email = models.EmailField()
-    phone_number = PhoneField(blank=True, help_text='Contact phone number')
-
-    def __repr__(self):
-        return f"<Contact: {str(self)}>"
-
-    def __str__(self):
-        return f"{self.name}: {self.email} - {self.phone_number}"
-
 class Organisation(models.Model):
     name = models.CharField(max_length=255, unique=True)
     region = models.ForeignKey(Region, on_delete=models.CASCADE)
@@ -56,6 +45,18 @@ class Organisation(models.Model):
 
     def __str__(self):
         return self.name
+
+class Contact(models.Model):
+    organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    phone_number = PhoneField(blank=True, help_text='Contact phone number')
+
+    def __repr__(self):
+        return f"<Contact: {str(self)}>"
+
+    def __str__(self):
+        return f"{self.name}: {self.email} - {self.phone_number}"
 
 class Resource(models.Model):
     organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE)

@@ -16,7 +16,7 @@
           <div class="card p-2 p-md-4 {% cycle 'card-primary' 'card-secondary' %} text-white">
             <div class="card-body bg-transparent border border-0">
               <h5 class="event-title fs-2 fw-bold m-0 p-0">
-                <a href="{% url 'organisation' org.slug %}" class="text-white text-decoration-none">{{ org.name }}</a>
+                <a href="{% url 'dashboard_org' org.slug %}" class="text-white text-decoration-none">{{ org.name }}</a>
               </h5>
             <p class="event-text mt-2">{{ org.description|slice:":80" }}</p>
            </div>
