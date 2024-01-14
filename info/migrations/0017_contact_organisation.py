@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='contact',
             name='organisation',
-            field=models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE, to='info.organisation'),
+            field=models.ForeignKey(null=True, default=None, on_delete=django.db.models.deletion.CASCADE, to='info.organisation'),
             preserve_default=False,
         ),
     ]
