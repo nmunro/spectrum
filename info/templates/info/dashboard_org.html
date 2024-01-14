@@ -11,36 +11,38 @@
     </ol>
 </nav>
 {% endblock %}
-      <li class="breadcrumb-item active">{{ org.name }}</li>
 
 {% block content %}
   <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
     <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Description</button>
+        <button class="nav-link active" id="pills-description-tab" data-bs-toggle="pill" data-bs-target="#pills-description" type="button" role="tab" aria-controls="pills-description" aria-selected="true">Description</button>
     </li>
     <li class="nav-item" role="presentation">
-        <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Resources</button>
+        <button class="nav-link" id="pills-resources-tab" data-bs-toggle="pill" data-bs-target="#pills-resources" type="button" role="tab" aria-controls="pills-resources" aria-selected="false">Resources</button>
     </li>
     <li class="nav-item" role="presentation">
-        <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Events</button>
+        <button class="nav-link" id="pills-events-tab" data-bs-toggle="pill" data-bs-target="#pills-events" type="button" role="tab" aria-controls="pills-events" aria-selected="false">Events</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-contacts-tab" data-bs-toggle="pill" data-bs-target="#pills-contacts" type="button" role="tab" aria-controls="pills-contacts" aria-selected="false">Contacts</button>
     </li>
   </ul>
 
   <div class="tab-content" id="pills-tabContent">
-    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+    <div class="tab-pane fade show active" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab">
         {% csrf_token %}
         {{ form|crispy }}
         <a href="{% url 'dashboard_resources' org.slug %}" class="btn btn-primary">Save</a>
     </div>
 
-    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+    <div class="tab-pane fade" id="pills-resources" role="tabpanel" aria-labelledby="pills-resources-tab">
         <div class="row row-cols-4">
             <div class="col-md-4 mb-4">
                 <div class="card p-2 p-md-4 card-primary text-white">
-                    <h4>Create New</h4>
+                    <h4>Create New Resource...</h4>
                     <div class="card-body bg-transparent border border-0">
-                        <p>Create A New Resource</p>
-                        <a href="{% url 'new_dashboard_resource' org.slug %}" class="btn btn-primary">Create New</a>
+                        <p>... for {{ org.name }}</p>
+                        <a href="{% url 'new_dashboard_resource' org.slug %}" class="btn btn-primary">Create New Resource</a>
                     </div>
                 </div>
             </div>
@@ -60,14 +62,14 @@
         </div>
     </div>
 
-    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+    <div class="tab-pane fade" id="pills-events" role="tabpanel" aria-labelledby="pills-events-tab">
         <div class="row row-cols-4">
             <div class="col-md-4 mb-4">
                 <div class="card p-2 p-md-4 card-primary text-white">
-                    <h4>Create New</h4>
+                    <h4>Create New Event...</h4>
                     <div class="card-body bg-transparent border border-0">
-                        <p>Create A New Event</p>
-                        <a href="{% url 'new_dashboard_event' org.slug %}" class="btn btn-primary">Create New</a>
+                        <p>... for {{ org.name }}</p>
+                        <a href="{% url 'new_dashboard_event' org.slug %}" class="btn btn-primary">Create New Event</a>
                     </div>
                 </div>
             </div>
@@ -80,6 +82,33 @@
                             <p>{{ event.description }}</p>
                             <a href="{% url 'dashboard_event' org.slug event.id %}" class="btn btn-primary">Edit</a>
                             <a href="{% url 'dashboard_event' org.slug event.id %}" class="btn btn-primary" id="delete-event">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="tab-pane fade" id="pills-contacts" role="tabpanel" aria-labelledby="pills-contacts-tab">
+        <div class="row row-cols-4">
+            <div class="col-md-4 mb-4">
+                <div class="card p-2 p-md-4 card-primary text-white">
+                    <h4>Create New</h4>
+                    <div class="card-body bg-transparent border border-0">
+                        <p>Create A New Contact</p>
+                        <a href="{% url 'new_dashboard_contact' org.slug %}" class="btn btn-primary">Create New</a>
+                    </div>
+                </div>
+            </div>
+
+            {% for contact in contacts %}
+                <div class="col-md-4 mb-4">
+                    <div class="card p-2 p-md-4 {% cycle 'card-secondary' 'card-primary' %} text-white">
+                        <h4>{{ contact.name }}</h4>
+                        <div class="card-body">
+                            <p>{{ user }}</p>
+                            <a href="{% url 'dashboard_contact' org.slug user.id %}" class="btn btn-primary">Edit</a>
+                            <a href="{% url 'dashboard_contact' org.slug user.id %}" class="btn btn-primary" id="delete-event">Delete</a>
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-.PHONY: build clean clean-docker clean-docs docs repl test shell start stop lint migrate migrations dev-tools-check lint-tools-check logs static poetry create-super-user
+.PHONY: build clean clean-docker clean-docs docs repl test shell start stop lint migrate migrations dev-tools-check lint-tools-check logs static poetry create-super-user restart
 .DEFAULT_GOAL: build
 
 REPORT := $(or $(REPORT),report -m)
@@ -42,6 +42,8 @@ start: dev-tools-check
 
 stop: dev-tools-check
 	@docker compose -f $(COMPOSE_FILE) down $(SERVICE)
+
+restart: stop start
 
 lint: lint-tools-check
 	@$(foreach file, $(GIT_CHANGED_PYTHON_FILES), $(shell black ${file}; isort ${file}; flake8 ${file}))

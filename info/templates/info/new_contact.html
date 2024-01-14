@@ -7,8 +7,8 @@
     <ol class="breadcrumb mx-3 mt-3">
       <li class="breadcrumb-item fw-bold"><a href="{% url 'index' %}" class="text-uppercase text-decoration-none">Home</a></li>
       <li class="breadcrumb-item fw-bold"><a href="{% url 'dashboard_organisations' %}" class="text-uppercase text-decoration-none">Dashboard</a></li>
-      <li class="breadcrumb-item fw-bold"><a href="{% url 'dashboard_org' org.slug %}" class="text-uppercase text-decoration-none">{{ org.name }}</a></li>
-      <li class="breadcrumb-item fw-bold"><a href="{% url 'dashboard_contacts' org.slug %}" class="text-uppercase text-decoration-none">Contact</a></li>
+      <li class="breadcrumb-item fw-bold"><a href="{% url 'dashboard_org' organisation.slug %}" class="text-uppercase text-decoration-none">{{ organisation.name }}</a></li>
+      <li class="breadcrumb-item fw-bold"><a href="{% url 'dashboard_contacts' organisation.slug %}" class="text-uppercase text-decoration-none">Contact</a></li>
       <li class="breadcrumb-item active text-uppercase text-decoration-none">New</li>
     </ol>
   </nav>
@@ -16,12 +16,12 @@
 
 {% block content %}
 <div class="row px-5">
-    <h2>{{ org.name }}</h2>
+  <h2>{{ organisation.name }}</h2>
 <div>
 
 <div class="row px=5 row-cols-auto">
     <div class="col col-sm-12 col-md-8 col-lg-6 col-xl-4 col-xxl-3">
-        <form method="POST" action="{% url 'new_dashboard_contact' org.slug %}">
+        <form method="POST" action="{% url 'new_dashboard_contact' organisation.slug %}">
             {% csrf_token %}
             {{ form|crispy }}
             <input type="submit" class="btn btn-primary" value="Save"/>
