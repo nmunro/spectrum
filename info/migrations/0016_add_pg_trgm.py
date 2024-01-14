@@ -5,7 +5,7 @@ import djmoney.models.fields
 
 
 def create_third_party_extension(apps, schema_editor):
-    schema_editor.execute("CREATE EXTENSION pg_trgm;")
+    schema_editor.execute("CREATE EXTENSION pg_trgm IF NOT EXISTS pg_trgm;")
 
 
 def drop_third_party_extension(apps, schema_editor):
