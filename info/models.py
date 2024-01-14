@@ -47,7 +47,7 @@ class Organisation(models.Model):
         return self.name
 
 class Contact(models.Model):
-    organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE)
+    organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=255)
     email = models.EmailField()
     phone_number = PhoneField(blank=True, help_text='Contact phone number')
