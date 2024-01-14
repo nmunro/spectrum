@@ -56,7 +56,10 @@ class Contact(models.Model):
         return f"<Contact: {str(self)}>"
 
     def __str__(self):
-        return f"{self.name}: {self.email} - {self.phone_number}"
+        if self.phone_number:
+            return f"{self.name}: {self.email} - {self.phone_number}"
+
+        return f"{self.name}: {self.email}"
 
 class Resource(models.Model):
     organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE)
