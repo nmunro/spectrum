@@ -12,9 +12,16 @@
 
 {% block content %}
     <h1>{{ event.name }}</h1>
-    <p>{{ event.description }}</p>
-
-    <div>
+    {% if event.ticketed %}
+      <div class="alert alert-primary" role="alert">
+        <p>Please note this is a ticketed event and entry on the door is not possible, please ensure you have your ticket ready to show upon entry.</p>
+      </div>
+    {% endif %}
+    <h2>Description</h2>
+    <p>
+      {{ event.description }}
+    </p>
+   <div>
       <h2>Contact</h2>
       <p>{{ event.contact }}</p>
     </div>
