@@ -1,6 +1,8 @@
 import time
 
+from cron_validator import CronValidator
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
@@ -66,10 +68,6 @@ class Resource(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
 
-    @property
-    def type(self):
-        return "Resource"
-
     def get_absolute_url(self):
         return reverse("resource", kwargs={"resource_id": self.id})
 
@@ -95,10 +93,6 @@ class Event(models.Model):
     tickets = models.IntegerField(default=0)
     tickets_purchased = models.IntegerField(default=0)
 
-    @property
-    def type(self):
-        return "Resource"
-
     def format_duration(self):
         total_seconds = int((self.end_date_time - self.start_date_time).total_seconds())
         hours, remainder = divmod(total_seconds, 60*60)
@@ -117,3 +111,20 @@ class Event(models.Model):
 
     def __str__(self):
         return f"{self.organisation.name}: {self.name}"
+
+class Scheduler(models.Model):
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, null=True)
+    cron = models.CharField(max_length=64, default="* * * * *")
+
+    def clean(self, *args, **kwargs):
+        try:
+            CronValidator.parse(self.cron)
+
+        except ValueError:
+            raise ValidationError({"cron": "Invalid cron expression"})
+
+    def __repr__(self):
+        return f"<Schedule: {str(self)}>"
+
+    def __str__(self):
+        return f"{self.event.name}: {self.cron}"

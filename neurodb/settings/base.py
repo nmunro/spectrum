@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from decouple import config
-import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -79,26 +78,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'neurodb.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-DATABASES = {"default": {}}
-
-if config("ENV", default="dev", cast=str) == "PRODUCTION":
-    DATABASES["default"].update(dj_database_url.config(conn_max_age=600))
-
-else:
-    DATABASES["default"] = {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "postgres",
-        "USER": "postgres",
-        "PASSWORD": "postgres",
-        "HOST": "db",  # set in docker-compose.yml
-        "PORT": 5432,  # default postgres port
-    }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -146,12 +125,6 @@ LOGIN_REDIRECT_URL = 'dashboard_organisations'
 LOGOUT_REDIRECT_URL = '/'
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
-
-# OPENSEARCH_DSL = {
-#     'default': {
-#         'hosts': ['http://opensearch-node1:9200', 'http://opensearch-node2:9200']
-#     },
-# }
 
 LOGGING = {
     "version": 1,
