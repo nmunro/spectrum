@@ -1,10 +1,11 @@
-import time
+import datetime
 
 from cron_validator import CronValidator
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.text import slugify
 from djmoney.models.fields import MoneyField
 from phone_field import PhoneField
@@ -13,22 +14,22 @@ from phone_field import PhoneField
 class Region(models.Model):
     name = models.CharField(max_length=255)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"<Region: {str(self)}>"
 
-    def __str__(self):
-        return self.name
+    def __str__(self) -> str:
+        return str(self.name)
 
 class Location(models.Model):
     name = models.CharField(max_length=255)
     address = models.TextField()
     post_code = models.CharField(max_length=10)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"<Location: {str(self)}>"
 
-    def __str__(self):
-        return self.name
+    def __str__(self) -> str:
+        return str(self.name)
 
 class Organisation(models.Model):
     name = models.CharField(max_length=255, unique=True)
@@ -42,11 +43,11 @@ class Organisation(models.Model):
     def get_absolute_url(self):
         return reverse("organisation", kwargs={"org": self.slug})
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"<Organisation: {str(self)}>"
 
-    def __str__(self):
-        return self.name
+    def __str__(self) -> str:
+        return str(self.name)
 
 class Contact(models.Model):
     organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE, null=True)
@@ -54,10 +55,10 @@ class Contact(models.Model):
     email = models.EmailField()
     phone_number = PhoneField(blank=True, help_text='Contact phone number')
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"<Contact: {str(self)}>"
 
-    def __str__(self):
+    def __str__(self) -> str:
         if self.phone_number:
             return f"{self.name}: {self.email} - {self.phone_number}"
 
@@ -74,10 +75,10 @@ class Resource(models.Model):
     def get_list_url(self):
         return reverse("resources")
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"<Resource: {str(self)}>"
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.organisation.name}: {self.name}"
 
 class Event(models.Model):
@@ -90,15 +91,26 @@ class Event(models.Model):
     end_date_time = models.DateTimeField()
     price = MoneyField(max_digits=19, decimal_places=4, default_currency="GBP")
     ticketed = models.BooleanField(default=False)
-    tickets = models.IntegerField(default=0)
-    tickets_purchased = models.IntegerField(default=0)
+    schedules = models.ManyToManyField("Scheduler", related_name="events")
 
-    def format_duration(self):
+    @property
+    def format_duration(self) -> str:
         total_seconds = int((self.end_date_time - self.start_date_time).total_seconds())
         hours, remainder = divmod(total_seconds, 60*60)
         minutes, _ = divmod(remainder, 60)
 
         return f"{hours} hrs, {minutes} mins"
+
+    @property
+    def reschedule(self) -> bool:
+        now = timezone.now()
+
+        return all([
+            self.schedules,
+            now.year == self.end_date_time.year,
+            now.month == self.end_date_time.month,
+            now.day == self.end_date_time.day,
+        ])
 
     def get_absolute_url(self):
         return reverse("event", kwargs={"event_id": self.id})
@@ -106,25 +118,25 @@ class Event(models.Model):
     def get_list_url(self):
         return reverse("events")
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"<Event: {str(self)}>"
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.organisation.name}: {self.name}"
 
 class Scheduler(models.Model):
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, null=True)
+    label = models.CharField(max_length=255, default="")
     cron = models.CharField(max_length=64, default="* * * * *")
 
-    def clean(self, *args, **kwargs):
+    def clean(self, *args, **kwargs) -> None:
         try:
             CronValidator.parse(self.cron)
 
         except ValueError:
             raise ValidationError({"cron": "Invalid cron expression"})
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"<Schedule: {str(self)}>"
 
-    def __str__(self):
-        return f"{self.event.name}: {self.cron}"
+    def __str__(self) -> str:
+        return f"{self.label}: {self.cron}"
