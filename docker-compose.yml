@@ -13,7 +13,7 @@ services:
     build: 
         context: .
         target: dev
-    command: ["poetry", "run", "python", "-O", "manage.py", "runserver", "0.0.0.0:8000"]
+    command: ["poetry", "run", "python", "-O", "manage.py", "runserver", "0.0.0.0:8000", "--settings=neurodb.settings.dev"]
     ports:
       - target: 8000
         published: 8000
@@ -36,7 +36,7 @@ services:
 
   web:
     build: .
-    command: ["python", "-O", "manage.py", "runserver", "0.0.0.0:8000"]
+    command: ["python", "-O", "manage.py", "runserver", "0.0.0.0:8000", "--settings=neurodb.settings.prod"]
     ports:
       - target: 8000
         published: 8000

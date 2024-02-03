@@ -1,4 +1,4 @@
-.PHONY: build clean clean-docker clean-docs docs repl test shell start stop lint migrate migrations dev-tools-check lint-tools-check logs static poetry create-super-user restart
+.PHONY: build clean clean-docker clean-docs docs repl test shell start stop lint migrate migrations dev-tools-check lint-tools-check logs static poetry create-super-user restart reschedule
 .DEFAULT_GOAL: build
 
 REPORT := $(or $(REPORT),report -m)
@@ -8,6 +8,7 @@ DEV_TOOLS := $(and $(shell which docker git))
 COMPOSE_FILE := 'docker-compose.yml'
 RUNNING_CONTAINERS := $(shell docker ps -a -q -f name="neurodb-*")
 SERVICE := $(or $(SERVICE),web-dev)
+SRC := $(or $(SRC),.)
 
 # define standard colors
 ifneq ($(TERM),)
@@ -49,16 +50,16 @@ lint: lint-tools-check
 	@$(foreach file, $(GIT_CHANGED_PYTHON_FILES), $(shell black ${file}; isort ${file}; flake8 ${file}))
 
 static: dev-tools-check
-	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py collectstatic
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py collectstatic --settings=neurodb.settings.dev
 
 migrate: dev-tools-check
-	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py migrate
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py migrate --settings=neurodb.settings.dev
 
 migrations: dev-tools-check
-	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py makemigrations $(ARGS)
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py makemigrations --settings=neurodb.settings.dev $(ARGS)
 
 repl: dev-tools-check
-	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py shell
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py shell --settings=neurodb.settings.dev
 
 shell:
 	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) /bin/bash
@@ -66,15 +67,18 @@ shell:
 test: dev-tools-check
 	@rm -rf coverage
 ifneq ($(and $(TEST-CASE),$(SRC)),)
-	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) coverage run --source=$(SRC) --branch ./manage.py test --no-input $(TEST-CASE); docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) coverage $(REPORT)
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run coverage run --source=$(SRC) --branch ./manage.py test --settings=neurodb.settings.test --no-input $(TEST-CASE); docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run coverage $(REPORT)
 else ifneq ($(SRC),)
-	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) coverage run --source=$(SRC) --branch ./manage.py test --no-input; docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) coverage $(REPORT)
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run coverage run --source=$(SRC) --branch ./manage.py test --settings=neurodb.settings.test --no-input; docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run coverage $(REPORT)
 else ifneq ($(TEST-CASE),)
-	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) coverage run --branch ./manage.py test --no-input $(TEST-CASE) --parallel
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run coverage run --branch ./manage.py test --settings=neurodb.settings.test --no-input $(TEST-CASE) --parallel
 else
-	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) coverage run --branch ./manage.py test --no-input --parallel
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run coverage run --branch ./manage.py test --settings=neurodb.settings.test --no-input --parallel
 endif
 	@rm -rf .coverage.*
+
+reschedule:
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py reschedule --settings=neurodb.settings.dev
 
 clean:
 	@docker container prune -f
@@ -104,4 +108,4 @@ else
 endif
 
 create-super-user:
-	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py createsuperuser
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py createsuperuser --settings=neurodb.settings.dev
