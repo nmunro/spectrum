@@ -3,6 +3,7 @@ from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, get_list_or_404, render, redirect
+from django.utils import timezone
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 from django.views.decorators.csrf import csrf_exempt
@@ -19,7 +20,6 @@ class IndexView(TemplateView):
         return self.render_to_response({})
 
     def post(self, request):
-        search_vector = SearchVector("name", weight="A") + SearchVector("description", weight="A")
         query = request.POST["search"]
 
         events = models.Event.objects.annotate(
@@ -58,7 +58,7 @@ def organisation_resource(request, org, resource_id):
 
 def organisation_events(request, org):
     org = get_object_or_404(models.Organisation, slug=org)
-    events = models.Event.objects.filter(organisation=org)
+    events = models.Event.objects.filter(organisation=org, start_date_time__gte=timezone.now())
     return render(request, "info/organisation_events.html", {"org": org, "events": events})
 
 def organisation_event(request, org, event_id):
@@ -75,7 +75,7 @@ def resource(request, resource_id):
     return render(request, "info/resource.html", {"resource": resource})
 
 def events(request):
-    events = models.Event.objects.all().order_by("start_date_time")
+    events = models.Event.objects.filter(start_date_time__gte=timezone.now()).order_by("start_date_time")
     return render(request, "info/events.html", {"events": events})
 
 def event(request, event_id):
@@ -131,7 +131,7 @@ class DashboardEventsView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["org"] = get_object_or_404(models.Organisation, slug=kwargs["org"])
-        context["events"] = models.Event.objects.filter(organisation=context["org"])
+        context["events"] = models.Event.objects.filter(organisation=context["org"], start_date_time__gte=timezone.now())
 
         return context
 
