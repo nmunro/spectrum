@@ -122,7 +122,7 @@ class Event(models.Model):
         return f"<Event: {str(self)}>"
 
     def __str__(self) -> str:
-        return f"{self.organisation.name}: {self.name}"
+        return f"{self.organisation.name}: {self.name} @ {self.start_date_time}"
 
 class Scheduler(models.Model):
     label = models.CharField(max_length=255, default="")
