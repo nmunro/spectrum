@@ -109,3 +109,6 @@ endif
 
 create-super-user:
 	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py createsuperuser --settings=neurodb.settings.dev
+
+requirements:
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry export -f requirements.txt -o requirements.txt
