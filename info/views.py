@@ -20,7 +20,6 @@ class IndexView(TemplateView):
         return self.render_to_response({})
 
     def post(self, request):
-        search_vector = SearchVector("name", weight="A") + SearchVector("description", weight="A")
         query = request.POST["search"]
 
         events = models.Event.objects.annotate(
