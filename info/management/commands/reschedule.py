@@ -12,11 +12,10 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         # for each schedule, grab the events associated with it
         for schedule in Scheduler.objects.all():
-            for event in [event for event in schedule.events.all() if event.reschedule]:
+            for event in [event for event in schedule.events.all() if event.ends_today]:
                 cron = Cron(schedule.cron)
                 cron_schedule = cron.schedule(event.start_date_time)
                 schedules = [s.id for s in event.schedules.all()]
-                # skip the first one
                 next_date = cron_schedule.next().isoformat()
                 event.pk = None
                 diff = event.end_date_time - event.start_date_time

@@ -102,7 +102,7 @@ class Event(models.Model):
         return f"{hours} hrs, {minutes} mins"
 
     @property
-    def reschedule(self) -> bool:
+    def ends_today(self) -> bool:
         now = timezone.now()
 
         return all([
