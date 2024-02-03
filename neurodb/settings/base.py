@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'phone_field',
     'taggit',
     'info',
+    'help',
     'whitenoise.runserver_nostatic',
 ]
 
