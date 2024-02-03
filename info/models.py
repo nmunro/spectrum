@@ -91,7 +91,10 @@ class Event(models.Model):
     end_date_time = models.DateTimeField()
     price = MoneyField(max_digits=19, decimal_places=4, default_currency="GBP")
     ticketed = models.BooleanField(default=False)
-    schedules = models.ManyToManyField("Scheduler", related_name="events")
+    schedules = models.ManyToManyField("Scheduler", related_name="events", blank=True)
+
+    class Meta:
+        unique_together = ["organisation", "name", "start_date_time", "location"]
 
     @property
     def format_duration(self) -> str:
