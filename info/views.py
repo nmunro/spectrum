@@ -109,7 +109,7 @@ def dashboard_org(request, org):
         org.description = request.POST["description"]
         org.region = models.Region.objects.get(pk=int(request.POST["region"]))
         org.email = request.POST["email"]
-        org.website = request.POSt["website"]
+        org.website = request.POST["website"]
         org.save()
 
     return render(
