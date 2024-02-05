@@ -106,7 +106,7 @@ def dashboard_org(request, org):
     org = get_object_or_404(models.Organisation, slug=org)
 
     if request.method == "POST":
-        org.description = request.POST.data["description"]
+        org.description = request.POST["description"]
         org.region = models.Region.objects.get(pk=int(request.POST["region"]))
         org.email = request.POST["email"]
         org.website = request.POSt["website"]
