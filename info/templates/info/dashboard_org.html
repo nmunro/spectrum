@@ -30,9 +30,11 @@
 
   <div class="tab-content" id="pills-tabContent">
     <div class="tab-pane fade show active" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <a href="{% url 'dashboard_resources' org.slug %}" class="btn btn-primary">Save</a>
+        <form method="POST" action="{% url 'dashboard_org' org.slug %}">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit" class="btn btn-primary" value="Save"/>
+        </form>
     </div>
 
     <div class="tab-pane fade" id="pills-resources" role="tabpanel" aria-labelledby="pills-resources-tab">
