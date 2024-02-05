@@ -105,6 +105,13 @@ class OrganisationListView(ListView):
 def dashboard_org(request, org):
     org = get_object_or_404(models.Organisation, slug=org)
 
+    if request.method == "POST":
+        org.description = request.POST.data["description"]
+        org.region = models.Region.objects.get(pk=int(request.POST["region"]))
+        org.email = request.POST["email"]
+        org.website = request.POSt["website"]
+        org.save()
+
     return render(
         request,
         "info/dashboard_org.html",
@@ -116,6 +123,7 @@ def dashboard_org(request, org):
             "contacts": models.Contact.objects.filter(organisation=org),
         },
     )
+
 
 class DashboardEventsView(ListView):
     model = models.Event
