@@ -20,16 +20,6 @@ class Region(models.Model):
     def __str__(self) -> str:
         return str(self.name)
 
-class Location(models.Model):
-    name = models.CharField(max_length=255)
-    address = models.TextField()
-    post_code = models.CharField(max_length=10)
-
-    def __repr__(self) -> str:
-        return f"<Location: {str(self)}>"
-
-    def __str__(self) -> str:
-        return str(self.name)
 
 class Organisation(models.Model):
     name = models.CharField(max_length=255, unique=True)
@@ -49,6 +39,20 @@ class Organisation(models.Model):
     def __str__(self) -> str:
         return str(self.name)
 
+
+class Location(models.Model):
+    organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE, null=True, related_name="locations")
+    name = models.CharField(max_length=255)
+    address = models.TextField()
+    post_code = models.CharField(max_length=10)
+
+    def __repr__(self) -> str:
+        return f"<Location: {str(self)}>"
+
+    def __str__(self) -> str:
+        return str(self.name)
+
+
 class Contact(models.Model):
     organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=255)
@@ -63,6 +67,7 @@ class Contact(models.Model):
             return f"{self.name}: {self.email} - {self.phone_number}"
 
         return f"{self.name}: {self.email}"
+
 
 class Resource(models.Model):
     organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE)
@@ -80,6 +85,7 @@ class Resource(models.Model):
 
     def __str__(self) -> str:
         return f"{self.organisation.name}: {self.name}"
+
 
 class Event(models.Model):
     organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE)
@@ -126,6 +132,7 @@ class Event(models.Model):
 
     def __str__(self) -> str:
         return f"{self.organisation.name}: {self.name} @ {self.start_date_time}"
+
 
 class Scheduler(models.Model):
     label = models.CharField(max_length=255, default="")
