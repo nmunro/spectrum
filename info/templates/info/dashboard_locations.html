@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block nav %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb mx-3 mt-3">
+      <li class="breadcrumb-item fw-bold"><a href="{% url 'index' %}" class="text-uppercase text-decoration-none">Home</a></li>
+      <li class="breadcrumb-item fw-bold"><a href="{% url 'dashboard_organisations' %}" class="text-uppercase text-decoration-none">Dashboard</a></li>
+      <li class="breadcrumb-item fw-bold"><a href="{% url 'dashboard_org' org.slug %}" class="text-uppercase text-decoration-none">{{ org.name }}</a></li>
+      <li class="breadcrumb-item text-uppercase active">Locations</li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card p-2 p-md-4 card-primary text-white">
+                <h4>Create New</h4>
+                <div class="card-body bg-transparent border border-0">
+                    <p>Create A New Location</p>
+                    <a href="{% url 'new_dashboard_location' org.slug %}" class="btn btn-primary">Create New</a>
+                </div>
+            </div>
+        </div>
+
+        {% for location in locations %}
+            <div class="col-md-4 mb-4">
+                <div class="card p-2 p-md-4 {% cycle 'card-secondary' 'card-primary' %} text-white">
+                    <h4>{{ location.name }}</h4>
+                    <div class="card-body">
+                        <p>{{ location.address }}</p>
+                        <p>{{ location.post_code }}</p>
+                        <a href="{% url 'dashboard_location' org.slug location.id %}" class="btn btn-primary">Edit</a>
+                        <a href="{% url 'dashboard_location' org.slug location.id %}" class="btn btn-primary" id="delete-location">Delete</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        async function postData(event) {
+            const csrf_token = document.querySelector('input[name="csrfmiddlewaretoken"]');
+            const response = await fetch(event.target.href, {
+                method: "DELETE",
+                body: {
+                    csrfmiddlewaretoken: "{{ csrf_token }}"
+                },
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token  }}"
+                }
+            });
+            return await response.json();
+        }
+        
+
+        document.querySelectorAll("#delete-location").forEach((item) => {
+            item.addEventListener("click", function(event) {
+                event.preventDefault();
+                swal({
+                    "title": "Are you sure?",
+                    "text": "This will delete this location",
+                    "icon": "warning",
+                    "buttons": {
+                        "cancel": "No",
+                        "continue": "Yes",
+                    },
+                }).then((value) => {
+                    switch(value) {
+                        case "continue":
+                            postData(event).then((data) => location.reload());
+                            break;
+
+                        default:
+                            console.log("Leaving well alone");
+                    }
+                }).catch((error) => console.log(error));
+            })
+        });
+    </script>
+{% endblock %}

@@ -121,6 +121,7 @@ def dashboard_org(request, org):
             "resources": models.Resource.objects.filter(organisation=org),
             "events": models.Event.objects.filter(organisation=org),
             "contacts": models.Contact.objects.filter(organisation=org),
+            "locations": models.Location.objects.filter(organisation=org),
         },
     )
 
@@ -401,3 +402,96 @@ class DashboardContactView(TemplateView):
             context["contact"].save()
 
         return self.render_to_response(self.get_context_data(org=org, contact_id=contact_id))
+
+class DashboardLocationsView(ListView):
+    model = models.Location
+    form_class = forms.LocationForm
+    template_name = "info/dashboard_locations.html"
+    object_list = []
+
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.user = request.user
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["org"] = get_object_or_404(models.Organisation, slug=kwargs["org"])
+        context["locations"] = models.Location.objects.filter(organisation=context["org"])
+
+        return context
+
+    def get(self, request, org):
+        return self.render_to_response(self.get_context_data(org=org))
+
+
+class DashboardNewLocationView(TemplateView):
+    form_class = forms.LocationForm
+    template_name = "info/new_location.html"
+
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.user = request.user
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["organisation"] = get_object_or_404(models.Organisation, slug=kwargs["organisation"])
+        context["form"] = self.form_class()
+
+        return context
+
+    def get(self, request, org):
+        return self.render_to_response(self.get_context_data(organisation=org))
+
+    def post(self, request, org):
+        form = self.form_class(request.POST)
+
+        if form.is_valid():
+            obj = models.Location.objects.create(
+                organisation=models.Organisation.objects.get(slug=org),
+                name=form.cleaned_data["name"],
+                address=form.cleaned_data["address"],
+                post_code=form.cleaned_data["post_code"],
+            )
+
+        return redirect("dashboard_locations", org=org)
+
+class DashboardLocationView(TemplateView):
+    form_class = forms.LocationForm
+    template_name = "info/dashboard_location.html"
+
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.user = request.user
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["org"] = get_object_or_404(models.Organisation, slug=kwargs["org"])
+        context["location"] = get_object_or_404(models.Location, id=kwargs["location_id"])
+        context["form"] = self.form_class(instance=context["location"])
+
+        return context
+
+    def get(self, request, org, location_id):
+        return self.render_to_response(self.get_context_data(org=org, location_id=location_id))
+
+    def delete(self, request, org, location_id):
+        location = get_object_or_404(models.Location, id=location_id)
+        location.delete()
+
+        return JsonResponse({
+            "org": get_object_or_404(models.Organisation, slug=org).name,
+            "location": location.name,
+        })
+
+    def post(self, request, org, location_id):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            context = self.get_context_data(org=org, location_id=location_id)
+            context["location"].organisation = get_object_or_404(models.Organisation, slug=org)
+            context["location"].name = form.cleaned_data["name"]
+            context["location"].address = form.cleaned_data["address"]
+            context["location"].post_code = form.cleaned_data["post_code"]
+            context["location"].save()
+
+        return self.render_to_response(self.get_context_data(org=org, location_id=location_id))

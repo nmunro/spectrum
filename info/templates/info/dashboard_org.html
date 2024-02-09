@@ -26,6 +26,9 @@
     <li class="nav-item" role="presentation">
         <button class="nav-link" id="pills-contacts-tab" data-bs-toggle="pill" data-bs-target="#pills-contacts" type="button" role="tab" aria-controls="pills-contacts" aria-selected="false">Contacts</button>
     </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-locations-tab" data-bs-toggle="pill" data-bs-target="#pills-locations" type="button" role="tab" aria-controls="pills-locations" aria-selected="false">Locations</button>
+    </li>
   </ul>
 
   <div class="tab-content" id="pills-tabContent">
@@ -109,8 +112,36 @@
                         <h4>{{ contact.name }}</h4>
                         <div class="card-body">
                             <p>{{ user }}</p>
-                            <a href="{% url 'dashboard_contact' org.slug user.id %}" class="btn btn-primary">Edit</a>
-                            <a href="{% url 'dashboard_contact' org.slug user.id %}" class="btn btn-primary" id="delete-event">Delete</a>
+                            <a href="{% url 'dashboard_contact' org.slug contact.id %}" class="btn btn-primary">Edit</a>
+                            <a href="{% url 'dashboard_contact' org.slug contact.id %}" class="btn btn-primary" id="delete-event">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="tab-pane fade" id="pills-locations" role="tabpanel" aria-labelledby="pills-locations-tab">
+        <div class="row row-cols-4">
+            <div class="col-md-4 mb-4">
+                <div class="card p-2 p-md-4 card-primary text-white">
+                    <h4>Create New</h4>
+                    <div class="card-body bg-transparent border border-0">
+                        <p>Create A New Location</p>
+                        <a href="{% url 'new_dashboard_location' org.slug %}" class="btn btn-primary">Create New</a>
+                    </div>
+                </div>
+            </div>
+
+            {% for location in locations %}
+                <div class="col-md-4 mb-4">
+                    <div class="card p-2 p-md-4 {% cycle 'card-secondary' 'card-primary' %} text-white">
+                        <h4>{{ location.name }}</h4>
+                        <div class="card-body">
+                            <p>{{ location.address }}</p>
+                            <p>{{ location.post_code }}</p>
+                            <a href="{% url 'dashboard_location' org.slug location.id %}" class="btn btn-primary">Edit</a>
+                            <a href="{% url 'dashboard_location' org.slug location.id %}" class="btn btn-primary" id="delete-event">Delete</a>
                         </div>
                     </div>
                 </div>
