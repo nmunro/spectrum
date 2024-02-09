@@ -1,5 +1,5 @@
 from django.forms import ModelForm, DateTimeInput
-from .models import Contact, Event, Organisation, Resource
+from .models import Contact, Event, Organisation, Resource, Location
 
 
 class ContactForm(ModelForm):
@@ -33,3 +33,9 @@ class ResourceForm(ModelForm):
     class Meta:
         model = Resource
         fields = ['name', 'description']
+
+
+class LocationForm(ModelForm):
+    class Meta:
+        model = Location
+        fields = ['name', 'address', 'post_code']

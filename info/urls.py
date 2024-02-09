@@ -35,4 +35,8 @@ urlpatterns = [
     path("dashboard/<str:org>/contacts/", login_required(views.DashboardContactsView.as_view()), name="dashboard_contacts"),
     path("dashboard/<str:org>/contacts/new/", login_required(views.DashboardNewContactView.as_view()), name="new_dashboard_contact"),
     path("dashboard/<str:org>/contacts/<int:contact_id>/", login_required(views.DashboardContactView.as_view()), name="dashboard_contact"),
+
+    path("dashboard/<str:org>/locations/", login_required(views.DashboardLocationsView.as_view()), name="dashboard_locations"),
+    path("dashboard/<str:org>/locations/new/", login_required(views.DashboardNewLocationView.as_view()), name="new_dashboard_location"),
+    path("dashboard/<str:org>/locations/<int:location_id>/", login_required(views.DashboardLocationView.as_view()), name="dashboard_location"),
 ]
