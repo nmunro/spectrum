@@ -1,24 +1,65 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block nav %}
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb mx-3 mt-3">
-      <li class="breadcrumb-item fw-bold"><a href="{% url 'index' %}" class="text-uppercase text-decoration-none">Home</a></li>
-      <li class="breadcrumb-item fw-bold"><a href="{% url 'dashboard_organisations' %}" class="text-uppercase text-decoration-none">Dashboard</a></li>
-      <li class="breadcrumb-item fw-bold"><a href="{% url 'dashboard_org' org.slug %}" class="text-uppercase text-decoration-none">{{ org.name }}</a></li>
-      <li class="breadcrumb-item text-uppercase active">Locations</li>
-    </ol>
-</nav>
+{% block stylesheets %}
+    <link rel="stylesheet" href="{% static 'info/css/sidebar.css' %}">
 {% endblock %}
-
 {% block content %}
+<main class="d-flex flex-nowrap">
+  <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px;">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+      <span class="fs-4">{{ user.username }}</span>
+    </a>
+
+    <hr>
+
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li>
+        <a href="{% url 'dashboard' %}" class="nav-link link-body-emphasis">
+          <span class="fa fa-sitemap"></span>
+          &nbsp;Organisations
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'dashboard_events' %}" class="nav-link link-body-emphasis">
+          <span class="fa fa-calendar"></span>
+          &nbsp;Events
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'dashboard_resources' %}" class="nav-link link-body-emphasis">
+          <span class="fa fa-vector-square"></span>
+          &nbsp;Resources
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'dashboard_contacts' %}" class="nav-link link-body-emphasis">
+          <span class="fa fa-person"></span>
+          &nbsp;Contacts
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'dashboard_locations' %}" class="nav-link active link-body-emphasis" aria-current="page">
+          <span class="fa fa-location"></span>
+          &nbsp;Locations
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="container-fluid">
     <div class="row">
         <div class="col-md-4 mb-4">
             <div class="card p-2 p-md-4 card-primary text-white">
-                <h4>Create New</h4>
                 <div class="card-body bg-transparent border border-0">
-                    <p>Create A New Location</p>
-                    <a href="{% url 'new_dashboard_location' org.slug %}" class="btn btn-primary">Create New</a>
+                  <h5 class="event-title fs-2 fw-bold m-0 p-0">Create New</h5>
+                  <p>Create A New Location</p>
+                </div>
+
+                <div class="card-footer bg-transparent border border-0 d-flex flex-row justify-content-between align-items-center">
+                  <div class="event-button">
+                    <a href="{% url 'new_dashboard_location' %}" class="btn text-white fs-5 border border-2 px-2 m-0"><i class="fa fa-plus"></i> Create New</a>
+                  </div>
                 </div>
             </div>
         </div>
@@ -26,17 +67,24 @@
         {% for location in locations %}
             <div class="col-md-4 mb-4">
                 <div class="card p-2 p-md-4 {% cycle 'card-secondary' 'card-primary' %} text-white">
-                    <h4>{{ location.name }}</h4>
-                    <div class="card-body">
-                        <p>{{ location.address }}</p>
-                        <p>{{ location.post_code }}</p>
-                        <a href="{% url 'dashboard_location' org.slug location.id %}" class="btn btn-primary">Edit</a>
-                        <a href="{% url 'dashboard_location' org.slug location.id %}" class="btn btn-primary" id="delete-location">Delete</a>
+                    <div class="card-body bg-transparent border border-0">
+                      <h5>{{ location.name }}</h5>
+                        <p>{{ location.address }}, {{ location.post_code }}</p>
+                      </div>
+
+                    <div class="card-footer bg-transparent border border-0 d-flex flex-row justify-content-between align-items-center">
+                      <div class="event-button">
+                        <a href="{% url 'dashboard_location' location.id %}" class="btn text-white fs-5 border border-2 px-2 m-0"><i class="fa fa-edit"></i> Edit</a>
+                        <a href="{% url 'dashboard_location' location.id %}" class="btn text-white fs-5 border border-2 px-2 m-0" id="delete-location"><i class="fa fa-cancel"></i> Delete</a>
+                      </div>
                     </div>
                 </div>
             </div>
         {% endfor %}
     </div>
+
+  </div>
+</main>
 {% endblock %}
 
 {% block js %}

@@ -2,30 +2,64 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
-{% block nav %}
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb mx-3 mt-3">
-      <li class="breadcrumb-item fw-bold"><a href="{% url 'index' %}" class="text-uppercase text-decoration-none">Home</a></li>
-      <li class="breadcrumb-item fw-bold"><a href="{% url 'dashboard_organisations' %}" class="text-uppercase text-decoration-none">Dashboard</a></li>
-      <li class="breadcrumb-item fw-bold"><a href="{% url 'dashboard_org' organisation.slug %}" class="text-uppercase text-decoration-none">{{ organisation.name }}</a></li>
-      <li class="breadcrumb-item fw-bold"><a href="{% url 'dashboard_contacts' organisation.slug %}" class="text-uppercase text-decoration-none">Location</a></li>
-      <li class="breadcrumb-item active text-uppercase text-decoration-none">New</li>
-    </ol>
-  </nav>
+{% block stylesheets %}
+    <link rel="stylesheet" href="{% static 'info/css/sidebar.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="row px-5">
-    <h2>{{ organisation.name }}</h2>
-<div>
+<main class="d-flex flex-nowrap">
+  <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px;">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+      <span class="fs-4">{{ user.username }}</span>
+    </a>
 
-<div class="row px=5 row-cols-auto">
-    <div class="col col-sm-12 col-md-8 col-lg-6 col-xl-4 col-xxl-3">
-        <form method="POST" action="{% url 'new_dashboard_location' organisation.slug %}">
-            {% csrf_token %}
-            {{ form|crispy }}
-            <input type="submit" class="btn btn-primary" value="Save"/>
-        </form>
+    <hr>
+
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li>
+        <a href="{% url 'dashboard' %}" class="nav-link link-body-emphasis">
+          <span class="fa fa-sitemap"></span>
+          &nbsp;Organisations
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'dashboard_events' %}" class="nav-link link-body-emphasis">
+          <span class="fa fa-calendar"></span>
+          &nbsp;Events
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'dashboard_resources' %}" class="nav-link link-body-emphasis">
+          <span class="fa fa-vector-square"></span>
+          &nbsp;Resources
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'dashboard_contacts' %}" class="nav-link link-body-emphasis">
+          <span class="fa fa-person"></span>
+          &nbsp;Contacts
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'dashboard_locations' %}" class="nav-link active link-body-emphasis" aria-current="page">
+          <span class="fa fa-location"></span>
+          &nbsp;Locations
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="container-fluid overflow-auto">
+    <div class="row px=5 row-cols-auto">
+        <div class="col col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+          <form method="POST" action="{% url 'new_dashboard_location' %}">
+              {% csrf_token %}
+              {{ form|crispy }}
+              <input type="submit" class="btn btn-primary" value="Save"/>
+              <a href="{% url 'dashboard_locations' %}" class="btn btn-danger">Cancel</a>
+          </form>
+        </div>
     </div>
-</div>
+  </div>
+</main>
 {% endblock %}

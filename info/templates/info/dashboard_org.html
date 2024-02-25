@@ -2,151 +2,107 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
-{% block nav %}
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb mx-3 mt-3">
-      <li class="breadcrumb-item fw-bold"><a href="{% url 'index' %}" class="text-uppercase text-decoration-none">Home</a></li>
-      <li class="breadcrumb-item fw-bold"><a href="{% url 'dashboard_organisations' %}" class="text-uppercase text-decoration-none">Dashboard</a></li>
-      <li class="breadcrumb-item active text-uppercase">{{ org.name }}</li>
-    </ol>
-</nav>
+{% block stylesheets %}
+    <link rel="stylesheet" href="{% static 'info/css/sidebar.css' %}">
 {% endblock %}
 
 {% block content %}
-  <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-    <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="pills-description-tab" data-bs-toggle="pill" data-bs-target="#pills-description" type="button" role="tab" aria-controls="pills-description" aria-selected="true">Description</button>
-    </li>
-    <li class="nav-item" role="presentation">
-        <button class="nav-link" id="pills-resources-tab" data-bs-toggle="pill" data-bs-target="#pills-resources" type="button" role="tab" aria-controls="pills-resources" aria-selected="false">Resources</button>
-    </li>
-    <li class="nav-item" role="presentation">
-        <button class="nav-link" id="pills-events-tab" data-bs-toggle="pill" data-bs-target="#pills-events" type="button" role="tab" aria-controls="pills-events" aria-selected="false">Events</button>
-    </li>
-    <li class="nav-item" role="presentation">
-        <button class="nav-link" id="pills-contacts-tab" data-bs-toggle="pill" data-bs-target="#pills-contacts" type="button" role="tab" aria-controls="pills-contacts" aria-selected="false">Contacts</button>
-    </li>
-    <li class="nav-item" role="presentation">
-        <button class="nav-link" id="pills-locations-tab" data-bs-toggle="pill" data-bs-target="#pills-locations" type="button" role="tab" aria-controls="pills-locations" aria-selected="false">Locations</button>
-    </li>
-  </ul>
+<main class="d-flex flex-nowrap">
+  <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px;">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+      <span class="fs-4">{{ user.username }}</span>
+    </a>
 
-  <div class="tab-content" id="pills-tabContent">
-    <div class="tab-pane fade show active" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab">
+    <hr>
+
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li>
+        <a href="{% url 'dashboard' %}" class="nav-link active link-body-emphasis" aria-current="page">
+          <span class="fa fa-sitemap"></span>
+          &nbsp;Organisations
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'dashboard_events' %}" class="nav-link link-body-emphasis">
+          <span class="fa fa-calendar"></span>
+          &nbsp;Events
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'dashboard_resources' %}" class="nav-link link-body-emphasis">
+          <span class="fa fa-vector-square"></span>
+          &nbsp;Resources
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'dashboard_contacts' %}" class="nav-link link-body-emphasis">
+          <span class="fa fa-person"></span>
+          &nbsp;Contacts
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'dashboard_locations' %}" class="nav-link link-body-emphasis">
+          <span class="fa fa-location"></span>
+          &nbsp;Locations
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="container-fluid overflow-auto">
+    <div class="row px-5">
+        <h2>{{ org.name }}</h2>
         <form method="POST" action="{% url 'dashboard_org' org.slug %}">
             {% csrf_token %}
             {{ form|crispy }}
             <input type="submit" class="btn btn-primary" value="Save"/>
+            <a href="{% url 'dashboard' %}" class="btn btn-danger">Cancel</a>
         </form>
-    </div>
 
-    <div class="tab-pane fade" id="pills-resources" role="tabpanel" aria-labelledby="pills-resources-tab">
-        <div class="row row-cols-4">
-            <div class="col-md-4 mb-4">
-                <div class="card p-2 p-md-4 card-primary text-white">
-                    <h4>Create New Resource...</h4>
-                    <div class="card-body bg-transparent border border-0">
-                        <p>... for {{ org.name }}</p>
-                        <a href="{% url 'new_dashboard_resource' org.slug %}" class="btn btn-primary">Create New Resource</a>
-                    </div>
-                </div>
-            </div>
-
-            {% for resource in resources %}
-                <div class="col-md-4 mb-4">
-                    <div class="card p-2 p-md-4 {% cycle 'card-secondary' 'card-primary' %} text-white">
-                        <h4>{{ resource.name }}</h4>
-                        <div class="card-body">
-                            <p>{{ resource.description }}</p>
-                            <a href="{% url 'dashboard_resource' org.slug resource.id %}" class="btn btn-primary">Edit</a>
-                            <a href="{% url 'dashboard_resource' org.slug resource.id %}" class="btn btn-primary" id="delete-event">Delete</a>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
-
-    <div class="tab-pane fade" id="pills-events" role="tabpanel" aria-labelledby="pills-events-tab">
-        <div class="row row-cols-4">
-            <div class="col-md-4 mb-4">
-                <div class="card p-2 p-md-4 card-primary text-white">
-                    <h4>Create New Event...</h4>
-                    <div class="card-body bg-transparent border border-0">
-                        <p>... for {{ org.name }}</p>
-                        <a href="{% url 'new_dashboard_event' org.slug %}" class="btn btn-primary">Create New Event</a>
-                    </div>
-                </div>
-            </div>
-
-            {% for event in events %}
-                <div class="col-md-4 mb-4">
-                    <div class="card p-2 p-md-4 {% cycle 'card-secondary' 'card-primary' %} text-white">
-                        <h4>{{ event.name }}</h4>
-                        <div class="card-body">
-                            <p>{{ event.description }}</p>
-                            <a href="{% url 'dashboard_event' org.slug event.id %}" class="btn btn-primary">Edit</a>
-                            <a href="{% url 'dashboard_event' org.slug event.id %}" class="btn btn-primary" id="delete-event">Delete</a>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
-
-    <div class="tab-pane fade" id="pills-contacts" role="tabpanel" aria-labelledby="pills-contacts-tab">
-        <div class="row row-cols-4">
-            <div class="col-md-4 mb-4">
-                <div class="card p-2 p-md-4 card-primary text-white">
-                    <h4>Create New</h4>
-                    <div class="card-body bg-transparent border border-0">
-                        <p>Create A New Contact</p>
-                        <a href="{% url 'new_dashboard_contact' org.slug %}" class="btn btn-primary">Create New</a>
-                    </div>
-                </div>
-            </div>
-
-            {% for contact in contacts %}
-                <div class="col-md-4 mb-4">
-                    <div class="card p-2 p-md-4 {% cycle 'card-secondary' 'card-primary' %} text-white">
-                        <h4>{{ contact.name }}</h4>
-                        <div class="card-body">
-                            <p>{{ user }}</p>
-                            <a href="{% url 'dashboard_contact' org.slug contact.id %}" class="btn btn-primary">Edit</a>
-                            <a href="{% url 'dashboard_contact' org.slug contact.id %}" class="btn btn-primary" id="delete-event">Delete</a>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
-
-    <div class="tab-pane fade" id="pills-locations" role="tabpanel" aria-labelledby="pills-locations-tab">
-        <div class="row row-cols-4">
-            <div class="col-md-4 mb-4">
-                <div class="card p-2 p-md-4 card-primary text-white">
-                    <h4>Create New</h4>
-                    <div class="card-body bg-transparent border border-0">
-                        <p>Create A New Location</p>
-                        <a href="{% url 'new_dashboard_location' org.slug %}" class="btn btn-primary">Create New</a>
-                    </div>
-                </div>
-            </div>
-
-            {% for location in locations %}
-                <div class="col-md-4 mb-4">
-                    <div class="card p-2 p-md-4 {% cycle 'card-secondary' 'card-primary' %} text-white">
-                        <h4>{{ location.name }}</h4>
-                        <div class="card-body">
-                            <p>{{ location.address }}</p>
-                            <p>{{ location.post_code }}</p>
-                            <a href="{% url 'dashboard_location' org.slug location.id %}" class="btn btn-primary">Edit</a>
-                            <a href="{% url 'dashboard_location' org.slug location.id %}" class="btn btn-primary" id="delete-event">Delete</a>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
     </div>
   </div>
+</main>
+{% endblock %}
+
+{% block js %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        async function postData(event) {
+            const csrf_token = document.querySelector('input[name="csrfmiddlewaretoken"]');
+            const response = await fetch(event.target.href, {
+                method: "DELETE",
+                body: {
+                    csrfmiddlewaretoken: "{{ csrf_token }}"
+                },
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token  }}"
+                }
+            });
+            return await response.json();
+        }
+        
+
+        document.querySelectorAll("#delete-event").forEach((item) => {
+            item.addEventListener("click", function(event) {
+                event.preventDefault();
+                swal({
+                    "title": "Are you sure?",
+                    "text": "This will delete this event",
+                    "icon": "warning",
+                    "buttons": {
+                        "cancel": "No",
+                        "continue": "Yes",
+                    },
+                }).then((value) => {
+                    switch(value) {
+                        case "continue":
+                            postData(event).then((data) => location.reload());
+                            break;
+
+                        default:
+                            console.log("Leaving well alone");
+                    }
+                }).catch((error) => console.log(error));
+            })
+        });
+    </script>
 {% endblock %}

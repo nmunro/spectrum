@@ -90,16 +90,23 @@ def location(request, location_id):
     location = models.Location.objects.get(pk=location_id)
     return render(request, "info/location.html", {"location": location})
 
-class OrganisationListView(ListView):
+class DashboardView(TemplateView):
     template_name = "info/dashboard.html"
     model = models.Organisation
     context_object_name = "organisations"
-    paginate_by = 100
+
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.user = request.user
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["organisations"] = get_list_or_404(models.Organisation, admin=self.request.user)
+        context["orgs"] = get_list_or_404(models.Organisation, admin=self.user)
+        context["user"] = self.user
         return context
+
+    def get(self, request):
+        return self.render_to_response(self.get_context_data())
 
 @login_required
 def dashboard_org(request, org):
@@ -139,13 +146,15 @@ class DashboardEventsView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["org"] = get_object_or_404(models.Organisation, slug=kwargs["org"])
-        context["events"] = models.Event.objects.filter(organisation=context["org"], start_date_time__gte=timezone.now())
+        context["events"] = models.Event.objects.filter(
+            organisation__admin=self.user,
+            start_date_time__gte=timezone.now(),
+        )
 
         return context
 
-    def get(self, request, org):
-        return self.render_to_response(self.get_context_data(org=org))
+    def get(self, request):
+        return self.render_to_response(self.get_context_data())
 
 
 class DashboardEventView(TemplateView):
@@ -158,21 +167,19 @@ class DashboardEventView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["org"] = get_object_or_404(models.Organisation, slug=kwargs["org"])
         context["event"] = get_object_or_404(models.Event, id=kwargs["event_id"])
         context["form"] = self.form_class(instance=context["event"])
 
         return context
 
-    def get(self, request, org, event_id):
-        return self.render_to_response(self.get_context_data(org=org, event_id=event_id))
+    def get(self, request, event_id):
+        return self.render_to_response(self.get_context_data(event_id=event_id))
 
-    def delete(self, request, org, event_id):
+    def delete(self, request, event_id):
         event = get_object_or_404(models.Event, id=event_id)
         event.delete()
 
         return JsonResponse({
-            "org": get_object_or_404(models.Organisation, slug=org).name,
             "event": event.name,
         })
 
@@ -203,13 +210,12 @@ class DashboardResourcesView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["org"] = get_object_or_404(models.Organisation, slug=kwargs["org"])
-        context["resources"] = models.Resource.objects.filter(organisation=context["org"])
+        context["resources"] = models.Resource.objects.filter(organisation__admin=self.user)
 
         return context
 
-    def get(self, request, org):
-        return self.render_to_response(self.get_context_data(org=org))
+    def get(self, request):
+        return self.render_to_response(self.get_context_data())
 
 
 class DashboardResourceView(TemplateView):
@@ -222,21 +228,19 @@ class DashboardResourceView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["org"] = get_object_or_404(models.Organisation, slug=kwargs["org"])
         context["resource"] = get_object_or_404(models.Resource, id=kwargs["resource_id"])
         context["form"] = self.form_class(instance=context["resource"])
 
         return context
 
-    def get(self, request, org, resource_id):
-        return self.render_to_response(self.get_context_data(org=org, resource_id=resource_id))
+    def get(self, request, resource_id):
+        return self.render_to_response(self.get_context_data(resource_id=resource_id))
 
-    def delete(self, request, org, resource_id):
+    def delete(self, request, resource_id):
         resource = get_object_or_404(models.Resource, id=resource_id)
         resource.delete()
 
         return JsonResponse({
-            "org": get_object_or_404(models.Organisation, slug=org).name,
             "resource": resource.name,
         })
 
@@ -260,21 +264,21 @@ class DashboardNewResourceView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["org"] = get_object_or_404(models.Organisation, slug=kwargs["org"])
         context["form"] = self.form_class()
+        context["form"].fields["organisation"].queryset = models.Organisation.objects.filter(admin=self.user)
 
         return context
 
-    def get(self, request, org):
-        return self.render_to_response(self.get_context_data(org=org))
+    def get(self, request):
+        return self.render_to_response(self.get_context_data())
 
-    def post(self, request, org):
+    def post(self, request):
         form = self.form_class(request.POST)
         if form.is_valid():
             obj = models.Resource.objects.create(
                 name=form.cleaned_data["name"],
                 description=form.cleaned_data["description"],
-                organisation=get_object_or_404(models.Organisation, slug=org),
+                organisation=form.cleaned_data["organisation"],
             )
 
         return redirect(obj)
@@ -289,15 +293,15 @@ class DashboardNewEventView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["org"] = get_object_or_404(models.Organisation, slug=kwargs["org"])
         context["form"] = self.form_class()
+        context["form"].fields["organisation"].queryset = models.Organisation.objects.filter(admin=self.user)
 
         return context
 
-    def get(self, request, org):
-        return self.render_to_response(self.get_context_data(org=org))
+    def get(self, request):
+        return self.render_to_response(self.get_context_data())
 
-    def post(self, request, org):
+    def post(self, request):
         form = self.form_class(request.POST)
         if form.is_valid():
             obj = models.Event.objects.create(
@@ -307,7 +311,7 @@ class DashboardNewEventView(TemplateView):
                 start_date_time=form.cleaned_data["start_date_time"],
                 end_date_time=form.cleaned_data["end_date_time"],
                 price=form.cleaned_data["price"],
-                organisation=get_object_or_404(models.Organisation, slug=org),
+                organisation=form.cleaned_data["organisation"],
             )
 
         return redirect(obj)
@@ -324,13 +328,12 @@ class DashboardContactsView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["org"] = get_object_or_404(models.Organisation, slug=kwargs["org"])
-        context["contacts"] = models.Contact.objects.filter(organisation=context["org"])
+        context["contacts"] = models.Contact.objects.filter(organisation__admin=self.user)
 
         return context
 
-    def get(self, request, org):
-        return self.render_to_response(self.get_context_data(org=org))
+    def get(self, request):
+        return self.render_to_response(self.get_context_data())
 
 class DashboardNewContactView(TemplateView):
     form_class = forms.ContactForm
@@ -342,27 +345,27 @@ class DashboardNewContactView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        context["organisation"] = get_object_or_404(models.Organisation, slug=kwargs["organisation"])
         context["form"] = self.form_class()
+        context["form"].fields["organisation"].queryset = models.Organisation.objects.filter(admin=self.user)
+        context["user"] = self.user
 
         return context
 
-    def get(self, request, org):
-        return self.render_to_response(self.get_context_data(organisation=org))
+    def get(self, request):
+        return self.render_to_response(self.get_context_data())
 
-    def post(self, request, org):
+    def post(self, request):
         form = self.form_class(request.POST)
 
         if form.is_valid():
             obj = models.Contact.objects.create(
-                organisation=models.Organisation.objects.get(slug=org),
+                organisation=form.cleaned_data["organisation"],
                 name=form.cleaned_data["name"],
                 email=form.cleaned_data["email"],
                 phone_number=form.cleaned_data["phone_number"],
             )
 
-        return redirect("dashboard_contacts", org=org)
+        return redirect("dashboard_contacts")
 
 class DashboardContactView(TemplateView):
     form_class = forms.ContactForm
@@ -374,21 +377,19 @@ class DashboardContactView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["org"] = get_object_or_404(models.Organisation, slug=kwargs["org"])
         context["contact"] = get_object_or_404(models.Contact, id=kwargs["contact_id"])
         context["form"] = self.form_class(instance=context["contact"])
 
         return context
 
-    def get(self, request, org, contact_id):
-        return self.render_to_response(self.get_context_data(org=org, contact_id=contact_id))
+    def get(self, request, contact_id):
+        return self.render_to_response(self.get_context_data(contact_id=contact_id))
 
-    def delete(self, request, org, contact_id):
+    def delete(self, request, contact_id):
         contact = get_object_or_404(models.Contact, id=contact_id)
         contact.delete()
 
         return JsonResponse({
-            "org": get_object_or_404(models.Organisation, slug=org).name,
             "contact": contact.name,
         })
 
@@ -415,13 +416,12 @@ class DashboardLocationsView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["org"] = get_object_or_404(models.Organisation, slug=kwargs["org"])
-        context["locations"] = models.Location.objects.filter(organisation=context["org"])
+        context["locations"] = models.Location.objects.filter(organisation__admin=self.user)
 
         return context
 
-    def get(self, request, org):
-        return self.render_to_response(self.get_context_data(org=org))
+    def get(self, request):
+        return self.render_to_response(self.get_context_data())
 
 
 class DashboardNewLocationView(TemplateView):
@@ -434,27 +434,26 @@ class DashboardNewLocationView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        context["organisation"] = get_object_or_404(models.Organisation, slug=kwargs["organisation"])
         context["form"] = self.form_class()
+        context["form"].fields["organisation"].queryset = models.Organisation.objects.filter(admin=self.user)
 
         return context
 
-    def get(self, request, org):
-        return self.render_to_response(self.get_context_data(organisation=org))
+    def get(self, request):
+        return self.render_to_response(self.get_context_data())
 
-    def post(self, request, org):
+    def post(self, request):
         form = self.form_class(request.POST)
 
         if form.is_valid():
             obj = models.Location.objects.create(
-                organisation=models.Organisation.objects.get(slug=org),
+                organisation=form.cleaned_data["organisation"],
                 name=form.cleaned_data["name"],
                 address=form.cleaned_data["address"],
                 post_code=form.cleaned_data["post_code"],
             )
 
-        return redirect("dashboard_locations", org=org)
+        return redirect("dashboard_locations")
 
 class DashboardLocationView(TemplateView):
     form_class = forms.LocationForm
@@ -466,21 +465,19 @@ class DashboardLocationView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["org"] = get_object_or_404(models.Organisation, slug=kwargs["org"])
         context["location"] = get_object_or_404(models.Location, id=kwargs["location_id"])
         context["form"] = self.form_class(instance=context["location"])
 
         return context
 
-    def get(self, request, org, location_id):
-        return self.render_to_response(self.get_context_data(org=org, location_id=location_id))
+    def get(self, request, location_id):
+        return self.render_to_response(self.get_context_data(location_id=location_id))
 
-    def delete(self, request, org, location_id):
+    def delete(self, request, location_id):
         location = get_object_or_404(models.Location, id=location_id)
         location.delete()
 
         return JsonResponse({
-            "org": get_object_or_404(models.Organisation, slug=org).name,
             "location": location.name,
         })
 
