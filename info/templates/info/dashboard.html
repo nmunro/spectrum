@@ -48,24 +48,21 @@
     </ul>
   </div>
 
-  <div>
+  <div class="container-fluid">
     <div class="row">
     {% for org in orgs %}
       <div class="col-md-4 mb-4">
         <div class="card p-2 p-md-4 {% cycle 'card-primary' 'card-secondary' %} text-white">
           <div class="card-body bg-transparent border border-0">
             <h5 class="event-title fs-2 fw-bold m-0 p-0">
-                <a href="{% url 'organisation' org.slug %}" class="text-white text-decoration-none">{{ org.name }}</a>
+              <a href="{% url 'organisation' org.slug %}" class="text-white text-decoration-none">{{ org.name }}</a>
             </h5>
-          <p class="event-text mt-2">{{ org.description|slice:":80" }}</p>
-         </div>
+            <p class="event-text mt-2">{{ org.description|slice:":80" }}</p>
+          </div>
 
           <div class="card-footer bg-transparent border border-0 d-flex flex-row justify-content-between align-items-center">
             <div class="event-button">
-              <a class="btn text-white fs-5 border border-2 px-2 m-0" href="{% url 'organisation_resources' org.slug %}"><i class="bi bi-arrow-left fs-5"></i> Resources</a>
-            </div>
-            <div class="event-button">
-              <a class="btn text-white fs-5 border border-2 px-2 m-0" href="{% url 'organisation_events' org.slug %}">Events <i class="bi bi-arrow-right fs-5"></i></a>
+              <a class="btn text-white fs-5 border border-2 px-2 m-0" href="{% url 'organisation_resources' org.slug %}"><i class="fa fa-edit"></i> Edit</a>
             </div>
           </div>
         </div>

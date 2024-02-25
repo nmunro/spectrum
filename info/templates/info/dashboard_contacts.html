@@ -49,32 +49,42 @@
   </div>
 
   <div class="container-fluid">
-   <div class="row">
-        <div class="col-md-4 mb-4">
-            <div class="card p-2 p-md-4 card-primary text-white">
-                <h4>Create New</h4>
-                <div class="card-body bg-transparent border border-0">
-                    <p>Create A New Contact</p>
-                    <a href="{% url 'new_dashboard_contact' %}" class="btn btn-primary">Create New</a>
-                </div>
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <div class="card p-2 p-md-4 card-primary text-white">
+          <div class="card-body bg-transparent border border-0">
+            <h5 class="event-title fs-2 fw-bold m-0 p-0">Create New</h5>
+            <p>Create A New Contact</p>
+          </div>
+
+          <div class="card-footer bg-transparent border border-0 d-flex flex-row justify-content-between align-items-center">
+            <div class="event-button">
+              <a href="{% url 'new_dashboard_contact' %}" class="btn text-white fs-5 border border-2 px-2 m-0"><i class="fa fa-plus"></i> Create New</a>
             </div>
+          </div>
         </div>
+      </div>
 
 
-        {% for contact in contacts %}
-            <div class="col-md-4 mb-4">
-                <div class="card p-2 p-md-4 {% cycle 'card-secondary' 'card-primary' %} text-white">
-                    <h4>{{ contact.name }}</h4>
-                    <div class="card-body">
-                        <p>{{ contact.email }}</p>
-                        <a href="{% url 'dashboard_contact' contact.id %}" class="btn btn-primary">Edit</a>
-                        <a href="{% url 'dashboard_contact' contact.id %}" class="btn btn-primary" id="delete-contact">Delete</a>
-                    </div>
-                </div>
+    {% for contact in contacts %}
+      <div class="col-md-4 mb-4">
+        <div class="card p-2 p-md-4 {% cycle 'card-secondary' 'card-primary' %} text-white">
+          <div class="card-body bg-transparent border border-0">
+            <h5>{{ contact.name }}</h5>
+            <p>{{ contact.email }}</p>
+          </div>
+
+          <div class="card-footer bg-transparent border border-0 d-flex flex-row justify-content-between align-items-center">
+            <div class="event-button">
+              <a href="{% url 'dashboard_contact' contact.id %}" class="btn text-white fs-5 border border-2 px-2 m-0"><i class="fa fa-edit"></i> Edit</a>
+              <a href="{% url 'dashboard_contact' contact.id %}" class="btn text-white fs-5 border border-2 px-2 m-0" id="delete-contact"><i class="fa fa-cancel"></i> Delete</a>
             </div>
-        {% endfor %}
+          </div>
+      </div>
     </div>
+    {% endfor %}
   </div>
+</div>
 </main>
 {% endblock %}
 

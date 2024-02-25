@@ -51,10 +51,15 @@
     <div class="row">
         <div class="col-md-4 mb-4">
             <div class="card p-2 p-md-4 card-primary text-white">
-                <h4>Create New</h4>
                 <div class="card-body bg-transparent border border-0">
-                    <p>Create A New Location</p>
-                    <a href="{% url 'new_dashboard_location' %}" class="btn btn-primary">Create New</a>
+                  <h5 class="event-title fs-2 fw-bold m-0 p-0">Create New</h5>
+                  <p>Create A New Location</p>
+                </div>
+
+                <div class="card-footer bg-transparent border border-0 d-flex flex-row justify-content-between align-items-center">
+                  <div class="event-button">
+                    <a href="{% url 'new_dashboard_location' %}" class="btn text-white fs-5 border border-2 px-2 m-0"><i class="fa fa-plus"></i> Create New</a>
+                  </div>
                 </div>
             </div>
         </div>
@@ -62,12 +67,14 @@
         {% for location in locations %}
             <div class="col-md-4 mb-4">
                 <div class="card p-2 p-md-4 {% cycle 'card-secondary' 'card-primary' %} text-white">
-                    <h4>{{ location.name }}</h4>
-                    <div class="card-body">
-                        <p>{{ location.address }}</p>
-                        <p>{{ location.post_code }}</p>
-                        <a href="{% url 'dashboard_location' location.id %}" class="btn btn-primary">Edit</a>
-                        <a href="{% url 'dashboard_location' location.id %}" class="btn btn-primary" id="delete-location">Delete</a>
+                    <div class="card-body bg-transparent border border-0">
+                      <h5>{{ location.name }}</h5>
+                        <p>{{ location.address }}, {{ location.post_code }}</p>
+                      </div>
+
+                    <div class="card-footer bg-transparent border border-0 d-flex flex-row justify-content-between align-items-center">
+                        <a href="{% url 'dashboard_location' location.id %}" class="btn text-white fs-5 border border-2 px-2 m-0"><i class="fa fa-edit"></i> Edit</a>
+                        <a href="{% url 'dashboard_location' location.id %}" class="btn text-white fs-5 border border-2 px-2 m-0" id="delete-location"><i class="fa fa-cancel"></i> Delete</a>
                     </div>
                 </div>
             </div>
