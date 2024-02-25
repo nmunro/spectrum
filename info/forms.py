@@ -31,6 +31,7 @@ class EventForm(ModelForm):
             'price',
         ]
 
+
 class ResourceForm(ModelForm):
     class Meta:
         model = Resource

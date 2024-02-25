@@ -30,7 +30,7 @@ class Organisation(models.Model):
     admin = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     slug = models.SlugField(max_length=255)
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         return reverse("organisation", kwargs={"org": self.slug})
 
     def __repr__(self) -> str:
@@ -57,7 +57,7 @@ class Contact(models.Model):
     organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=255)
     email = models.EmailField()
-    phone_number = PhoneField(blank=True, help_text='Contact phone number')
+    phone_number = PhoneField(blank=True, help_text="Contact phone number")
 
     def __repr__(self) -> str:
         return f"<Contact: {str(self)}>"
@@ -74,10 +74,10 @@ class Resource(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
 
-    def get_absolute_url(self):
-        return reverse("resource", kwargs={"resource_id": self.id})
+    def get_absolute_url(self) -> str:
+        return reverse("resource", kwargs={"pk": self.pk})
 
-    def get_list_url(self):
+    def get_list_url(self) -> str:
         return reverse("resources")
 
     def __repr__(self) -> str:
@@ -100,7 +100,7 @@ class Event(models.Model):
     schedules = models.ManyToManyField("Scheduler", related_name="events", blank=True)
 
     class Meta:
-        unique_together = ["organisation", "name", "start_date_time", "location"]
+        unique_together = ["start_date_time", "location"]
 
     @property
     def format_duration(self) -> str:
@@ -121,10 +121,10 @@ class Event(models.Model):
             now.day == self.end_date_time.day,
         ])
 
-    def get_absolute_url(self):
-        return reverse("event", kwargs={"event_id": self.id})
+    def get_absolute_url(self) -> str:
+        return reverse("event", kwargs={"pk": self.pk})
 
-    def get_list_url(self):
+    def get_list_url(self) -> str:
         return reverse("events")
 
     def __repr__(self) -> str:

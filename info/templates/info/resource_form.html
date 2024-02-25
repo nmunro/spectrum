@@ -50,14 +50,15 @@
   </div>
 
   <div class="container-fluid overflow-auto">
-    <div class="row px-5">
-        <form method="POST" action="{% url 'dashboard_resource' resource.id %}">
-            <h2>{{ org.name }}</h2>
+    <div class="row px-5 row-cols-auto">
+      <div class="col col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+        <form method="POST">
             {% csrf_token %}
             {{ form|crispy }}
             <input type="submit" class="btn btn-primary" value="Save"/>
             <a href="{% url 'dashboard_resources' %}" class="btn btn-danger">Cancel</a>
         </form>
+      </div>
     </div>
   </div>
 </main>

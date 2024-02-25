@@ -35,13 +35,13 @@
         </a>
       </li>
       <li>
-        <a href="{% url 'dashboard_contacts' %}" class="nav-link active link-body-emphasis" aria-current="page">
+        <a href="{% url 'dashboard_contacts' %}" class="nav-link link-body-emphasis">
           <span class="fa fa-person"></span>
           &nbsp;Contacts
         </a>
       </li>
       <li>
-        <a href="{% url 'dashboard_locations' %}" class="nav-link link-body-emphasis">
+        <a href="{% url 'dashboard_locations' %}" class="nav-link active link-body-emphasis" aria-current="page">
           <span class="fa fa-location"></span>
           &nbsp;Locations
         </a>
@@ -50,15 +50,13 @@
   </div>
 
   <div class="container-fluid overflow-auto">
-    <div class="row px=5 row-cols-auto">
-        <div class="col col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-            <form method="POST" action="{% url 'new_dashboard_contact' %}">
-                {% csrf_token %}
-                {{ form|crispy }}
-                <input type="submit" class="btn btn-primary" value="Save"/>
-                <a href="{% url 'dashboard_contacts' %}" class="btn btn-danger">Cancel</a>
-            </form>
-        </div>
+    <div class="row px-5">
+        <form method="post">{% csrf_token %}
+            <p>Are you sure you want to delete "{{ object }}"?</p>
+            {{ form }}
+            <input type="submit" class="btn btn-danger" value="Confirm">
+            <a href="{% url 'dashboard_locations' %}" class="btn btn-primary">Cancel</a>
+        </form>
     </div>
   </div>
 </main>
