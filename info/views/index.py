@@ -1,4 +1,5 @@
-from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector, TrigramStrictWordSimilarity
+from django.contrib.postgres.aggregates import StringAgg
+from django.contrib.postgres.search import TrigramStrictWordSimilarity as TSWS
 from django.views.generic.base import TemplateView
 
 from .. import forms
@@ -8,26 +9,32 @@ class IndexView(TemplateView):
     form_class = forms.EventForm
     template_name = "info/index.html"
 
-    def get(self, request):
-        query = request.GET.get("search")
-
-        if not query:
-            return self.render_to_response({})
-
-        events = models.Event.objects.annotate(
-            similarity=TrigramStrictWordSimilarity(query, "name") + TrigramStrictWordSimilarity(query, "description"),
-        ).filter(
-            similarity__gte=0.2
-        ).order_by(
-            '-similarity'
-        )
-
-        resources = models.Resource.objects.annotate(
-            similarity=TrigramStrictWordSimilarity(query, "name") + TrigramStrictWordSimilarity(query, "description"),
+    def filter_events(self, query: str):
+        return models.Event.objects.annotate(
+            tags_str=StringAgg("tags__name", delimiter=" "),
+        ).annotate(
+            similarity=TSWS(query, "name") + TSWS(query, "description") + TSWS(query, "tags_str"),
         ).filter(
             similarity__gte=0.2
         ).order_by(
             "-similarity"
         )
 
-        return self.render_to_response({"results": [*events, *resources]})
+    def filter_resources(self, query: str):
+        return models.Resource.objects.annotate(
+            tags_str=StringAgg("tags__name", delimiter=" "),
+        ).annotate(
+            similarity=TSWS(query, "name") + TSWS(query, "description") + TSWS(query, "tags_str"),
+        ).filter(
+            similarity__gte=0.2
+        ).order_by(
+            "-similarity"
+        )
+
+    def get(self, request):
+        query = request.GET.get("search")
+
+        if not query:
+            return self.render_to_response({})
+
+        return self.render_to_response({"results": [*self.filter_events(query), *self.filter_resources(query)]})
