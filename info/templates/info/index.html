@@ -11,8 +11,7 @@
 
 {% block content %}
     <h1>Spectrum</h1>
-    <form method="POST" action="{% url 'index' %}" class="row form">
-      {% csrf_token %}
+    <form method="GET" class="row form">
       <div class="col-lg-11 col-xl-11">
         <input type="text" name="search" placeholder="search..." class="form-control" />
       </div>

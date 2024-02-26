@@ -9,6 +9,7 @@ from django.utils import timezone
 from django.utils.text import slugify
 from djmoney.models.fields import MoneyField
 from phone_field import PhoneField
+from taggit.managers import TaggableManager
 
 
 class Region(models.Model):
@@ -74,6 +75,8 @@ class Resource(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
 
+    tags = TaggableManager()
+
     def get_absolute_url(self) -> str:
         return reverse("resource", kwargs={"pk": self.pk})
 
@@ -98,6 +101,8 @@ class Event(models.Model):
     price = MoneyField(max_digits=19, decimal_places=4, default_currency="GBP")
     ticketed = models.BooleanField(default=False)
     schedules = models.ManyToManyField("Scheduler", related_name="events", blank=True)
+
+    tags = TaggableManager()
 
     class Meta:
         unique_together = ["start_date_time", "location"]

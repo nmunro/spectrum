@@ -17,6 +17,11 @@
   <h1 class="display-5 fw-bold text-body-emphasis">{{ resource.name }}</h1>
   <div class="col-lg-6 mx-auto">
     <p>{{ resource.description }}</p>
+    <p>
+      {% for tag in resource.tags.all %}
+      {{ tag.name }},&nbsp;
+      {% endfor %}
+    </p>
   </div>
 </div>
 {% endblock %}

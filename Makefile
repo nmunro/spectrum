@@ -101,7 +101,7 @@ logs:
 	@docker compose -f $(COMPOSE_FILE) logs -f $(SERVICE)
 
 poetry:
-ifeq ($(SERVICE),web)
+ifeq ($(SERVICE),web-dev)
 	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry $(CMD)
 else
 	$(error Command not available for service: '$(SERVICE)')

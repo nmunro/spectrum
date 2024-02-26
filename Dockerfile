@@ -1,10 +1,10 @@
-FROM python:3.11 as DEV
+FROM python:3.12 as DEV
 # Configure Poetry
 
 ENV PYTHONUNBUFFERED=1
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 ENV PYTHONDONTWRITEBYTECODE=1
-ENV POETRY_VERSION=1.7.0
+ENV POETRY_VERSION=1.8.1
 ENV POETRY_HOME=/opt/poetry
 ENV POETRY_VENV=/opt/poetry-venv
 ENV POETRY_CACHE_DIR=/opt/.cache
@@ -25,15 +25,11 @@ RUN groupadd -r docker && useradd -r -m -g docker docker
 RUN chown -R docker /opt
 ENV PYTHONPATH $PYTHONPATH:/app
 
-FROM python:3.11 as PROD
+FROM python:3.12 as PROD
 
 ENV PYTHONUNBUFFERED=1
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 ENV PYTHONDONTWRITEBYTECODE=1
-ENV POETRY_VERSION=1.7.0
-ENV POETRY_HOME=/opt/poetry
-ENV POETRY_VENV=/opt/poetry-venv
-ENV POETRY_CACHE_DIR=/opt/.cache
 
 WORKDIR /app/resourcedb
 RUN apt update -y && apt upgrade -y

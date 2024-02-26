@@ -29,6 +29,7 @@ class EventForm(ModelForm):
             'start_date_time',
             'end_date_time',
             'price',
+            'tags',
         ]
 
 
@@ -39,6 +40,7 @@ class ResourceForm(ModelForm):
             'organisation',
             'name',
             'description',
+            'tags',
         ]
 
 
