@@ -19,7 +19,7 @@
     <p>{{ resource.description }}</p>
     <p>
       {% for tag in resource.tags.all %}
-      {{ tag.name }},&nbsp;
+        <a href="{% url 'index' %}?search={{ tag }}">{{ tag }}</a>{% if not forloop.last %},&nbsp;{% endif %}
       {% endfor %}
     </p>
   </div>

@@ -26,6 +26,7 @@ class EventForm(ModelForm):
             'description',
             'location',
             'contact',
+            'ticketed',
             'start_date_time',
             'end_date_time',
             'price',
