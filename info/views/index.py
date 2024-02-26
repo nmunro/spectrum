@@ -9,10 +9,10 @@ class IndexView(TemplateView):
     template_name = "info/index.html"
 
     def get(self, request):
-        return self.render_to_response({})
+        query = request.GET.get("search")
 
-    def post(self, request):
-        query = request.POST["search"]
+        if not query:
+            return self.render_to_response({})
 
         events = models.Event.objects.annotate(
             similarity=TrigramStrictWordSimilarity(query, "name") + TrigramStrictWordSimilarity(query, "description"),

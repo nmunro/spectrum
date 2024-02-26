@@ -41,6 +41,7 @@ class EventCreateView(CreateView):
         'start_date_time',
         'end_date_time',
         'price',
+        'tags',
     ]
 
     def get_success_url(self):
@@ -63,6 +64,7 @@ class EventUpdateView(UpdateView):
         'start_date_time',
         'end_date_time',
         'price',
+        'tags',
     ]
 
     def get_success_url(self):
