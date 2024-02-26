@@ -8,9 +8,7 @@ urlpatterns = [
     path("organisations/", views.organisations, name="organisations"),
     path("organisations/<str:org>/", views.organisation, name="organisation"),
     path("organisations/<str:org>/resources/", views.organisation_resources, name="organisation_resources"),
-    path("organisations/<str:org>/resources/<int:pk>/", views.organisation_resource, name="organisation_resource"),
     path("organisations/<str:org>/events/", views.organisation_events, name="organisation_events"),
-    path("organisations/<str:org>/events/<int:pk>/", views.organisation_event, name="organisation_event"),
 
     path("resources/", views.resources, name="resources"),
     path("resources/<int:pk>/", views.ResourceDetailView.as_view(), name="resource"),

@@ -10,22 +10,14 @@ def organisations(request):
 def organisation(request, org: str):
     return render(request, "info/organisation.html", {"org": get_object_or_404(models.Organisation, slug=org)})
 
-def organisation_resources(request, org):
+def organisation_resources(request, org: str):
     org = get_object_or_404(models.Organisation, slug=org)
     resources = models.Resource.objects.filter(organisation=org)
-    return render(request, "info/organisation_resources.html", {"org": org, "resources": resources})
 
-def organisation_resource(request, org, pk: int):
-    org = get_object_or_404(models.Organisation, slug=org)
-    resource = models.Resource.objects.get(pk=pk, organisation=org)
-    return render(request, "info/organisation_resource.html", {"org": org, "resource": resource})
+    return render(request, "info/resources.html", {"org": org, "resources": resources})
 
-def organisation_events(request, org):
+def organisation_events(request, org: str):
     org = get_object_or_404(models.Organisation, slug=org)
     events = models.Event.objects.filter(organisation=org, start_date_time__gte=timezone.now())
-    return render(request, "info/organisation_events.html", {"org": org, "events": events})
 
-def organisation_event(request, org, pk: int):
-    org = get_object_or_404(models.Organisation, slug=org)
-    event = models.Event.objects.get(pk=pk, organisation=org)
-    return render(request, "info/organisation_event.html", {"org": org, "event": event})
+    return render(request, "info/events.html", {"org": org, "events": events})

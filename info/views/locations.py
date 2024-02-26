@@ -30,6 +30,11 @@ class LocationCreateView(CreateView):
     def get_success_url(self):
         return reverse_lazy('dashboard_locations')
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields["organisation"].queryset = models.Organisation.objects.filter(admin=self.request.user)
+        return form
+
 
 class LocationUpdateView(UpdateView):
     model = models.Location
@@ -42,6 +47,11 @@ class LocationUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('dashboard_locations')
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields["organisation"].queryset = models.Organisation.objects.filter(admin=self.request.user)
+        return form
 
 
 class LocationDetailView(DetailView):

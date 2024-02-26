@@ -6,9 +6,7 @@ from .locations import LocationCreateView, LocationDeleteView, LocationDetailVie
 from .organisations import (
     organisation,
     organisations,
-    organisation_event,
     organisation_events,
-    organisation_resource,
     organisation_resources,
 )
 from .resources import (

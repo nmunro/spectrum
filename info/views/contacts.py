@@ -28,6 +28,11 @@ class ContactCreateView(CreateView):
     def get_success_url(self):
         return reverse_lazy('dashboard_contacts')
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields["organisation"].queryset = models.Organisation.objects.filter(admin=self.request.user)
+        return form
+
 
 class ContactUpdateView(UpdateView):
     model = models.Contact
@@ -40,6 +45,11 @@ class ContactUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('dashboard_contacts')
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields["organisation"].queryset = models.Organisation.objects.filter(admin=self.request.user)
+        return form
 
 
 class ContactDetailView(DetailView):

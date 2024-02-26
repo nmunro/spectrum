@@ -4,7 +4,10 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb mx-3 mt-3">
       <li class="breadcrumb-item fw-bold"><a href="{% url 'index' %}" class="text-uppercase text-decoration-none">Home</a></li>
-      <li class="breadcrumb-item text-uppercase">Resources</li>
+      <li class="breadcrumb-item fw-bold"><a href="{% url 'resources' %}" class="text-uppercase text-decoration-none">Resources</a></li>
+      {% if org %}
+        <li class="breadcrumb-item text-uppercase">{{ org.name }}</li>
+      {% endif %}
     </ol>
   </nav>
 {% endblock %}

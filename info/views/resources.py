@@ -34,6 +34,11 @@ class ResourceCreateView(CreateView):
     def get_success_url(self):
         return reverse_lazy('dashboard_resources')
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields["organisation"].queryset = models.Organisation.objects.filter(admin=self.request.user)
+        return form
+
 
 class ResourceUpdateView(UpdateView):
     model = models.Resource
@@ -41,6 +46,11 @@ class ResourceUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('dashboard_resources')
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields["organisation"].queryset = models.Organisation.objects.filter(admin=self.request.user)
+        return form
 
 
 class ResourceDetailView(DetailView):
