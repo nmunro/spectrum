@@ -33,20 +33,20 @@ class EventListview(ListView):
 class EventCreateView(CreateView):
     model = models.Event
     fields = [
-        'organisation',
-        'name',
-        'description',
-        'location',
-        'contact',
-        'ticketed',
-        'start_date_time',
-        'end_date_time',
-        'price',
-        'tags',
+        "organisation",
+        "name",
+        "description",
+        "location",
+        "contact",
+        "ticketed",
+        "start_date_time",
+        "end_date_time",
+        "price",
+        "tags",
     ]
 
-    def get_success_url(self):
-        return reverse_lazy('dashboard_events')
+    def get_success_url(self) -> str:
+        return reverse_lazy("info:dashboard_events")
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
@@ -57,20 +57,20 @@ class EventCreateView(CreateView):
 class EventUpdateView(UpdateView):
     model = models.Event
     fields = [
-        'organisation',
-        'name',
-        'description',
-        'location',
-        'contact',
-        'ticketed',
-        'start_date_time',
-        'end_date_time',
-        'price',
-        'tags',
+        "organisation",
+        "name",
+        "description",
+        "location",
+        "contact",
+        "ticketed",
+        "start_date_time",
+        "end_date_time",
+        "price",
+        "tags",
     ]
 
-    def get_success_url(self):
-        return reverse_lazy('dashboard_events')
+    def get_success_url(self) -> str:
+        return reverse_lazy("info:dashboard_events")
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
@@ -81,10 +81,10 @@ class EventUpdateView(UpdateView):
 class EventDetailView(DetailView):
     model = models.Event
 
-    def get_success_url(self):
-        return reverse_lazy('dashboard_events')
+    def get_success_url(self) -> str:
+        return reverse_lazy("info:dashboard_events")
 
 
 class EventDeleteView(DeleteView):
     model = models.Event
-    success_url = reverse_lazy("dashboard_events")
+    success_url = reverse_lazy("info:dashboard_events")

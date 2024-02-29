@@ -29,10 +29,10 @@ class ResourceListview(ListView):
 
 class ResourceCreateView(CreateView):
     model = models.Resource
-    fields = ['organisation', 'name', 'description', 'tags']
+    fields = ["organisation", "name", "description", "tags"]
 
-    def get_success_url(self):
-        return reverse_lazy('dashboard_resources')
+    def get_success_url(self) -> str:
+        return reverse_lazy("info:dashboard_resources")
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
@@ -42,10 +42,10 @@ class ResourceCreateView(CreateView):
 
 class ResourceUpdateView(UpdateView):
     model = models.Resource
-    fields = ['organisation', 'name', 'description', 'tags']
+    fields = ["organisation", "name", "description", "tags"]
 
-    def get_success_url(self):
-        return reverse_lazy('dashboard_resources')
+    def get_success_url(self) -> str:
+        return reverse_lazy("info:dashboard_resources")
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
@@ -59,4 +59,4 @@ class ResourceDetailView(DetailView):
 
 class ResourceDeleteView(DeleteView):
     model = models.Resource
-    success_url = reverse_lazy("dashboard_resources")
+    success_url = reverse_lazy("info:dashboard_resources")

@@ -19,14 +19,14 @@ class ContactListView(ListView):
 class ContactCreateView(CreateView):
     model = models.Contact
     fields = [
-        'organisation',
-        'name',
-        'email',
-        'phone_number',
+        "organisation",
+        "name",
+        "email",
+        "phone_number",
     ]
 
-    def get_success_url(self):
-        return reverse_lazy('dashboard_contacts')
+    def get_success_url(self) -> str:
+        return reverse_lazy("info:dashboard_contacts")
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
@@ -37,14 +37,14 @@ class ContactCreateView(CreateView):
 class ContactUpdateView(UpdateView):
     model = models.Contact
     fields = [
-        'organisation',
-        'name',
-        'email',
-        'phone_number',
+        "organisation",
+        "name",
+        "email",
+        "phone_number",
     ]
 
-    def get_success_url(self):
-        return reverse_lazy('dashboard_contacts')
+    def get_success_url(self) -> str:
+        return reverse_lazy("info:dashboard_contacts")
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
@@ -58,4 +58,4 @@ class ContactDetailView(DetailView):
 
 class ContactDeleteView(DeleteView):
     model = models.Contact
-    success_url = reverse_lazy("dashboard_contacts")
+    success_url = reverse_lazy("info:dashboard_contacts")

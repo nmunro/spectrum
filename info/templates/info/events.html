@@ -4,10 +4,12 @@
 {% block nav %}
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb mx-3 mt-3">
-    <li class="breadcrumb-item fw-bold"><a href="{% url 'index' %}" class="text-uppercase text-decoration-none">Home</a></li>
-    <li class="breadcrumb-item fw-bold"><a href="{% url 'events' %}" class="text-uppercase text-decoration-none">Events</a></li>
+    <li class="breadcrumb-item fw-bold"><a href="{% url 'info:index' %}" class="text-uppercase text-decoration-none">Home</a></li>
     {% if org %}
+      <li class="breadcrumb-item fw-bold"><a href="{% url 'info:events' %}" class="text-uppercase text-decoration-none">Events</a></li>
       <li class="breadcrumb-item text-uppercase">{{ org.name }}</li>
+    {% else %}
+      <li class="breadcrumb-item text-uppercase">Resources</li>
     {% endif %}
   </ol>
 </nav>
@@ -25,7 +27,7 @@
             <p class="event-day fw-bold m-0 p-0">{{ event.start_date_time|date:"d" }}</p>
           </div>
           <div class="card-body bg-transparent border border-0">
-            <h5 class="event-title fs-2 fw-bold m-0 p-0"><a href="{% url 'event' event.id %}" class="text-white text-decoration-none">{{ event.name }}</a></h5>
+            <h5 class="event-title fs-2 fw-bold m-0 p-0"><a href="{% url 'info:event' event.id %}" class="text-white text-decoration-none">{{ event.name }}</a></h5>
             <p class="event-text mt-2">{{ event.description|slice:":80" }}</p>
           </div>
           <div class="card-footer bg-transparent border border-0 d-flex flex-row justify-content-between align-items-center">
@@ -35,7 +37,7 @@
               <p class="d-flex align-items-center"><i class="bi bi-pin-map me-2 my-0 py-0 fw-medium"></i>{{ event.location }}</p>
             </div>
             <div class="event-button">
-              <a class="btn text-white fs-5 border border-2 px-2 m-0" href="{% url 'event' event.id %}">Details <i class="bi bi-arrow-right fs-5"></i></a>
+              <a class="btn text-white fs-5 border border-2 px-2 m-0" href="{% url 'info:event' event.id %}">Details <i class="bi bi-arrow-right fs-5"></i></a>
             </div>
           </div>
         </div>

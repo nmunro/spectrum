@@ -42,67 +42,15 @@ neurodivergent provision.</p>
   </div>
 
   <div class="row px-5">
-    <div class="col-md-4 mb-4">
+    <div class="col-md-12 mb-12">
       <h2>Contents</h2>
       <ol>
-        <li>Organisations</li>
-        <li>Dashboard</li>
-        <li>Events</li>
-        <li>Resources</li>
-        <li>Locations</li>
-        <li>Contacts</li>
+        <li><a href="{% url 'help:organisations' %}">Organisations</a></li>
+        <li><a href="{% url 'help:events' %}">Events</a></li>
+        <li><a href="{% url 'help:resources' %}">Resources</a></li>
+        <li><a href="{% url 'help:locations' %}">Locations</a></li>
+        <li><a href="{% url 'help:contacts' %}">Contacts</a></li>
       </ol>
     </div>
   </div>
-
-  <div class="row px-5" id="organisations">
-    <div class="col-md-12 mb-12">
-      <h3>Organisations</h3>
-      <p>
-        Organisations are any group that wishes to make their events or resources available to be searched. An Organisation must have a designated admin who will be responsible for maintaining information regarding the Organisation.
-      </p>
-
-      <p>
-        An admin may manage multiple organisations, it is not recommended and may be removed in a future version of the application, but as of right now, an admin can manage multiple organisations. A user may not create organisations or take control of organisations, an application developer must manually assign organisations to admins.
-      </p>
-    </div>
-  </div>
-
-  <div class="row px-5" id="dashboard">
-    <div class="col-md-12 mb-12">
-      <h3>Dashboard</h3>
-
-      <p>
-        The dashboard is the principle means by which admins will manage their Organisation(s). Once an admin has logged in, the application will automatically send them to the dashboard which will list the Organisation(s) they manage, typically each admin will only have one Organisation, but at this time it is possible an admin may manage multiple Organisations.
-      </p>
-
-      <p>
-        Each managed Organisation will have a card with links to the specific organisation dashboard. Clicking on the organisation name
-      </p>
-    </div>
-  </div>
-
-  <div class="row px-5" id="events">
-    <div class="col-md-12 mb-12">
-      <h3>Events</h3:>
-    </div>
-  </div>
-
-  <div class="row px-5" id="resources">
-    <div class="col-md-12 mb-12">
-      <h3>Resources</h3>
-    </div>
-  </div>
-
-  <div class="row px-5" id="locations">
-    <div class="col-md-12 mb-12">
-      <h3>Locations</h3>
-    </div>
-  </div>
-
-  <div class="row px-5" id="contacts">
-    <div class="col-md-12 mb-12">
-      <h3>Contacts</h3>
-    </div>
-  </div>
-{% endblock %}
+ {% endblock %}

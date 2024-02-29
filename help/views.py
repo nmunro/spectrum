@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-def help(request):
+def overview(request):
     return render(request, "help/index.html", {})
 
 def organisations(request):

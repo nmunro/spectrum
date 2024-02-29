@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% load tags %}
 
 {% block nav %}
@@ -21,7 +22,12 @@
 
   <div class="row px-5">
     <div class="col-md-12 mb-12">
-      <p>Delete Contact</p>
+      <p>Deleting a contact is a two step process, from the <a href="{% url 'help:contacts' %}">list of contacts</a>, select the contact you wish to delete and click the delete button.</p>
+      <img class="img-fluid" src="{% static 'help/contacts.png' %}"></img>
+      <p>The user will be asked to confirm the deletion of a contact.</p>
+      <img class="img-fluid" src="{% static 'help/contacts_confirm_delete.png' %}"></img>
+      <p>The user may cancel this to prevent the deletion. Confirming the delete will return the user to the <a href="{% url 'help:contacts' %}">list of contacts</a>.</p>
+      <img class="img-fluid" src="{% static 'help/contacts_deleted.png' %}"></img>
     </div>
   </div>
 {% endblock %}

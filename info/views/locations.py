@@ -21,14 +21,14 @@ class LocationListView(ListView):
 class LocationCreateView(CreateView):
     model = models.Location
     fields = [
-        'organisation',
-        'name',
-        'address',
-        'post_code',
+        "organisation",
+        "name",
+        "address",
+        "post_code",
     ]
 
-    def get_success_url(self):
-        return reverse_lazy('dashboard_locations')
+    def get_success_url(self) -> str:
+        return reverse_lazy("info:dashboard_locations")
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
@@ -39,14 +39,14 @@ class LocationCreateView(CreateView):
 class LocationUpdateView(UpdateView):
     model = models.Location
     fields = [
-        'organisation',
-        'name',
-        'address',
-        'post_code',
+        "organisation",
+        "name",
+        "address",
+        "post_code",
     ]
 
-    def get_success_url(self):
-        return reverse_lazy('dashboard_locations')
+    def get_success_url(self) -> str:
+        return reverse_lazy("info:dashboard_locations")
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
@@ -60,4 +60,4 @@ class LocationDetailView(DetailView):
 
 class LocationDeleteView(DeleteView):
     model = models.Location
-    success_url = reverse_lazy("dashboard_locations")
+    success_url = reverse_lazy("info:dashboard_locations")
