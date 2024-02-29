@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% load tags %}
 
 {% block nav %}
@@ -14,14 +15,17 @@
 
 {% block content %}
   <div class="row px-5">
-    <div class="col-md-4 mb-4">
+    <div class="col-md-12 mb-12">
       <h1>Help: Edit Organisations</h1>
     </div>
   </div>
 
   <div class="row px-5">
     <div class="col-md-12 mb-12">
-      <p>Edit Organisations</p>
+      <p>Editing an organisation is easy, simply select the organisation to edit, and click the "Edit" button.</p>
+      <img class="img-fluid" src="{% static 'help/organisations.png' %}"></img>
+      <p>You will be presented with the organisation edit form, cancelling the form will return the user to the <a href="{% url 'help:organisations' %}">list of organisations</a>, saving the form will update its information.</p>
+      <img class="img-fluid" src="{% static 'help/organisations_edit.png' %}"></img>
     </div>
   </div>
 {% endblock %}
