@@ -4,8 +4,10 @@
 {% block nav %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb mx-3 mt-3">
-      <li class="breadcrumb-item fw-bold text-uppercase">Home</li>
-      <li class="breadcrumb-item text-uppercase">Help</li>
+      <li class="breadcrumb-item fw-bold text-uppercase"><a href="{% url 'info:index' %}">Home</a></li>
+      <li class="breadcrumb-item fw-bold text-uppercase"><a href="{% url 'help:overview' %}">Help</a></li>
+      <li class="breadcrumb-item fw-bold text-uppercase"><a href="{% url 'help:events' %}">Events</a></li>
+      <li class="breadcrumb-item text-uppercase">Delete</li>
     </ol>
   </nav>
 {% endblock %}
@@ -13,96 +15,13 @@
 {% block content %}
   <div class="row px-5">
     <div class="col-md-4 mb-4">
-      <h1>Help</h1>
+      <h1>Help: Delete Event</h1>
     </div>
   </div>
 
   <div class="row px-5">
     <div class="col-md-12 mb-12">
-      <p>Selby Town Primary Care Network organised a meeting in July 2023 with a view to bringing
-interested stakeholders together to help to promote awareness of neurodiversity in the Selby
-District. They had previously carried out a survey on existing provision and discovered that were was
-very little provision for in the district for people living with neurodiversity. The group aims to provide
-help to organisations / groups looking to set up events and resources that will help people living with
-neurodiversity and as part of this provision were keen to produce a directory of neurodiversity
-provision in the district.</p>
-
-<p>A local charity called Spirit of Christmas offered to put a directory together of existing provision in
-the district from information provided by other organisations attending the meeting. However, the
-charity had a volunteer who specialises in code writing for computer programmes and this volunteer
-put together a small team who would develop an online resource where individuals could search for
-resources / events in their locality and where groups / organisations could promote what they do.
-If you are reading this introduction, then you are looking to promote resources or activities that will
-be of interest to people living with neurodiversity.</p>
-
-<p>Thank you for signing up to promote what you do. It is hoped that as the site grows it will help to
-provide the general public with details of what is happening in their locality with regards to
-neurodivergent provision.</p>
-    </div>
-  </div>
-
-  <div class="row px-5">
-    <div class="col-md-4 mb-4">
-      <h2>Contents</h2>
-      <ol>
-        <li>Organisations</li>
-        <li>Dashboard</li>
-        <li>Events</li>
-        <li>Resources</li>
-        <li>Locations</li>
-        <li>Contacts</li>
-      </ol>
-    </div>
-  </div>
-
-  <div class="row px-5" id="organisations">
-    <div class="col-md-12 mb-12">
-      <h3>Organisations</h3>
-      <p>
-        Organisations are any group that wishes to make their events or resources available to be searched. An Organisation must have a designated admin who will be responsible for maintaining information regarding the Organisation.
-      </p>
-
-      <p>
-        An admin may manage multiple organisations, it is not recommended and may be removed in a future version of the application, but as of right now, an admin can manage multiple organisations. A user may not create organisations or take control of organisations, an application developer must manually assign organisations to admins.
-      </p>
-    </div>
-  </div>
-
-  <div class="row px-5" id="dashboard">
-    <div class="col-md-12 mb-12">
-      <h3>Dashboard</h3>
-
-      <p>
-        The dashboard is the principle means by which admins will manage their Organisation(s). Once an admin has logged in, the application will automatically send them to the dashboard which will list the Organisation(s) they manage, typically each admin will only have one Organisation, but at this time it is possible an admin may manage multiple Organisations.
-      </p>
-
-      <p>
-        Each managed Organisation will have a card with links to the specific organisation dashboard. Clicking on the organisation name
-      </p>
-    </div>
-  </div>
-
-  <div class="row px-5" id="events">
-    <div class="col-md-12 mb-12">
-      <h3>Events</h3:>
-    </div>
-  </div>
-
-  <div class="row px-5" id="resources">
-    <div class="col-md-12 mb-12">
-      <h3>Resources</h3>
-    </div>
-  </div>
-
-  <div class="row px-5" id="locations">
-    <div class="col-md-12 mb-12">
-      <h3>Locations</h3>
-    </div>
-  </div>
-
-  <div class="row px-5" id="contacts">
-    <div class="col-md-12 mb-12">
-      <h3>Contacts</h3>
+      <p>Delete Event</p>
     </div>
   </div>
 {% endblock %}
