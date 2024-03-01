@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% load tags %}
 
 {% block nav %}
@@ -21,7 +22,11 @@
 
   <div class="row px-5">
     <div class="col-md-12 mb-12">
-      <p>Add Resource</p>
+      <p>Adding a resource to an <a href="{% url 'help:organisations' %}">organisation</a> requires at least three <em>required</em> field(s) and one <em>optional</em> field(s). As seen in the screenshot below. Fields indicated with an asterisk (*) are required and must be provided.</p>
+      <p>Any given user may be responsible for managing multiple <a href="{% url 'help:organisations' %}">organisations</a> and as such when creating a contact they must select the <a href="{% url 'help:organisations' %}">organisation</a> the <a href="{% url 'help:contacts' %}">contact</a> will belong to. If you only manage one <a href="{% url 'help:organisations' %}">organisation</a> you will only see one in the drop down.</p>
+      <p>To create a <a href="{% url 'help:resources' %}">resource</a> one must select the "Create New" button from the <a href="{% url 'help:resources' %}">previous</a> page. If there are any errors in the form, these will be displayed with a warning. To cancel creating a <a href="{% url 'help:resources' %}">resource</a> click the red cancel button, this will return the user to the list of resources.<p>
+      <p>It is important to note that a user may use the name, description, or any of the listed tags to search across, this allows for tags being used to optimise search queries, while tags are optional, it is highly recommended to add as many tags as possible to assist in discovery.</p>
+      <img class="img-fluid" src="{% static 'help/resources_add.png' %}"></img>
     </div>
   </div>
 {% endblock %}
