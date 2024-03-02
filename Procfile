@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: gunicorn neurodb.wsgi
+web: gunicorn spectrum.wsgi

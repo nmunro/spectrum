@@ -1,1 +1,1 @@
-from .neurodb import *  # noqa
+from .spectrum import *  # noqa

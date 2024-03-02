@@ -1,4 +1,4 @@
-# neurodb
+# Spectrum
 
 A database of shared resources
 

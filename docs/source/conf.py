@@ -19,7 +19,7 @@ sys.path.insert(0, os.path.abspath('../..'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'neurodb'
+project = 'spectrum'
 copyright = '2018, Neil Munro (NMunro)'
 author = 'Neil Munro (NMunro)'
 
@@ -147,7 +147,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'cookiecutterproject_name', 'neurodb Documentation',
+    (master_doc, 'cookiecutterproject_name', 'spectrum Documentation',
      [author], 1)
 ]
 
@@ -158,7 +158,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'cookiecutterproject_name', 'neurodb Documentation',
+    (master_doc, 'cookiecutterproject_name', 'spectrum Documentation',
      author, 'cookiecutterproject_name', 'One line description of project.',
      'Miscellaneous'),
 ]

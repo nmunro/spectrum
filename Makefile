@@ -6,7 +6,7 @@ GIT_CHANGED_PYTHON_FILES := $(shell git diff --name-only -- '***.py')
 LINTING_TOOLS := $(and $(shell which black),$(shell which isort),$(shell which flake8))
 DEV_TOOLS := $(and $(shell which docker git))
 COMPOSE_FILE := 'docker-compose.yml'
-RUNNING_CONTAINERS := $(shell docker ps -a -q -f name="neurodb-*")
+RUNNING_CONTAINERS := $(shell docker ps -a -q -f name="spectrum-*")
 SERVICE := $(or $(SERVICE),web-dev)
 SRC := $(or $(SRC),.)
 
@@ -50,16 +50,16 @@ lint: lint-tools-check
 	@$(foreach file, $(GIT_CHANGED_PYTHON_FILES), $(shell black ${file}; isort ${file}; flake8 ${file}))
 
 static: dev-tools-check
-	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py collectstatic --settings=neurodb.settings.dev
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py collectstatic --settings=spectrum.settings.dev
 
 migrate: dev-tools-check
-	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py migrate --settings=neurodb.settings.dev
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py migrate --settings=spectrum.settings.dev
 
 migrations: dev-tools-check
-	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py makemigrations --settings=neurodb.settings.dev $(ARGS)
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py makemigrations --settings=spectrum.settings.dev $(ARGS)
 
 repl: dev-tools-check
-	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py shell --settings=neurodb.settings.dev
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py shell --settings=spectrum.settings.dev
 
 shell:
 	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) /bin/bash
@@ -67,18 +67,18 @@ shell:
 test: dev-tools-check
 	@rm -rf coverage
 ifneq ($(and $(TEST-CASE),$(SRC)),)
-	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run coverage run --source=$(SRC) --branch ./manage.py test --settings=neurodb.settings.test --no-input $(TEST-CASE); docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run coverage $(REPORT)
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run coverage run --source=$(SRC) --branch ./manage.py test --settings=spectrum.settings.test --no-input $(TEST-CASE); docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run coverage $(REPORT)
 else ifneq ($(SRC),)
-	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run coverage run --source=$(SRC) --branch ./manage.py test --settings=neurodb.settings.test --no-input; docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run coverage $(REPORT)
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run coverage run --source=$(SRC) --branch ./manage.py test --settings=spectrum.settings.test --no-input; docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run coverage $(REPORT)
 else ifneq ($(TEST-CASE),)
-	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run coverage run --branch ./manage.py test --settings=neurodb.settings.test --no-input $(TEST-CASE) --parallel
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run coverage run --branch ./manage.py test --settings=spectrum.settings.test --no-input $(TEST-CASE) --parallel
 else
-	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run coverage run --branch ./manage.py test --settings=neurodb.settings.test --no-input --parallel
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run coverage run --branch ./manage.py test --settings=spectrum.settings.test --no-input --parallel
 endif
 	@rm -rf .coverage.*
 
 reschedule:
-	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py reschedule --settings=neurodb.settings.dev
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py reschedule --settings=spectrum.settings.dev
 
 clean:
 	@docker container prune -f
@@ -108,7 +108,7 @@ else
 endif
 
 create-super-user:
-	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py createsuperuser --settings=neurodb.settings.dev
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py createsuperuser --settings=spectrum.settings.dev
 
 requirements:
 	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry export -f requirements.txt -o requirements.txt
