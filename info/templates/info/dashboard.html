@@ -16,31 +16,31 @@
 
     <ul class="nav nav-pills flex-column mb-auto">
       <li>
-        <a href="{% url 'dashboard' %}" class="nav-link active link-body-emphasis" aria-current="page">
+        <a href="{% url 'info:dashboard' %}" class="nav-link active link-body-emphasis" aria-current="page">
           <span class="fa fa-sitemap"></span>
           &nbsp;Organisations
         </a>
       </li>
       <li>
-        <a href="{% url 'dashboard_events' %}" class="nav-link link-body-emphasis">
+        <a href="{% url 'info:dashboard_events' %}" class="nav-link link-body-emphasis">
           <span class="fa fa-calendar"></span>
           &nbsp;Events
         </a>
       </li>
       <li>
-        <a href="{% url 'dashboard_resources' %}" class="nav-link link-body-emphasis">
+        <a href="{% url 'info:dashboard_resources' %}" class="nav-link link-body-emphasis">
           <span class="fa fa-vector-square"></span>
           &nbsp;Resources
         </a>
       </li>
       <li>
-        <a href="{% url 'dashboard_contacts' %}" class="nav-link link-body-emphasis">
+        <a href="{% url 'info:dashboard_contacts' %}" class="nav-link link-body-emphasis">
           <span class="fa fa-person"></span>
           &nbsp;Contacts
         </a>
       </li>
       <li>
-        <a href="{% url 'dashboard_locations' %}" class="nav-link link-body-emphasis">
+        <a href="{% url 'info:dashboard_locations' %}" class="nav-link link-body-emphasis">
           <span class="fa fa-location"></span>
           &nbsp;Locations
         </a>
@@ -55,14 +55,14 @@
         <div class="card p-2 p-md-4 {% cycle 'card-primary' 'card-secondary' %} text-white">
           <div class="card-body bg-transparent border border-0">
             <h5 class="event-title fs-2 fw-bold m-0 p-0">
-              <a href="{% url 'organisation' org.slug %}" class="text-white text-decoration-none">{{ org.name }}</a>
+              <a href="{% url 'info:organisation' org.slug %}" class="text-white text-decoration-none">{{ org.name }}</a>
             </h5>
             <p class="event-text mt-2">{{ org.description|slice:":80" }}</p>
           </div>
 
           <div class="card-footer bg-transparent border border-0 d-flex flex-row justify-content-between align-items-center">
             <div class="event-button">
-              <a class="btn text-white fs-5 border border-2 px-2 m-0" href="{% url 'dashboard_org' org.slug %}"><i class="fa fa-edit"></i> Edit</a>
+              <a class="btn text-white fs-5 border border-2 px-2 m-0" href="{% url 'info:dashboard_org' org.slug %}"><i class="fa fa-edit"></i> Edit</a>
             </div>
           </div>
         </div>

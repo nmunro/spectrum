@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% load tags %}
+
+{% block nav %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb mx-3 mt-3">
+      <li class="breadcrumb-item fw-bold text-uppercase"><a href="{% url 'info:index' %}">Home</a></li>
+      <li class="breadcrumb-item fw-bold text-uppercase"><a href="{% url 'help:overview' %}">Help</a></li>
+      <li class="breadcrumb-item fw-bold text-uppercase"><a href="{% url 'help:resources' %}">Resources</a></li>
+      <li class="breadcrumb-item text-uppercase">Edit</li>
+    </ol>
+  </nav>
+{% endblock %}
+
+{% block content %}
+  <div class="row px-5">
+    <div class="col-md-4 mb-4">
+      <h1>Help: Edit Resource</h1>
+    </div>
+  </div>
+
+  <div class="row px-5">
+    <div class="col-md-12 mb-12">
+      <p>Editing a resource is a similar process to <a href="{% url 'help:resources_add' %}">adding a resources</a>, from the <a href="{% url 'help:resources' %}">list of resources</a>, select the <a href="{% url 'help:resources' %}">resource</a> you wish to edit, and click the "edit" button.</p>
+      <img class="img-fluid" src="{% static 'help/resources_added.png' %}"></img>
+      <p>You will be presented with the same form, like with <a href="{% url 'help:resources_add' %}">adding a resource</a>, cancelling the form will return the user to the <a href="{% url 'help:resources' %}">list of resources</a>, saving the form will update its information.</p>
+      <img class="img-fluid" src="{% static 'help/resources_add.png' %}"></img>
+
+    </div>
+  </div>
+{% endblock %}

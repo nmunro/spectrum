@@ -32,7 +32,7 @@ class Organisation(models.Model):
     slug = models.SlugField(max_length=255)
 
     def get_absolute_url(self) -> str:
-        return reverse("organisation", kwargs={"org": self.slug})
+        return reverse("info:organisation", kwargs={"org": self.slug})
 
     def __repr__(self) -> str:
         return f"<Organisation: {str(self)}>"
@@ -78,10 +78,10 @@ class Resource(models.Model):
     tags = TaggableManager(blank=True)
 
     def get_absolute_url(self) -> str:
-        return reverse("resource", kwargs={"pk": self.pk})
+        return reverse("info:resource", kwargs={"pk": self.pk})
 
     def get_list_url(self) -> str:
-        return reverse("resources")
+        return reverse("info:resources")
 
     def __repr__(self) -> str:
         return f"<Resource: {str(self)}>"
@@ -127,10 +127,10 @@ class Event(models.Model):
         ])
 
     def get_absolute_url(self) -> str:
-        return reverse("event", kwargs={"pk": self.pk})
+        return reverse("info:event", kwargs={"pk": self.pk})
 
     def get_list_url(self) -> str:
-        return reverse("events")
+        return reverse("info:events")
 
     def __repr__(self) -> str:
         return f"<Event: {str(self)}>"

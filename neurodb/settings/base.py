@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'phone_field',
     'taggit',
+    'help',
     'info',
     'whitenoise.runserver_nostatic',
 ]

@@ -5,8 +5,8 @@
 {% block nav %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb mx-3 mt-3">
-      <li class="breadcrumb-item fw-bold"><a href="{% url 'index' %}" class="text-uppercase text-decoration-none">Home</a></li>
-      <li class="breadcrumb-item fw-bold"><a href="{% url 'resources' %}" class="text-uppercase text-decoration-none">Resources</a></li>
+      <li class="breadcrumb-item fw-bold"><a href="{% url 'info:index' %}" class="text-uppercase text-decoration-none">Home</a></li>
+      <li class="breadcrumb-item fw-bold"><a href="{% url 'info:resources' %}" class="text-uppercase text-decoration-none">Resources</a></li>
       <li class="breadcrumb-item active text-uppercase">{{ resource.name }}</li>
     </ol>
 </nav>
@@ -19,7 +19,7 @@
     <p>{{ resource.description }}</p>
     <p>
       {% for tag in resource.tags.all %}
-        <a href="{% url 'index' %}?search={{ tag }}">{{ tag }}</a>{% if not forloop.last %},&nbsp;{% endif %}
+        <a href="{% url 'info:index' %}?search={{ tag }}">{{ tag }}</a>{% if not forloop.last %},&nbsp;{% endif %}
       {% endfor %}
     </p>
   </div>

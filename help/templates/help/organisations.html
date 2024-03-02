@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+{% load tags %}
+
+{% block nav %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb mx-3 mt-3">
+      <li class="breadcrumb-item fw-bold text-uppercase"><a href="{% url 'info:index' %}">Home</a></li>
+      <li class="breadcrumb-item fw-bold text-uppercase"><a href="{% url 'help:overview' %}">Help</a></li>
+      <li class="breadcrumb-item text-uppercase">Organisations</li>
+    </ol>
+  </nav>
+{% endblock %}
+
+{% block content %}
+  <div class="row px-5">
+    <div class="col-md-12 mb-12">
+      <h1>Help: Organisations</h1>
+    </div>
+  </div>
+
+  <div class="row px-5">
+    <div class="col-md-12 mb-12">
+      <p>Organisations are a way to arrange related <a href="{% url 'help:events' %}">events</a> and <a href="{% url 'help:resources' %}">resources</a> that people may attend or take advantage of.</p>
+      <p>Organisations are a special type of object in Spectrum, users do not have the permission to create or delete organisations. If an organisation needs to be created or deleted, a Spectrum administrator must be contacted.</p>
+      <p>It is possible to <a href="{% url 'help:organisations_edit' %}">edit</a> an organisation.</p>
+    </div>
+  </div>
+{% endblock %}

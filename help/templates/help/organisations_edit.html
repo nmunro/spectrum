@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+{% load tags %}
+
+{% block nav %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb mx-3 mt-3">
+      <li class="breadcrumb-item fw-bold text-uppercase"><a href="{% url 'info:index' %}">Home</a></li>
+      <li class="breadcrumb-item fw-bold text-uppercase"><a href="{% url 'help:overview' %}">Help</a></li>
+      <li class="breadcrumb-item fw-bold text-uppercase"><a href="{% url 'help:organisations' %}">Organisations</a></li>
+      <li class="breadcrumb-item text-uppercase">Edit</li>
+    </ol>
+  </nav>
+{% endblock %}
+
+{% block content %}
+  <div class="row px-5">
+    <div class="col-md-12 mb-12">
+      <h1>Help: Edit Organisations</h1>
+    </div>
+  </div>
+
+  <div class="row px-5">
+    <div class="col-md-12 mb-12">
+      <p>Editing an organisation is easy, simply select the organisation to edit, and click the "Edit" button.</p>
+      <img class="img-fluid" src="{% static 'help/organisations.png' %}"></img>
+      <p>You will be presented with the organisation edit form, cancelling the form will return the user to the <a href="{% url 'help:organisations' %}">list of organisations</a>, saving the form will update its information.</p>
+      <img class="img-fluid" src="{% static 'help/organisations_edit.png' %}"></img>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+{% load tags %}
+
+{% block nav %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb mx-3 mt-3">
+      <li class="breadcrumb-item fw-bold text-uppercase"><a href="{% url 'info:index' %}">Home</a></li>
+      <li class="breadcrumb-item fw-bold text-uppercase"><a href="{% url 'help:overview' %}">Help</a></li>
+      <li class="breadcrumb-item fw-bold text-uppercase"><a href="{% url 'help:locations' %}">Locations</a></li>
+      <li class="breadcrumb-item text-uppercase">Add</li>
+    </ol>
+  </nav>
+{% endblock %}
+
+{% block content %}
+  <div class="row px-5">
+    <div class="col-md-12 mb-12">
+      <h1>Help: Add Location</h1>
+    </div>
+  </div>
+
+  <div class="row px-5">
+    <div class="col-md-12 mb-12">
+      <p>Adding a location to an <a href="{% url 'help:organisations' %}">organisation</a> requires at least three <em>required</em> field(s) and two <em>optional</em> field(s). As seen in the screenshot below. Fields indicated with an asterisk (*) are required and must be provided.</p>
+      <p>Any given user may be responsible for managing multiple <a href="{% url 'help:organisations' %}">organisations</a> and as such when creating a location they must select the <a href="{% url 'help:organisations' %}">organisation</a> the <a href="{% url 'help:locations' %}">location</a> will belong to. If you only manage one <a href="{% url 'help:organisations' %}">organisation</a> you will only see one in the drop down.</p>
+      <p>To create a <a href="{% url 'help:locations' %}">location</a> one must select the "Create New" button from the <a href="{% url 'help:locations' %}">previous</a> page. If there are any errors in the form, these will be displayed with a warning. To cancel creating a <a href="{% url 'help:locations' %}">location</a> click the red cancel button, this will return the user to the list of locations.<p>
+      <img class="img-fluid" src="{% static 'help/locations_add.png' %}"></img>
+      <p>Saving the form will likewise return the user to the list of locations.</p>
+      <img class="img-fluid" src="{% static 'help/locations_added.png' %}"></img>
+    </div>
+  </div>
+{% endblock %}

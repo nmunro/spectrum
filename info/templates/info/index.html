@@ -30,7 +30,7 @@
         <tbody>
           {% for result in results %}
             <tr>
-              <td><a href="{% url 'organisation' result.organisation.slug %}">{{ result.organisation.name }}</a></td>
+              <td><a href="{% url 'info:organisation' result.organisation.slug %}">{{ result.organisation.name }}</a></td>
               <td><a href="{{ result.get_absolute_url }}">{{ result.name }}</a></td>
               <td><a href="{{ result.get_list_url }}">{{ result|class_name }}</a></td>
             </tr>

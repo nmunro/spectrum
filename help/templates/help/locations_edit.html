@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+{% load tags %}
+
+{% block nav %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb mx-3 mt-3">
+      <li class="breadcrumb-item fw-bold text-uppercase"><a href="{% url 'info:index' %}">Home</a></li>
+      <li class="breadcrumb-item fw-bold text-uppercase"><a href="{% url 'help:overview' %}">Help</a></li>
+      <li class="breadcrumb-item fw-bold text-uppercase"><a href="{% url 'help:locations' %}">Locations</a></li>
+      <li class="breadcrumb-item text-uppercase">Edit</li>
+    </ol>
+  </nav>
+{% endblock %}
+
+{% block content %}
+  <div class="row px-5">
+    <div class="col-md-12 mb-12">
+      <h1>Help: Edit Location</h1>
+    </div>
+  </div>
+
+  <div class="row px-5">
+    <div class="col-md-12 mb-12">
+      <p>Editing a location is a similar process to <a href="{% url 'help:locations_add' %}">adding a location</a>, from the <a href="{% url 'help:locations' %}">list of locations</a>, select the <a href="{% url 'help:locations' %}">location</a> you wish to edit, and click the "edit" button.</p>
+      <img class="img-fluid" src="{% static 'help/locations.png' %}"></img>
+      <p>You will be presented with the same form, like with <a href="{% url 'help:locations_add' %}">adding a location</a>, cancelling the form will return the user to the <a href="{% url 'help:locations' %}">list of locations</a>, saving the form will update its information.</p>
+      <img class="img-fluid" src="{% static 'help/locations_edit.png' %}"></img>
+    </div>
+  </div>
+{% endblock %}
