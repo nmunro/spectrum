@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% load tags %}
 
 {% block nav %}
@@ -21,7 +22,11 @@
 
   <div class="row px-5">
     <div class="col-md-12 mb-12">
-      <p>Edit Event</p>
+      <p>Editing an event is a similar process to <a href="{% url 'help:events_add' %}">adding an event</a>, from the <a href="{% url 'help:events' %}">list of events</a>, select the <a href="{% url 'help:events' %}">event</a> you wish to edit, and click the "edit" button.</p>
+      <p>An event requires both a <a href="{% url 'help:contacts' %}">contact</a> and a <a href="{% url 'help:locations' %}">location</a> which must be created prior to creating an event.</p>
+      <img class="img-fluid" src="{% static 'help/events.png' %}"></img>
+      <p>You will be presented with the same form, like with <a href="{% url 'help:events_add' %}">adding an event</a>, cancelling the form will return the user to the <a href="{% url 'help:events' %}">list of events</a>, saving the form will update its information.</p>
+      <img class="img-fluid" src="{% static 'help/events_add.png' %}"></img>
     </div>
   </div>
 {% endblock %}
