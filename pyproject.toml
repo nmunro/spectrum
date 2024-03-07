@@ -27,7 +27,7 @@ django-taggit = "^5.0.1"
 [tool.poetry.dev-dependencies]
 coverage = "^7.1"
 isort = "^5.10"
-black = "^21.10b"
+black = "^24.2"
 sphinx = "^4.2"
 factory-boy = "^3.3.0"
 
