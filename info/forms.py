@@ -50,7 +50,7 @@ class LocationForm(ModelForm):
         model = Location
         fields = [
             'organisation',
-            'name',
+            'venue_name',
             'address',
             'post_code',
         ]
