@@ -1,9 +1,16 @@
+from django.conf import settings
 from django.contrib.postgres.aggregates import StringAgg
 from django.contrib.postgres.search import TrigramStrictWordSimilarity as TSWS
+from django.http import FileResponse, HttpRequest, HttpResponse
 from django.views.generic.base import TemplateView
 
 from .. import forms
 from .. import models
+
+
+def favicon(request: HttpRequest) -> HttpResponse:
+    file = (settings.BASE_DIR / "static" / "images"/ "favicon.ico").open("rb")
+    return FileResponse(file)
 
 class IndexView(TemplateView):
     form_class = forms.EventForm
