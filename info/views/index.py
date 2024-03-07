@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from django.conf import settings
 from django.contrib.postgres.aggregates import StringAgg
 from django.contrib.postgres.search import TrigramStrictWordSimilarity as TSWS
@@ -9,7 +11,7 @@ from .. import models
 
 
 def favicon(request: HttpRequest) -> HttpResponse:
-    file = (settings.BASE_DIR / "static" / "images"/ "favicon.ico").open("rb")
+    file = (Path.cwd() / "static" / "images"/ "favicon.ico").open("rb")
     return FileResponse(file)
 
 class IndexView(TemplateView):
