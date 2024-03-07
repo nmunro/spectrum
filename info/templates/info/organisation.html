@@ -3,8 +3,8 @@
 {% block nav %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb mx-3 mt-3">
-      <li class="breadcrumb-item fw-bold"><a href="{% url 'index' %}" class="text-uppercase text-decoration-none">Home</a></li>
-      <li class="breadcrumb-item fw-bold"><a href="{% url 'organisations' %}" class="text-uppercase text-decoration-none">Organisations</a></li>
+      <li class="breadcrumb-item fw-bold"><a href="{% url 'info:index' %}" class="text-uppercase text-decoration-none">Home</a></li>
+      <li class="breadcrumb-item fw-bold"><a href="{% url 'info:organisations' %}" class="text-uppercase text-decoration-none">Organisations</a></li>
       <li class="breadcrumb-item active text-uppercase">{{ org.name }}</li>
     </ol>
 </nav>
