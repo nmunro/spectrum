@@ -417,18 +417,18 @@ files = [
 
 [[package]]
 name = "crispy-bootstrap5"
-version = "0.7"
+version = "2024.2"
 description = "Bootstrap5 template pack for django-crispy-forms"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "crispy-bootstrap5-0.7.tar.gz", hash = "sha256:0745a67199619149b7feca87dab7a45664876ed50fb582b38fd2aeb3f8a8d869"},
-    {file = "crispy_bootstrap5-0.7-py3-none-any.whl", hash = "sha256:f3ff1ef5cb379fe80b1b02e245008f276444098a4bdb8d855bed84c623798a85"},
+    {file = "crispy-bootstrap5-2024.2.tar.gz", hash = "sha256:7d1fa40c6faf472e30e85c72551a3d2c9eedbf0abfff920683315e4e6f670f2b"},
+    {file = "crispy_bootstrap5-2024.2-py3-none-any.whl", hash = "sha256:3867e320920a6ef156e94f9e0f06a80344c453e1b3bd96cd9dc0522ae9e9afb8"},
 ]
 
 [package.dependencies]
-django = ">=3.2"
-django-crispy-forms = ">=1.13.0"
+django = ">=4.2"
+django-crispy-forms = ">=2"
 
 [package.extras]
 test = ["pytest", "pytest-django"]
@@ -2067,4 +2067,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "377fa8169557600832841fb558d5f2131c354445aefdb606d721ed2338d64dea"
+content-hash = "81b2cec593407fa37dc4e73710f3259ca8bda3201757bdff28f8db52c80428f7"
