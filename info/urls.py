@@ -7,6 +7,7 @@ app_name = "info"
 
 urlpatterns = [
     path("", views.IndexView.as_view(), name="index"),
+    path("favicon.ico", views.favicon, name="favicon"),
     path("organisations/", views.organisations, name="organisations"),
     path("organisations/<str:org>/", views.organisation, name="organisation"),
     path("organisations/<str:org>/resources/", views.organisation_resources, name="organisation_resources"),
