@@ -75,7 +75,7 @@ class Resource(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
 
-    tags = TaggableManager(blank=True)
+    tags = TaggableManager()
 
     def get_absolute_url(self) -> str:
         return reverse("info:resource", kwargs={"pk": self.pk})
@@ -102,7 +102,7 @@ class Event(models.Model):
     ticketed = models.BooleanField(default=False)
     schedules = models.ManyToManyField("Scheduler", related_name="events", blank=True)
 
-    tags = TaggableManager(blank=True)
+    tags = TaggableManager()
 
     class Meta:
         unique_together = ["start_date_time", "location"]

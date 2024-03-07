@@ -41,9 +41,7 @@ class IndexView(TemplateView):
         )
 
     def get(self, request):
-        query = request.GET.get("search")
+        if query := request.GET.get("search"):
+            return self.render_to_response({"results": [*self.filter_events(query), *self.filter_resources(query)]})
 
-        if not query:
-            return self.render_to_response({})
-
-        return self.render_to_response({"results": [*self.filter_events(query), *self.filter_resources(query)]})
+        return self.render_to_response({})
