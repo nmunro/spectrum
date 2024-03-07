@@ -22,7 +22,7 @@ class LocationCreateView(CreateView):
     model = models.Location
     fields = [
         "organisation",
-        "name",
+        "venue_name",
         "address",
         "post_code",
     ]
@@ -40,7 +40,7 @@ class LocationUpdateView(UpdateView):
     model = models.Location
     fields = [
         "organisation",
-        "name",
+        "venue_name",
         "address",
         "post_code",
     ]

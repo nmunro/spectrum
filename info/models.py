@@ -43,7 +43,7 @@ class Organisation(models.Model):
 
 class Location(models.Model):
     organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE, null=True, related_name="locations")
-    name = models.CharField(max_length=255)
+    venue_name = models.CharField(max_length=255)
     address = models.TextField()
     post_code = models.CharField(max_length=10)
 
@@ -51,7 +51,7 @@ class Location(models.Model):
         return f"<Location: {str(self)}>"
 
     def __str__(self) -> str:
-        return str(self.name)
+        return str(self.venue_name)
 
 
 class Contact(models.Model):
