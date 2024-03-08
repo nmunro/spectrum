@@ -43,7 +43,7 @@ class Organisation(models.Model):
 
 class Location(models.Model):
     organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE, null=True, related_name="locations")
-    name = models.CharField(max_length=255)
+    venue_name = models.CharField(max_length=255)
     address = models.TextField()
     post_code = models.CharField(max_length=10)
 
@@ -51,7 +51,7 @@ class Location(models.Model):
         return f"<Location: {str(self)}>"
 
     def __str__(self) -> str:
-        return str(self.name)
+        return str(self.venue_name)
 
 
 class Contact(models.Model):
@@ -75,7 +75,7 @@ class Resource(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
 
-    tags = TaggableManager(blank=True)
+    tags = TaggableManager()
 
     def get_absolute_url(self) -> str:
         return reverse("info:resource", kwargs={"pk": self.pk})
@@ -102,7 +102,7 @@ class Event(models.Model):
     ticketed = models.BooleanField(default=False)
     schedules = models.ManyToManyField("Scheduler", related_name="events", blank=True)
 
-    tags = TaggableManager(blank=True)
+    tags = TaggableManager()
 
     class Meta:
         unique_together = ["start_date_time", "location"]
