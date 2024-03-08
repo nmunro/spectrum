@@ -10,16 +10,11 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Spectrum</h1>
-    <form method="GET" class="row form">
-      <div class="col-lg-11 col-xl-11">
-        <input type="text" name="search" placeholder="search..." class="form-control" />
-      </div>
-      <div class="col-lg-1 col-xl-1">
-        <button type="submit" class="btn btn-primary">Search</button>
-      </div>
-    </form>
-
+    <h1 class="text-center">Spectrum</h1>
+    <form method="GET" class="d-flex col-lg-4  col-md-6 col-xs-12 mx-auto mx-auto">
+      <input type="text" name="search" placeholder="search..." class="form-control" />
+      <button type="submit" class="btn btn-outline-success ms-2">Search</button>
+  </form>
     {% if results %}
       <table class="table">
         <thead>
