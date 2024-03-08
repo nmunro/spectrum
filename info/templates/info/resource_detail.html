@@ -13,15 +13,22 @@
 {% endblock %}
 
 {% block content %}
-<div class="px-4 py-5 my-5 text-center">
-  <h1 class="display-5 fw-bold text-body-emphasis">{{ resource.name }}</h1>
-  <div class="col-lg-6 mx-auto">
-    <p>{{ resource.description }}</p>
-    <p>
-      {% for tag in resource.tags.all %}
-        <a href="{% url 'info:index' %}?search={{ tag }}">{{ tag }}</a>{% if not forloop.last %},&nbsp;{% endif %}
-      {% endfor %}
-    </p>
+<div class="container text-center">
+  <div class="row p-2 p-md-4 card-secondary text-white">
+    <div class="col bg-transparent">
+      <h1>{{ resource.name }}</h1>
+    </div>
+  </div>
+
+  <div class="row p-2 p-md-4 card-primary text-white">
+    <div class="col bg-transparent">
+      <p>{{ resource.description }}</p>
+      <p>
+        {% for tag in resource.tags.all %}
+          <a href="{% url 'info:index' %}?search={{ tag }}">{{ tag }}</a>{% if not forloop.last %},&nbsp;{% endif %}
+        {% endfor %}
+      </p>
+    </div>
   </div>
 </div>
 {% endblock %}
