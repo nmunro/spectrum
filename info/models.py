@@ -13,20 +13,21 @@ from taggit.managers import TaggableManager
 
 
 class Region(models.Model):
-    name = models.CharField(max_length=255)
+    region_name = models.CharField(max_length=255)
 
     def __repr__(self) -> str:
         return f"<Region: {str(self)}>"
 
     def __str__(self) -> str:
-        return str(self.name)
+        return str(self.region_name)
 
 
 class Organisation(models.Model):
-    name = models.CharField(max_length=255, unique=True)
+    organisation_name = models.CharField(max_length=255, unique=True)
     region = models.ForeignKey(Region, on_delete=models.CASCADE)
     email = models.EmailField(max_length=255)
-    website = models.URLField(max_length=255)
+    website = models.URLField(max_length=255, blank=True)
+    phone_number = PhoneField(blank=True, help_text="Contact phone number", default="")
     description = models.TextField()
     admin = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     slug = models.SlugField(max_length=255)
@@ -38,7 +39,7 @@ class Organisation(models.Model):
         return f"<Organisation: {str(self)}>"
 
     def __str__(self) -> str:
-        return str(self.name)
+        return str(self.organisation_name)
 
 
 class Location(models.Model):
@@ -56,7 +57,7 @@ class Location(models.Model):
 
 class Contact(models.Model):
     organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE, null=True)
-    name = models.CharField(max_length=255)
+    contact_name = models.CharField(max_length=255)
     email = models.EmailField()
     phone_number = PhoneField(blank=True, help_text="Contact phone number")
 
@@ -65,14 +66,14 @@ class Contact(models.Model):
 
     def __str__(self) -> str:
         if self.phone_number:
-            return f"{self.name}: {self.email} - {self.phone_number}"
+            return f"{self.contact_name}: {self.email} - {self.phone_number}"
 
-        return f"{self.name}: {self.email}"
+        return f"{self.contact_name}: {self.email}"
 
 
 class Resource(models.Model):
     organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
+    resource_name = models.CharField(max_length=255)
     description = models.TextField()
 
     tags = TaggableManager()
@@ -87,14 +88,14 @@ class Resource(models.Model):
         return f"<Resource: {str(self)}>"
 
     def __str__(self) -> str:
-        return f"{self.organisation.name}: {self.name}"
+        return f"{self.organisation.organisation_name}: {self.resource_name}"
 
 
 class Event(models.Model):
     organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE)
     contact = models.ForeignKey(Contact, on_delete=models.CASCADE, null=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
+    event_name = models.CharField(max_length=255)
     description = models.TextField()
     start_date_time = models.DateTimeField()
     end_date_time = models.DateTimeField()
@@ -136,7 +137,7 @@ class Event(models.Model):
         return f"<Event: {str(self)}>"
 
     def __str__(self) -> str:
-        return f"{self.organisation.name}: {self.name} @ {self.start_date_time}"
+        return f"{self.organisation.organisation_name}: {self.event_name} @ {self.start_date_time}"
 
 
 class Scheduler(models.Model):

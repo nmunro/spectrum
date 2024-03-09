@@ -1,88 +1,46 @@
-{% extends "base.html" %}
+{% extends "dashboard_base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{% static 'info/css/sidebar.css' %}">
 {% endblock %}
 
-{% block content %}
-<main class="d-flex flex-nowrap">
-  <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px;">
-    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-      <span class="fs-4">{{ user.username }}</span>
-    </a>
+{% block resources-class %}active{% endblock %}
 
-    <hr>
+{% block dashboard_content %}
+<div class="row">
+  <div class="col-md-4 mb-4">
+      <div class="card p-2 p-md-4 card-primary text-white">
+          <div class="card-body bg-transparent border border-0">
+            <h5 class="event-title fs-2 fw-bold m-0 p-0">Create New</h5>
+            <p>Create A New Resource</p>
+          </div>
 
-    <ul class="nav nav-pills flex-column mb-auto">
-      <li>
-        <a href="{% url 'info:dashboard' %}" class="nav-link link-body-emphasis">
-          <span class="fa fa-sitemap"></span>
-          &nbsp;Organisations
-        </a>
-      </li>
-      <li>
-        <a href="{% url 'info:dashboard_events' %}" class="nav-link link-body-emphasis">
-          <span class="fa fa-calendar"></span>
-          &nbsp;Events
-        </a>
-      </li>
-      <li>
-        <a href="{% url 'info:dashboard_resources' %}" class="nav-link active link-body-emphasis" aria-current="page">
-          <span class="fa fa-vector-square"></span>
-          &nbsp;Resources
-        </a>
-      </li>
-      <li>
-        <a href="{% url 'info:dashboard_contacts' %}" class="nav-link link-body-emphasis">
-          <span class="fa fa-person"></span>
-          &nbsp;Contacts
-        </a>
-      </li>
-      <li>
-        <a href="{% url 'info:dashboard_locations' %}" class="nav-link link-body-emphasis">
-          <span class="fa fa-location"></span>
-          &nbsp;Locations
-        </a>
-      </li>
-    </ul>
-  </div>
-
-  <div class="container-fluid overflow-auto">
-     <div class="row">
-        <div class="col-md-4 mb-4">
-            <div class="card p-2 p-md-4 card-primary text-white">
-                <div class="card-body bg-transparent border border-0">
-                  <h5 class="event-title fs-2 fw-bold m-0 p-0">Create New</h5>
-                  <p>Create A New Resource</p>
-                </div>
-
-                <div class="card-footer bg-transparent border border-0 d-flex flex-row justify-content-between align-items-center">
-                  <div class="event-button">
-                    <a href="{% url 'info:new_dashboard_resource' %}" class="btn text-white fs-5 border border-2 px-2 m-0"><i class="fa fa-plus"></i> Create New</a>
-                  </div>
-                </div>
-            </div>
-        </div>
-
-        {% for resource in resources %}
-            <div class="col-md-4 mb-4">
-                <div class="card p-2 p-md-4 {% cycle 'card-secondary' 'card-primary' %} text-white">
-                    <div class="card-body">
-                      <h5 class="event-title fs-2 fw-bold m-0 p-0">{{ resource.name }}</h5>
-                      <p>{{ resource.description }}</p>
-                    </div>
-
-                    <div class="card-footer bg-transparent border border-0 d-flex flex-row justify-content-between align-items-center">
-                      <div class="event-button">
-                        <a href="{% url 'info:dashboard_resource' resource.id %}" class="btn text-white fs-5 border border-2 px-2 m-0"><i class="fa fa-edit"></i> Edit</a>
-                        <a href="{% url 'info:delete_dashboard_resource' resource.id %}" class="btn text-white fs-5 border border-2 px-2 m-0"><i class="fa fa-cancel"></i> Delete</a>
-                    </div>
-                </div>
+          <div class="card-footer bg-transparent border border-0 d-flex flex-row justify-content-between align-items-center">
+            <div class="event-button">
+              <a href="{% url 'info:new_dashboard_resource' %}" class="btn text-white fs-5 border border-2 px-2 m-0"><i class="fa fa-plus"></i> Create New</a>
             </div>
           </div>
-        {% endfor %}
-     </div>
+      </div>
   </div>
-</main>
+
+  {% for resource in resources %}
+      <div class="col-md-4 mb-4">
+          <div class="card p-2 p-md-4 {% cycle 'card-secondary' 'card-primary' %} text-white">
+              <div class="card-body">
+                <h5 class="event-title fs-2 fw-bold m-0 p-0">{{ resource.resource_name }}</h5>
+                <p>{{ resource.description }}</p>
+              </div>
+
+              <div class="card-footer bg-transparent border border-0 d-flex flex-row justify-content-between align-items-center">
+                <div class="event-button">
+                  <a href="{% url 'info:dashboard_resource' resource.id %}" class="btn text-white fs-5 border border-2 px-2 m-0"><i class="fa fa-edit"></i> Edit</a>
+                  <a href="{% url 'info:delete_dashboard_resource' resource.id %}" class="btn text-white fs-5 border border-2 px-2 m-0"><i class="fa fa-cancel"></i> Delete</a>
+              </div>
+          </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
 {% endblock %}

@@ -7,7 +7,7 @@
     <ol class="breadcrumb mx-3 mt-3">
       <li class="breadcrumb-item fw-bold"><a href="{% url 'info:index' %}" class="text-uppercase text-decoration-none">Home</a></li>
       <li class="breadcrumb-item fw-bold"><a href="{% url 'info:resources' %}" class="text-uppercase text-decoration-none">Resources</a></li>
-      <li class="breadcrumb-item active text-uppercase">{{ resource.name }}</li>
+      <li class="breadcrumb-item active text-uppercase">{{ resource.resource_name }}</li>
     </ol>
 </nav>
 {% endblock %}
@@ -16,7 +16,7 @@
 <div class="container text-center">
   <div class="row p-2 p-md-4 card-secondary text-white">
     <div class="col bg-transparent">
-      <h1>{{ resource.name }}</h1>
+      <h1>{{ resource.resource_name }}</h1>
     </div>
   </div>
 

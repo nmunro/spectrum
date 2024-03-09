@@ -22,7 +22,7 @@ class IndexView(TemplateView):
         return models.Event.objects.annotate(
             tags_str=StringAgg("tags__name", delimiter=" "),
         ).annotate(
-            similarity=TSWS(query, "name") + TSWS(query, "description") + TSWS(query, "tags_str"),
+            similarity=TSWS(query, "event_name") + TSWS(query, "description") + TSWS(query, "tags_str"),
         ).filter(
             similarity__gte=0.2
         ).order_by(
@@ -33,7 +33,7 @@ class IndexView(TemplateView):
         return models.Resource.objects.annotate(
             tags_str=StringAgg("tags__name", delimiter=" "),
         ).annotate(
-            similarity=TSWS(query, "name") + TSWS(query, "description") + TSWS(query, "tags_str"),
+            similarity=TSWS(query, "resource_name") + TSWS(query, "description") + TSWS(query, "tags_str"),
         ).filter(
             similarity__gte=0.2
         ).order_by(
