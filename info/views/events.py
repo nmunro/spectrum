@@ -34,7 +34,7 @@ class EventCreateView(CreateView):
     model = models.Event
     fields = [
         "organisation",
-        "name",
+        "event_name",
         "description",
         "location",
         "contact",
@@ -58,7 +58,7 @@ class EventUpdateView(UpdateView):
     model = models.Event
     fields = [
         "organisation",
-        "name",
+        "event_name",
         "description",
         "location",
         "contact",

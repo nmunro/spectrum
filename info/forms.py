@@ -7,7 +7,7 @@ class ContactForm(ModelForm):
         model = Contact
         fields = [
             'organisation',
-            'name',
+            'contact_name',
             'email',
             'phone_number',
         ]
@@ -15,14 +15,14 @@ class ContactForm(ModelForm):
 class OrgForm(ModelForm):
     class Meta:
         model = Organisation
-        fields = ['description', 'region', 'email', 'website']
+        fields = ['description', 'region', 'email', 'website', 'phone_number']
 
 class EventForm(ModelForm):
     class Meta:
         model = Event
         fields = [
             'organisation',
-            'name',
+            'event_name',
             'description',
             'location',
             'contact',
@@ -39,7 +39,7 @@ class ResourceForm(ModelForm):
         model = Resource
         fields = [
             'organisation',
-            'name',
+            'resource_name',
             'description',
             'tags',
         ]

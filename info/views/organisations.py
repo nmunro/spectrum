@@ -5,7 +5,11 @@ from .. import models
 
 
 def organisations(request):
-    return render(request, "info/organisations.html", {"orgs": models.Organisation.objects.all().order_by("name")})
+    return render(
+        request,
+        "info/organisations.html",
+        {"orgs": models.Organisation.objects.all().order_by("organisation_name")}
+    )
 
 def organisation(request, org: str):
     return render(request, "info/organisation.html", {"org": get_object_or_404(models.Organisation, slug=org)})

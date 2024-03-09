@@ -6,7 +6,7 @@
       <li class="breadcrumb-item fw-bold"><a href="{% url 'info:index' %}" class="text-uppercase text-decoration-none">Home</a></li>
       {% if org %}
         <li class="breadcrumb-item fw-bold"><a href="{% url 'info:resources' %}" class="text-uppercase text-decoration-none">Resources</a></li>
-        <li class="breadcrumb-item text-uppercase">{{ org.name }}</li>
+        <li class="breadcrumb-item text-uppercase">{{ org.organisation_name }}</li>
       {% else %}
         <li class="breadcrumb-item text-uppercase">Resources</li>
       {% endif %}
@@ -23,13 +23,12 @@
         <div class="card p-2 p-md-4 {% cycle 'card-primary' 'card-secondary' %} text-white">
           <div class="card-body bg-transparent border border-0">
             <h5 class="event-title fs-2 fw-bold m-0 p-0">
-                <a href="{% url 'info:resource' resource.id %}" class="text-white text-decoration-none">{{ resource.name }}</a>
+                <a href="{% url 'info:resource' resource.id %}" class="text-white text-decoration-none">{{ resource.resource_name }}</a>
             </h5>
-            <p class="event-text mt-2"><a href="{% url 'info:organisation' resource.organisation.slug %}" class="text-white text-decoration-none">{{ resource.organisation.name }}</a></p>
+            <p class="event-text mt-2"><a href="{% url 'info:organisation' resource.organisation.slug %}" class="text-white text-decoration-none">{{ resource.organisation.organisation_name }}</a></p>
          </div>
 
         <div class="card-body bg-transparent border border-0">
-          <h5 class="event-title fs-2 fw-bold m-0 p-0"><a href="{% url 'info:resource' resource.id %}" class="text-white text-decoration-none">{{ event.name }}</a></h5>
           <p class="event-text mt-2">{{ resource.description|slice:":80" }}</p>
         </div>
 

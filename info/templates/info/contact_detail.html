@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "dashboard_base.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
 
@@ -6,60 +6,18 @@
     <link rel="stylesheet" href="{% static 'info/css/sidebar.css' %}">
 {% endblock %}
 
-{% block content %}
-<main class="d-flex flex-nowrap">
-  <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px;">
-    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-      <span class="fs-4">{{ user.username }}</span>
-    </a>
+{% block contacts-class %}active{% endblock %}
 
-    <hr>
-
-    <ul class="nav nav-pills flex-column mb-auto">
-      <li>
-        <a href="{% url 'dashboard' %}" class="nav-link link-body-emphasis">
-          <span class="fa fa-sitemap"></span>
-          &nbsp;Organisations
-        </a>
-      </li>
-      <li>
-        <a href="{% url 'dashboard_events' %}" class="nav-link link-body-emphasis">
-          <span class="fa fa-calendar"></span>
-          &nbsp;Events
-        </a>
-      </li>
-      <li>
-        <a href="{% url 'dashboard_resources' %}" class="nav-link link-body-emphasis">
-          <span class="fa fa-vector-square"></span>
-          &nbsp;Resources
-        </a>
-      </li>
-      <li>
-        <a href="{% url 'dashboard_contacts' %}" class="nav-link active link-body-emphasis" aria-current="page">
-          <span class="fa fa-person"></span>
-          &nbsp;Contacts
-        </a>
-      </li>
-      <li>
-        <a href="{% url 'dashboard_locations' %}" class="nav-link link-body-emphasis">
-          <span class="fa fa-location"></span>
-          &nbsp;Locations
-        </a>
-      </li>
-    </ul>
+{% block dashboard_content %}
+<div class="row px-5">
+  <div class="col">
+    <h2>{{ org.name }}</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="submit" class="btn btn-primary" value="Save"/>
+      <a href="{% url 'dashboard_contacts' %}" class="btn btn-danger">Cancel</a>
+    </form>
   </div>
-
-  <div class="container-fluid overflow-auto">
-    <div class="row px-5">
-        <form method="POST">
-            {% csrf_token %}
-            {{ form|crispy }}
-            <input type="submit" class="btn btn-primary" value="Save"/>
-            <a href="{% url 'dashboard_contacts' %}" class="btn btn-danger">Cancel</a>
-        </form>
-    </div>
-  </div>
-</main>
+</div>
 {% endblock %}
-
-

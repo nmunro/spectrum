@@ -3,7 +3,7 @@ from django.contrib import admin
 from . import models
 
 class OrganisationAdmin(admin.ModelAdmin):
-    prepopulated_fields = {"slug": ("name",)}
+    prepopulated_fields = {"slug": ("organisation_name",)}
 
 admin.site.register(models.Region)
 admin.site.register(models.Location)

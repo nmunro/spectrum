@@ -29,7 +29,7 @@ class ResourceListview(ListView):
 
 class ResourceCreateView(CreateView):
     model = models.Resource
-    fields = ["organisation", "name", "description", "tags"]
+    fields = ["organisation", "resource_name", "description", "tags"]
 
     def get_success_url(self) -> str:
         return reverse_lazy("info:dashboard_resources")
@@ -42,7 +42,7 @@ class ResourceCreateView(CreateView):
 
 class ResourceUpdateView(UpdateView):
     model = models.Resource
-    fields = ["organisation", "name", "description", "tags"]
+    fields = ["organisation", "resource_name", "description", "tags"]
 
     def get_success_url(self) -> str:
         return reverse_lazy("info:dashboard_resources")
