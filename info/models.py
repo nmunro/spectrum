@@ -15,6 +15,10 @@ from taggit.managers import TaggableManager
 class Region(models.Model):
     region_name = models.CharField(max_length=255)
 
+    @property
+    def name(self) -> str:
+        return str(self.region_name)
+
     def __repr__(self) -> str:
         return f"<Region: {str(self)}>"
 
@@ -32,6 +36,10 @@ class Organisation(models.Model):
     admin = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     slug = models.SlugField(max_length=255)
 
+    @property
+    def name(self) -> str:
+        return str(self.organisation_name)
+
     def get_absolute_url(self) -> str:
         return reverse("info:organisation", kwargs={"org": self.slug})
 
@@ -48,6 +56,10 @@ class Location(models.Model):
     address = models.TextField()
     post_code = models.CharField(max_length=10)
 
+    @property
+    def name(self) -> str:
+        return str(self.location_name)
+
     def __repr__(self) -> str:
         return f"<Location: {str(self)}>"
 
@@ -60,6 +72,10 @@ class Contact(models.Model):
     contact_name = models.CharField(max_length=255)
     email = models.EmailField()
     phone_number = PhoneField(blank=True, help_text="Contact phone number")
+
+    @property
+    def name(self) -> str:
+        return str(self.contact_name)
 
     def __repr__(self) -> str:
         return f"<Contact: {str(self)}>"
@@ -77,6 +93,10 @@ class Resource(models.Model):
     description = models.TextField()
 
     tags = TaggableManager()
+
+    @property
+    def name(self) -> str:
+        return str(self.resource_name)
 
     def get_absolute_url(self) -> str:
         return reverse("info:resource", kwargs={"pk": self.pk})
@@ -107,6 +127,10 @@ class Event(models.Model):
 
     class Meta:
         unique_together = ["start_date_time", "location"]
+
+    @property
+    def name(self) -> str:
+        return str(self.event_name)
 
     @property
     def format_duration(self) -> str:
