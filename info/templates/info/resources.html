@@ -1,5 +1,10 @@
 {% extends "base.html" %}
-
+{% load static %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{% static 'info/css/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'info/css/base.css' %}">
+{% endblock %}
+{% block resource-active %}active active-background{% endblock %}
 {% block nav %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb mx-3 mt-3">
@@ -45,4 +50,7 @@
         <h2>No Resources</h2>
       </div>
     {% endfor %}
+{% endblock %}
+{% block js %} 
+<script src="{% static 'info/css/base.js' %}"></script>
 {% endblock %}

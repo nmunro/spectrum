@@ -4,6 +4,7 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{% static 'info/css/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'info/css/base.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -65,6 +66,7 @@
 
 {% block js %}
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   
     <script>
         async function postData(event) {
             const csrf_token = document.querySelector('input[name="csrfmiddlewaretoken"]');
@@ -105,4 +107,7 @@
             })
         });
     </script>
+{% endblock %}
+{% block js %} 
+<script src="{% static 'info/css/base.js' %}"></script>
 {% endblock %}

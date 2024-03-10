@@ -1,6 +1,11 @@
 {% extends "base.html" %}
-
+{% load static %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{% static 'info/css/base.css' %}">
+{% endblock %}
+{% block events-active %}active active-background{% endblock %}
 {% block nav %}
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb mx-3 mt-3">
       <li class="breadcrumb-item fw-bold"><a href="{% url 'info:index' %}" class="text-uppercase text-decoration-none">Home</a></li>
@@ -42,4 +47,7 @@
       </div>
     </div>
   </div>
+{% endblock %}
+{% block js %} 
+<script src="{% static 'info/css/base.js' %}"></script>
 {% endblock %}

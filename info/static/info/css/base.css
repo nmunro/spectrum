@@ -1,2 +1,1 @@
-.active:hover{background-color:orange;}
-.hello{color: blue;}
+.active:focus{background-color:grey;}

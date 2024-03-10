@@ -3,6 +3,7 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{% static 'info/css/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'info/css/base.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -85,4 +86,7 @@
   </div>
 </div>
 </main>
+{% endblock %}
+{% block js %} 
+<script src="{% static 'info/css/base.js' %}"></script>
 {% endblock %}

@@ -2,10 +2,10 @@
 
 
 :root {
-  --primary-blue: #003b51;
+  --primary-blue: lightseagreen;
   --secondary-blue: #007195;
-  --primary-red: #C91A37;
-  --secondary-red: #C10018;
+  --primary-red:salmon;
+  --secondary-red: lemonchiffon;
   --black: #000000;
   --white: #FFFFFF;
 }
@@ -63,3 +63,5 @@ body {
 .event-day {
   font-size: 32px;
 }
+
+.active-background{background-color:grey;}

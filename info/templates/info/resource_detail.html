@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
-
+{% block stylesheets %}
+    <link rel="stylesheet" href="{% static 'info/css/base.css' %}">
+{% endblock %}
+{% block resource-active %}active active-background{% endblock %}
 {% block nav %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb mx-3 mt-3">
@@ -24,4 +27,7 @@
     </p>
   </div>
 </div>
+{% endblock %}
+{% block js %} 
+<script src="{% static 'info/css/base.js' %}"></script>
 {% endblock %}
