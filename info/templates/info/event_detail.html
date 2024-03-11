@@ -16,14 +16,14 @@
 {% endblock %}
 
 {% block content %}
-  <div class="px-4 py-5 my-5 text-center">
+  <div class="px-4 py-5 my-5 text-center border shadow w-75 mx-auto text-break">
     <h1 class="display-5 fw-bold text-body-emphasis">{{ event.name }}</h1>
     {% if event.ticketed %}
       <div class="alert alert-primary" role="alert">
         <p>Please note this is a ticketed event and entry on the door is not possible, please ensure you have your ticket ready to show upon entry.</p>
       </div>
     {% endif %}
-    <div class="col-lg-12 mx-auto">
+    <div>
       <p>
         {{ event.description }}
       </p>

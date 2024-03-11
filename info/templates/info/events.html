@@ -22,20 +22,20 @@
 
 {% block content %}
 <div class="page">
-  <h1 class="page-title text-uppercase fw-bold">Events</h1>
+  <h1 class="page-title text-uppercase fw-bold text-center">Events</h1>
   <div class="row">
     {% for event in events %}
-      <div class="col-md-4 mb-4">
-        <div class="card p-2 p-md-4 {% cycle "card-primary" "card-secondary" %} text-white">
+      <div class="col-md-4">
+        <div  class="card h-100 p-2  p-md-4 {% cycle 'card-primary' 'card-secondary' %} text-white">
           <div class="card-header bg-transparent border border-0">
             <p class="event-month text-uppercase fw-medium m-0 p-0">{{ event.start_date_time|date:"M - Y" }}</p>
             <p class="event-day fw-bold m-0 p-0">{{ event.start_date_time|date:"d" }}</p>
           </div>
           <div class="card-body bg-transparent border border-0">
             <h5 class="event-title fs-2 fw-bold m-0 p-0"><a href="{% url 'info:event' event.id %}" class="text-white text-decoration-none">{{ event.name }}</a></h5>
-            <p class="event-text mt-2">{{ event.description|slice:":80" }}</p>
+            <p  class="event-text">{{ event.description|slice:":80" }}</p>
           </div>
-          <div class="card-footer bg-transparent border border-0 d-flex flex-row justify-content-between align-items-center">
+          <div class="card-footer bg-transparent border  border-0 d-flex flex-row justify-content-between align-items-center">
             <div class="event-location">
               <p class="event-date fw-medium my-0 py-0">Starts: {{ event.start_date_time.time|time:"H:i" }}</p>
               <p class="event-date fw-medium my-0 py-0">Length: {{ event.format_duration }}</p>

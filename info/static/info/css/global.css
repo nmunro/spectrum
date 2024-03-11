@@ -12,7 +12,8 @@
 
 body {
   font-family: 'Maven Pro', sans-serif;
-  color: var(--primary-blue);
+  color: var(--black);
+
 }
 
 .breadcrumb, .breadcrumb a{
