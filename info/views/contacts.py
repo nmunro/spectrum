@@ -20,7 +20,7 @@ class ContactCreateView(CreateView):
     model = models.Contact
     fields = [
         "organisation",
-        "name",
+        "contact_name",
         "email",
         "phone_number",
     ]
@@ -38,7 +38,7 @@ class ContactUpdateView(UpdateView):
     model = models.Contact
     fields = [
         "organisation",
-        "name",
+        "contact_name",
         "email",
         "phone_number",
     ]

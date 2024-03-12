@@ -5,7 +5,6 @@
 {% endblock %}
 {% block events-active %}active active-background{% endblock %}
 {% block nav %}
-
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb mx-3 mt-3">
       <li class="breadcrumb-item fw-bold"><a href="{% url 'info:index' %}" class="text-uppercase text-decoration-none">Home</a></li>
@@ -16,37 +15,42 @@
 {% endblock %}
 
 {% block content %}
-  <div class="px-4 py-5 my-5 text-center border shadow w-75 mx-auto text-break">
-    <h1 class="display-5 fw-bold text-body-emphasis">{{ event.name }}</h1>
-    {% if event.ticketed %}
-      <div class="alert alert-primary" role="alert">
+
+  <div style="height:500px" class="border shadow w-75 
+  mx-auto text-break text-center overflow-auto p-5">
+   
+      <h1>{{ event.name }}</h1>
+ 
+ 
+
+  
+      {% if event.ticketed %}
+      <div class="alert alert-primary">
         <p>Please note this is a ticketed event and entry on the door is not possible, please ensure you have your ticket ready to show upon entry.</p>
-      </div>
-    {% endif %}
-    <div>
-      <p>
-        {{ event.description }}
-      </p>
+        </div>
+      {% endif %}
+      <p>{{ event.description }}</p>
+      <p>{{ event.price }}</p>
       <p>Starts: {{ event.start_date_time }}</p>
       <p>Ends: {{ event.end_date_time }}</p>
-      <div>
+     
         <h4>Location:</h4>
-        <p>{{ event.location.name }}</p>
+        <p>{{ event.location.venue_name }}</p>
         <p>{{ event.location.address }}</p>
         <p>{{ event.location.post_code }}</p>
-      </div>
-      <div>
+     
+    
         <p>{{ event.contact }}</p>
-      </div>
-      <div>
+     
+    
         <p>
           {% for tag in event.tags.all %}
             <a href="{% url 'info:index' %}?search={{ tag }}">{{ tag }}</a>{% if not forloop.last %},&nbsp;{% endif %}
           {% endfor %}
         </p>
-      </div>
+     
     </div>
-  </div>
+ 
 {% endblock %}
 {% block js %} 
 <script src="{% static 'info/css/base.js' %}"></script>
