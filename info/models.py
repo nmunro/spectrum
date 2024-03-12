@@ -58,7 +58,7 @@ class Location(models.Model):
 
     @property
     def name(self) -> str:
-        return str(self.location_name)
+        return str(self.venue_name)
 
     def __repr__(self) -> str:
         return f"<Location: {str(self)}>"
