@@ -1,10 +1,4 @@
 {% extends "base.html" %}
-
-{% load static %}
-{% block stylesheets %}
-    <link rel="stylesheet" href="{% static 'info/css/base.css' %}">
-{% endblock %}
-
 {% block events-active %}active active-background{% endblock %}
 {% block nav %}
 <nav aria-label="breadcrumb">
@@ -54,7 +48,4 @@
     {% endfor %}
   </div>
 </div>
-{% endblock %}
-{% block js %} 
-<script src="{% static 'info/css/base.js' %}"></script>
 {% endblock %}

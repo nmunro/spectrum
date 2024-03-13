@@ -2,7 +2,6 @@
 {% load static %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{% static 'info/css/sidebar.css' %}">
-    <link rel="stylesheet" href="{% static 'info/css/base.css' %}">
 {% endblock %}
 {% block resource-active %}active active-background{% endblock %}
 {% block nav %}
@@ -18,7 +17,6 @@
     </ol>
   </nav>
 {% endblock %}
-
 {% block content %}
   <div class="page">
     <h1 class="page-title text-uppercase fw-bold">Resources</h1>
@@ -49,7 +47,4 @@
         <h2>No Resources</h2>
       </div>
     {% endfor %}
-{% endblock %}
-{% block js %} 
-<script src="{% static 'info/css/base.js' %}"></script>
 {% endblock %}

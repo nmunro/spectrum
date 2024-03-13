@@ -1,21 +1,16 @@
 {% extends "dashboard_base.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
-
 {% block stylesheets %}
     <link rel="stylesheet" href="{% static 'info/css/sidebar.css' %}">
-    <link rel="stylesheet" href="{% static 'info/css/base.css' %}">
 {% endblock %}
-
 {% block events-class %}active{% endblock %}
-
 {% block dashboard_content %}
 <a href="{% url 'info:new_dashboard_event' %}">
   <button class="btn btn-success btn-lg rounded-pill"> Create New 
    <i class="fa fa-plus"></i> 
  </button>
  </a>
-
 <div class="row m-3">
 {% for event in events %}
   <div class="col-md-6">
@@ -35,7 +30,4 @@
   </div>
 {% endfor %}
 </div>
-{% endblock %}
-{% block js %} 
-<script src="{% static 'info/css/base.js' %}"></script>
 {% endblock %}

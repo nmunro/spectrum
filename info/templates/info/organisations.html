@@ -1,8 +1,4 @@
 {% extends "base.html" %}
-{% load static %}
-{% block stylesheets %}
-    <link rel="stylesheet" href="{% static 'info/css/base.css' %}">
-{% endblock %}
 {% block org-active %}active active-background{% endblock %}
 {% block nav %}
   <nav aria-label="breadcrumb">
@@ -12,7 +8,6 @@
     </ol>
   </nav>
 {% endblock %}
-
 {% block content %}
   <div class="page">
     <h1 class="page-title text-uppercase fw-bold">Organisations</h1>
@@ -37,14 +32,10 @@
           </div>
         </div>
       </div>
-
     {% empty %}
       <div class="col-md-12">
         <h2>No Organisations</h2>
       </div>
     {% endfor %}
     </div>
-{% endblock %}
-{% block js %} 
-<script src="{% static 'info/css/base.js' %}"></script>
 {% endblock %}

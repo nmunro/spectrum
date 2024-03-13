@@ -1,14 +1,10 @@
 {% extends "dashboard_base.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
-
 {% block stylesheets %}
     <link rel="stylesheet" href="{% static 'info/css/sidebar.css' %}">
-    <link rel="stylesheet" href="{% static 'info/css/base.css' %}">
 {% endblock %}
-
 {% block contacts-class %}active{% endblock %}
-
 {% block dashboard_content %}
 <div class="row px-5">
   <div class="col">
@@ -22,7 +18,3 @@
   </div>
 </div>
 {% endblock %}
-{% block js %} 
-<script src="{% static 'info/css/base.js' %}"></script>
-{% endblock %}
-
