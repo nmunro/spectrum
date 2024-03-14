@@ -1,20 +1,33 @@
+
 {% extends "dashboard_base.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
+
 {% block stylesheets %}
     <link rel="stylesheet" href="{% static 'info/css/sidebar.css' %}">
 {% endblock %}
+
 {% block events-class %}active{% endblock %}
+
 {% block dashboard_content %}
-<a href="{% url 'info:new_dashboard_event' %}">
-  <button class="btn btn-success btn-lg rounded-pill"> Create New 
-   <i class="fa fa-plus"></i> 
- </button>
- </a>
-<div class="row m-3">
+<div class="row">
+  <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
+    <div  style = "height: 300px" class = "card  p-2 p-md-4 card-primary text-white">
+      <div class="card-body bg-transparent border border-0">
+        <h5 class="event-title fs-2 fw-bold m-0 p-0">Create New</h5>
+        <p>Create A New Event</p>
+      </div>
+      <div class="card-footer bg-transparent border border-0 d-flex flex-row justify-content-between align-items-center">
+        <div class="event-button">
+          <a href="{% url 'info:new_dashboard_event' %}" class="btn text-white fs-5 border border-2 px-2 m-0"><i class="fa fa-plus"></i> Create New</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
 {% for event in events %}
-  <div class="col-md-6">
-    <div style="height: 350px;"  class="card  overflow-auto shadow  p-2 p-md-4 {% cycle 'card-secondary' 'card-primary' %} text-white">
+  <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
+    <div   style = "height: 300px"  class="card overflow-auto p-2 p-md-4 {% cycle 'card-secondary' 'card-primary' %} text-white">
       <div class="card-body">
         <h5 class="event-title fs-2 fw-bold m-0 p-0">{{ event.event_name }}</h5>
         <p>{{ event.description }}</p>
@@ -30,4 +43,5 @@
   </div>
 {% endfor %}
 </div>
+
 {% endblock %}

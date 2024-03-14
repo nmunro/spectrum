@@ -5,51 +5,20 @@
     <link rel="stylesheet" href="{% static 'info/css/sidebar.css' %}">
 {% endblock %}
 {% block events-class %}active{% endblock %}
-    <hr>
-    <ul class="nav nav-pills flex-column mb-auto">
-      <li>
-        <a href="{% url 'info:dashboard' %}" class="nav-link link-body-emphasis">
-          <span class="fa fa-sitemap"></span>
-          &nbsp;Organisations
-        </a>
-      </li>
-      <li>
-        <a href="{% url 'info:dashboard_events' %}" class="nav-link active link-body-emphasis" aria-current="page">
-          <span class="fa fa-calendar"></span>
-          &nbsp;Events
-        </a>
-      </li>
-      <li>
-        <a href="{% url 'info:dashboard_resources' %}" class="nav-link link-body-emphasis">
-          <span class="fa fa-vector-square"></span>
-          &nbsp;Resources
-        </a>
-      </li>
-      <li>
-        <a href="{% url 'info:dashboard_contacts' %}" class="nav-link link-body-emphasis">
-          <span class="fa fa-person"></span>
-          &nbsp;Contacts
-        </a>
-      </li>
-      <li>
-        <a href="{% url 'info:dashboard_locations' %}" class="nav-link link-body-emphasis">
-          <span class="fa fa-location"></span>
-          &nbsp;Locations
-        </a>
-      </li>
-    </ul>
-  </div>
+ 
+{% block dashboard_content %}
 
-  {% block dashboard_content %}
-          <form method="POST"  class="col-lg-8 overflow-auto mx-auto border shadow p-5 text-center 
-          fw-bold text-uppercase">
-              {% csrf_token %}
-              {{ form|crispy }}
-              <input type="submit" class="btn btn-primary" value="Save"/>
-              <a href="{% url 'info:dashboard_events' %}" class="btn btn-danger">Cancel</a>
-          </form>
-</main>
+    <form method="POST" class="col-lg-8 overflow-auto mx-auto border shadow p-5 text-center 
+    fw-bold text-uppercase">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="submit" class="btn btn-primary" value="Save"/>
+      <a href="{% url 'info:dashboard_events' %}" class="btn btn-danger">Cancel</a>
+    </form>
+
 {% endblock %}
+
+
 {% block js %}
   <script>
     flatpickr("#id_start_date_time", {

@@ -4,7 +4,11 @@
 {% block stylesheets %}
     <link rel="stylesheet" href="{% static 'info/css/sidebar.css' %}">
 {% endblock %}
+
+{% block resources-class %}active{% endblock %}
+
 {% block dashboard_content %}
+
 <div class="row px-5">
   <div class="col">
     <form method="post">{% csrf_token %}

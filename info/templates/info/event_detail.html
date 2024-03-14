@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block events-active %}active active-background{% endblock %}
+
 {% block nav %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb mx-3 mt-3">
@@ -9,10 +9,17 @@
     </ol>
 </nav>
 {% endblock %}
+
 {% block content %}
-  <div style="height:500px" class="border shadow w-75 
-  mx-auto text-break text-center overflow-auto p-5">
+<div class="container text-center">
+  <div class="row p-2 p-md-4 card-secondary text-white">
+    <div class="col bg-transparent">
       <h1>{{ event.name }}</h1>
+    </div>
+  </div>
+
+  <div class="row p-2 p-md-4 card-primary text-white">
+    <div class="col bg-transparent">
       {% if event.ticketed %}
       <div class="alert alert-primary">
         <p>Please note this is a ticketed event and entry on the door is not possible, please ensure you have your ticket ready to show upon entry.</p>
@@ -22,16 +29,23 @@
       <p>{{ event.price }}</p>
       <p>Starts: {{ event.start_date_time }}</p>
       <p>Ends: {{ event.end_date_time }}</p>
+      <div>
         <h4>Location:</h4>
-        <p>{{ event.location.venue_name }}</p>
+        <p>{{ event.location.name }}</p>
         <p>{{ event.location.address }}</p>
         <p>{{ event.location.post_code }}</p>
+      </div>
+      <div>
         <p>{{ event.contact }}</p>
+      </div>
+      <div>
         <p>
           {% for tag in event.tags.all %}
             <a href="{% url 'info:index' %}?search={{ tag }}">{{ tag }}</a>{% if not forloop.last %},&nbsp;{% endif %}
           {% endfor %}
         </p>
+      </div>
     </div>
+  </div>
+</div>
 {% endblock %}
-
