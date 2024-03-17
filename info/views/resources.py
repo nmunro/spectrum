@@ -8,16 +8,21 @@ from django.views.generic.list import ListView
 
 from .. import models
 
+class ResourceListView(ListView):
+    model = models.Resource
+    paginate_by = 100
+    template_name = "info/resources.html"
 
-def resources(request):
-    return render(
-        request,
-        "info/resources.html",
-        {"resources": models.Resource.objects.all()}
-    )
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["events"] = models.Resource.objects.filter(
+            organisation__admin=self.request.user,
+        )
+
+        return context
 
 
-class ResourceListview(ListView):
+class DashboardResourceListview(ListView):
     model = models.Resource
 
     def get_context_data(self, **kwargs):
@@ -27,7 +32,7 @@ class ResourceListview(ListView):
         return context
 
 
-class ResourceCreateView(CreateView):
+class DashboardResourceCreateView(CreateView):
     model = models.Resource
     fields = ["organisation", "resource_name", "description", "tags"]
 
@@ -40,7 +45,7 @@ class ResourceCreateView(CreateView):
         return form
 
 
-class ResourceUpdateView(UpdateView):
+class DashboardResourceUpdateView(UpdateView):
     model = models.Resource
     fields = ["organisation", "resource_name", "description", "tags"]
 
@@ -57,6 +62,6 @@ class ResourceDetailView(DetailView):
     model = models.Resource
 
 
-class ResourceDeleteView(DeleteView):
+class DashboardResourceDeleteView(DeleteView):
     model = models.Resource
     success_url = reverse_lazy("info:dashboard_resources")
