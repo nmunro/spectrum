@@ -7,15 +7,17 @@ from .events import (
     DashboardEventUpdateView,
     EventDetailView,
     EventListView,
+    OrganisationEventListView
 )
 from .index import IndexView, favicon
 from .locations import LocationCreateView, LocationDeleteView, LocationDetailView, LocationListView, LocationUpdateView
-from .organisations import organisation, organisation_events, organisation_resources, organisations
+from .organisations import OrganisationDetailView, OrganisationListView
 from .resources import (
     DashboardResourceCreateView,
     DashboardResourceDeleteView,
-    ResourceDetailView,
     DashboardResourceListview,
     DashboardResourceUpdateView,
-    ResourceListView,
+    OrganisationResourceListView,
+    ResourceDetailView,
+    ResourceListView
 )

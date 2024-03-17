@@ -8,16 +8,20 @@ app_name = "info"
 urlpatterns = [
     path("", views.IndexView.as_view(), name="index"),
     path("favicon.ico", views.favicon, name="favicon"),
-    path("organisations/", views.organisations, name="organisations"),
-    path("organisations/<str:org>/", views.organisation, name="organisation"),
+    path("organisations/", views.OrganisationListView.as_view(), name="organisations"),
     path(
-        "organisations/<str:org>/resources/",
-        views.organisation_resources,
+        "organisations/<slug:org>/",
+        views.OrganisationDetailView.as_view(),
+        name="organisation",
+    ),
+    path(
+        "organisations/<slug:org>/resources/",
+        views.OrganisationResourceListView.as_view(),
         name="organisation_resources",
     ),
     path(
         "organisations/<str:org>/events/",
-        views.organisation_events,
+        views.OrganisationEventListView.as_view(),
         name="organisation_events",
     ),
     path("resources/", views.ResourceListView.as_view(), name="resources"),
