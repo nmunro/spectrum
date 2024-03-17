@@ -1,12 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.generic.base import TemplateView
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 
 from .. import models
+
 
 class ResourceListView(ListView):
     model = models.Resource
@@ -15,9 +16,24 @@ class ResourceListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["events"] = models.Resource.objects.filter(
-            organisation__admin=self.request.user,
+        context["resources"] = models.Resource.objects.all()
+
+        return context
+
+
+class OrganisationResourceListView(ListView):
+    model = models.Resource
+    paginate_by = 100
+    template_name = "info/resources.html"
+
+    def get_queryset(self, **kwargs):
+        return models.Resource.objects.filter(
+            organisation=get_object_or_404(models.Organisation, slug=self.kwargs["org"])
         )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["org"] = get_object_or_404(models.Organisation, slug=self.kwargs["org"])
 
         return context
 
@@ -27,7 +43,9 @@ class DashboardResourceListview(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["resources"] = models.Resource.objects.filter(organisation__admin=self.request.user)
+        context["resources"] = models.Resource.objects.filter(
+            organisation__admin=self.request.user
+        )
 
         return context
 
@@ -41,7 +59,9 @@ class DashboardResourceCreateView(CreateView):
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
-        form.fields["organisation"].queryset = models.Organisation.objects.filter(admin=self.request.user)
+        form.fields["organisation"].queryset = models.Organisation.objects.filter(
+            admin=self.request.user
+        )
         return form
 
 
@@ -54,7 +74,9 @@ class DashboardResourceUpdateView(UpdateView):
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
-        form.fields["organisation"].queryset = models.Organisation.objects.filter(admin=self.request.user)
+        form.fields["organisation"].queryset = models.Organisation.objects.filter(
+            admin=self.request.user
+        )
         return form
 
 
