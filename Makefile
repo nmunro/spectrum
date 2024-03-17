@@ -1,9 +1,8 @@
-.PHONY: build clean clean-docker clean-docs docs repl test shell start stop lint migrate migrations dev-tools-check lint-tools-check logs static poetry create-super-user restart reschedule
+.PHONY: build clean clean-docker clean-docs docs repl test shell start stop lint migrate migrations dev-tools-check logs static poetry create-super-user restart reschedule lock
 .DEFAULT_GOAL: build
 
 REPORT := $(or $(REPORT),report -m)
 GIT_CHANGED_PYTHON_FILES := $(shell git diff --name-only -- '***.py')
-LINTING_TOOLS := $(and $(shell which black),$(shell which isort),$(shell which flake8))
 DEV_TOOLS := $(and $(shell which docker git))
 COMPOSE_FILE := 'docker-compose.yml'
 RUNNING_CONTAINERS := $(shell docker ps -a -q -f name="spectrum-*")
@@ -26,11 +25,6 @@ ifeq ($(DEV_TOOLS),)
 	$(error Some of your dev tools are missing, unable to proceed)
 endif
 
-lint-tools-check:
-ifeq ($(LINTING_TOOLS),)
-	$(error Some of your linting tools are missing, unable to proceed)
-endif
-
 build: dev-tools-check
 ifeq ($(FORCE),true)
 	@docker container rm -f $(SERVICE)
@@ -46,8 +40,12 @@ stop: dev-tools-check
 
 restart: stop start
 
-lint: lint-tools-check
-	@$(foreach file, $(GIT_CHANGED_PYTHON_FILES), $(shell black ${file}; isort ${file}; flake8 ${file}))
+lint:
+ifeq ($(SERVICE),web-dev)
+	@$(foreach file, $(GIT_CHANGED_PYTHON_FILES), $(shell docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) /bin/bash -c "poetry run black ${file} && poetry run isort ${file} && poetry run flake8 ${file}"))
+else
+	$(error Command not available for service: '$(SERVICE)')
+endif
 
 static: dev-tools-check
 	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py collectstatic --settings=spectrum.settings.dev
@@ -112,3 +110,11 @@ create-super-user:
 
 requirements:
 	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry export -f requirements.txt -o requirements.txt
+
+lock: dev-tools-check
+ifeq ($(SERVICE),web-dev)
+	@[ ! -d "poetry.lock" ] && rm poetry.lock || true
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) /bin/bash -c "poetry lock --no-update"
+else
+	$(error Command not available for service: '$(SERVICE)')
+endif
