@@ -17,8 +17,9 @@
 {% block content %}
   <div class="page">
     <h1 class="page-title text-uppercase fw-bold">Resources</h1>
+    {% include "pagination.html" %}
     <div class="row">
-    {% for resource in resources %}
+    {% for resource in page_obj %}
       <div class="col-md-4 mb-4">
         <div class="card p-2 p-md-4 {% cycle 'card-primary' 'card-secondary' %} text-white">
           <div class="card-body bg-transparent border border-0">
@@ -44,4 +45,7 @@
         <h2>No Resources</h2>
       </div>
     {% endfor %}
+    {% include "pagination.html" %}
+  </div>
+</div>
 {% endblock %}

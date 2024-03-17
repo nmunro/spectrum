@@ -20,7 +20,7 @@ urlpatterns = [
         views.organisation_events,
         name="organisation_events",
     ),
-    path("resources/", views.resources, name="resources"),
+    path("resources/", views.ResourceListView.as_view(), name="resources"),
     path("resources/<int:pk>/", views.ResourceDetailView.as_view(), name="resource"),
     path("events/", views.EventListView.as_view(), name="events"),
     path("events/<int:pk>/", views.EventDetailView.as_view(), name="event"),
@@ -56,22 +56,22 @@ urlpatterns = [
     ),
     path(
         "dashboard/resources/",
-        login_required(views.ResourceListview.as_view()),
+        login_required(views.ResourceListView.as_view()),
         name="dashboard_resources",
     ),
     path(
         "dashboard/resources/new/",
-        login_required(views.ResourceCreateView.as_view()),
+        login_required(views.DashboardResourceCreateView.as_view()),
         name="new_dashboard_resource",
     ),
     path(
         "dashboard/resources/<int:pk>/",
-        login_required(views.ResourceUpdateView.as_view()),
+        login_required(views.DashboardResourceUpdateView.as_view()),
         name="dashboard_resource",
     ),
     path(
         "dashboard/resources/<int:pk>/delete/",
-        login_required(views.ResourceDeleteView.as_view()),
+        login_required(views.DashboardResourceDeleteView.as_view()),
         name="delete_dashboard_resource",
     ),
     path(

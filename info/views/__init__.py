@@ -12,10 +12,10 @@ from .index import IndexView, favicon
 from .locations import LocationCreateView, LocationDeleteView, LocationDetailView, LocationListView, LocationUpdateView
 from .organisations import organisation, organisation_events, organisation_resources, organisations
 from .resources import (
-    ResourceCreateView,
-    ResourceDeleteView,
+    DashboardResourceCreateView,
+    DashboardResourceDeleteView,
     ResourceDetailView,
-    ResourceListview,
-    ResourceUpdateView,
-    resources
+    DashboardResourceListview,
+    DashboardResourceUpdateView,
+    ResourceListView,
 )
