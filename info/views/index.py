@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from django.conf import settings
+from django.core.paginator import Paginator
 from django.contrib.postgres.aggregates import StringAgg
 from django.contrib.postgres.search import TrigramStrictWordSimilarity as TSWS
 from django.http import FileResponse, HttpRequest, HttpResponse
@@ -24,7 +25,7 @@ class IndexView(TemplateView):
         ).annotate(
             similarity=TSWS(query, "event_name") + TSWS(query, "description") + TSWS(query, "tags_str"),
         ).filter(
-            similarity__gte=0.2
+            similarity__gte=0.01
         ).order_by(
             "-similarity"
         )
@@ -35,13 +36,17 @@ class IndexView(TemplateView):
         ).annotate(
             similarity=TSWS(query, "resource_name") + TSWS(query, "description") + TSWS(query, "tags_str"),
         ).filter(
-            similarity__gte=0.2
+            similarity__gte=0.01
         ).order_by(
             "-similarity"
         )
 
     def get(self, request):
         if query := request.GET.get("search"):
-            return self.render_to_response({"results": [*self.filter_events(query), *self.filter_resources(query)]})
+            results = [*self.filter_events(query), *self.filter_resources(query)]
+            paginator = Paginator(results, 25)
+            page_obj = paginator.get_page(request.GET.get("page"))
+
+            return self.render_to_response({"page_obj": page_obj, "query": query})
 
         return self.render_to_response({})
