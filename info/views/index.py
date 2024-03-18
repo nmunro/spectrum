@@ -16,7 +16,6 @@ def favicon(request: HttpRequest) -> HttpResponse:
     return FileResponse(file)
 
 class IndexView(TemplateView):
-    form_class = forms.EventForm
     template_name = "info/index.html"
 
     def filter_events(self, query: str):
