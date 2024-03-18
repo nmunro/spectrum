@@ -20,14 +20,14 @@ django-phone-field = "^1.8.1"
 psycopg = { version = ">=3.1", extras = ["binary"] }
 cron-validator = "^1.0.8"
 cron-converter = "^1.0.2"
-poetry-plugin-export = "^1.6.0"
+poetry-plugin-export = "^1.7.0"
 django-taggit = "^5.0.1"
 
 
 [tool.poetry.dev-dependencies]
-coverage = "^7.1"
+coverage = "^7.4"
 isort = "^5.10"
-black = "^24.2"
+black = "^24.3"
 sphinx = "^7.2"
 factory-boy = "^3.3.0"
 
