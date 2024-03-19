@@ -51,7 +51,9 @@ class Organisation(models.Model):
 
 
 class Location(models.Model):
-    organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE, null=True, related_name="locations")
+    organisation = models.ForeignKey(
+        Organisation, on_delete=models.CASCADE, null=True, related_name="locations"
+    )
     venue_name = models.CharField(max_length=255)
     address = models.TextField()
     post_code = models.CharField(max_length=10)
@@ -122,6 +124,7 @@ class Event(models.Model):
     price = MoneyField(max_digits=19, decimal_places=4, default_currency="GBP")
     ticketed = models.BooleanField(default=False)
     schedules = models.ManyToManyField("Scheduler", related_name="events", blank=True)
+    hide = models.BooleanField(default=False)
 
     tags = TaggableManager()
 
@@ -135,7 +138,7 @@ class Event(models.Model):
     @property
     def format_duration(self) -> str:
         total_seconds = int((self.end_date_time - self.start_date_time).total_seconds())
-        hours, remainder = divmod(total_seconds, 60*60)
+        hours, remainder = divmod(total_seconds, 60 * 60)
         minutes, _ = divmod(remainder, 60)
 
         return f"{hours} hrs, {minutes} mins"
@@ -144,12 +147,14 @@ class Event(models.Model):
     def ends_today(self) -> bool:
         now = timezone.now()
 
-        return all([
-            self.schedules,
-            now.year == self.end_date_time.year,
-            now.month == self.end_date_time.month,
-            now.day == self.end_date_time.day,
-        ])
+        return all(
+            [
+                self.schedules,
+                now.year == self.end_date_time.year,
+                now.month == self.end_date_time.month,
+                now.day == self.end_date_time.day,
+            ]
+        )
 
     def get_absolute_url(self) -> str:
         return reverse("info:event", kwargs={"pk": self.pk})

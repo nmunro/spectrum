@@ -1,36 +1,40 @@
-from django.forms import ModelForm, DateTimeInput
-from .models import Contact, Event, Organisation, Resource, Location
+from django.forms import DateTimeInput, ModelForm
+
+from .models import Contact, Event, Location, Organisation, Resource
 
 
 class ContactForm(ModelForm):
     class Meta:
         model = Contact
         fields = [
-            'organisation',
-            'contact_name',
-            'email',
-            'phone_number',
+            "organisation",
+            "contact_name",
+            "email",
+            "phone_number",
         ]
+
 
 class OrgForm(ModelForm):
     class Meta:
         model = Organisation
-        fields = ['description', 'region', 'email', 'website', 'phone_number']
+        fields = ["description", "region", "email", "website", "phone_number"]
+
 
 class EventForm(ModelForm):
     class Meta:
         model = Event
         fields = [
-            'organisation',
-            'event_name',
-            'description',
-            'location',
-            'contact',
-            'ticketed',
-            'start_date_time',
-            'end_date_time',
-            'price',
-            'tags',
+            "organisation",
+            "event_name",
+            "description",
+            "location",
+            "contact",
+            "ticketed",
+            "hide",
+            "start_date_time",
+            "end_date_time",
+            "price",
+            "tags",
         ]
 
 
@@ -38,10 +42,10 @@ class ResourceForm(ModelForm):
     class Meta:
         model = Resource
         fields = [
-            'organisation',
-            'resource_name',
-            'description',
-            'tags',
+            "organisation",
+            "resource_name",
+            "description",
+            "tags",
         ]
 
 
@@ -49,8 +53,8 @@ class LocationForm(ModelForm):
     class Meta:
         model = Location
         fields = [
-            'organisation',
-            'venue_name',
-            'address',
-            'post_code',
+            "organisation",
+            "venue_name",
+            "address",
+            "post_code",
         ]
