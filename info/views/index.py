@@ -1,43 +1,52 @@
 from pathlib import Path
 
 from django.conf import settings
-from django.core.paginator import Paginator
 from django.contrib.postgres.aggregates import StringAgg
 from django.contrib.postgres.search import TrigramStrictWordSimilarity as TSWS
+from django.core.paginator import Paginator
 from django.http import FileResponse, HttpRequest, HttpResponse
 from django.views.generic.base import TemplateView
 
-from .. import forms
-from .. import models
+from .. import forms, models
 
 
 def favicon(request: HttpRequest) -> HttpResponse:
-    file = (Path.cwd() / "static" / "images"/ "favicon.ico").open("rb")
+    file = (Path.cwd() / "static" / "images" / "favicon.ico").open("rb")
     return FileResponse(file)
+
 
 class IndexView(TemplateView):
     template_name = "info/index.html"
 
     def filter_events(self, query: str):
-        return models.Event.objects.annotate(
-            tags_str=StringAgg("tags__name", delimiter=" "),
-        ).annotate(
-            similarity=TSWS(query, "event_name") + TSWS(query, "description") + TSWS(query, "tags_str"),
-        ).filter(
-            similarity__gte=0.01
-        ).order_by(
-            "-similarity"
+        return (
+            models.Event.objects.annotate(
+                tags_str=StringAgg("tags__name", delimiter=" "),
+            )
+            .annotate(
+                similarity=TSWS(query, "event_name")
+                + TSWS(query, "description")
+                + TSWS(query, "tags_str"),
+            )
+            .filter(
+                similarity__gte=0.01,
+                hide=False,
+            )
+            .order_by("-similarity")
         )
 
     def filter_resources(self, query: str):
-        return models.Resource.objects.annotate(
-            tags_str=StringAgg("tags__name", delimiter=" "),
-        ).annotate(
-            similarity=TSWS(query, "resource_name") + TSWS(query, "description") + TSWS(query, "tags_str"),
-        ).filter(
-            similarity__gte=0.01
-        ).order_by(
-            "-similarity"
+        return (
+            models.Resource.objects.annotate(
+                tags_str=StringAgg("tags__name", delimiter=" "),
+            )
+            .annotate(
+                similarity=TSWS(query, "resource_name")
+                + TSWS(query, "description")
+                + TSWS(query, "tags_str"),
+            )
+            .filter(similarity__gte=0.01)
+            .order_by("-similarity")
         )
 
     def get(self, request):

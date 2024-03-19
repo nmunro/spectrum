@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.generic.base import TemplateView
@@ -14,13 +14,11 @@ class EventListView(ListView):
     paginate_by = 100
     template_name = "info/events.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["events"] = models.Event.objects.filter(
+    def get_queryset(self):
+        return models.Event.objects.filter(
             start_date_time__gte=timezone.now(),
+            hide=False,
         ).order_by("start_date_time")
-
-        return context
 
 
 class OrganisationEventListView(ListView):
@@ -31,8 +29,10 @@ class OrganisationEventListView(ListView):
     def get_queryset(self, **kwargs):
         return models.Event.objects.filter(
             organisation=get_object_or_404(
-                models.Organisation, slug=self.kwargs["org"]
+                models.Organisation,
+                slug=self.kwargs["org"],
             ),
+            hide=False,
             start_date_time__gte=timezone.now(),
         ).order_by("start_date_time")
 
@@ -91,6 +91,7 @@ class DashboardEventUpdateView(UpdateView):
         "location",
         "contact",
         "ticketed",
+        "hide",
         "start_date_time",
         "end_date_time",
         "price",
