@@ -2,6 +2,8 @@
 {% load tags %}
 
 {% block nav %}
+<div class="overflow-auto mb-5 pb-5" style="height: 100vh; text-align: justify;">
+
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb mx-3 mt-3">
       <li class="breadcrumb-item fw-bold text-uppercase"><a href="{% url 'info:index' %}">Home</a></li>
@@ -52,5 +54,6 @@ neurodivergent provision.</p>
         <li><a href="{% url 'help:contacts' %}">Contacts</a></li>
       </ol>
     </div>
+  </div>
   </div>
  {% endblock %}
