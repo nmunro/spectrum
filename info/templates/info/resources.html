@@ -1,7 +1,9 @@
 {% extends "base.html" %}
-
-{% block resources-class %}active active-background{% endblock %}
-
+{% load static %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{% static 'info/css/sidebar.css' %}">
+{% endblock %}
+{% block resource-active %}active active-background{% endblock %}
 {% block nav %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb mx-3 mt-3">
@@ -22,8 +24,8 @@
     {% include "pagination.html" %}
     <div class="row">
     {% for resource in page_obj %}
-      <div class="col-md-4 mb-4">
-        <div class="card p-2 p-md-4 {% cycle 'card-primary' 'card-secondary' %} text-white">
+      <div class="col-md-6 col-xl-4 col-lg-6 col-sm-12 mb-4">
+        <div class="card h-100 p-2 p-md-4 {% cycle 'card-primary' 'card-secondary' %} text-white">
           <div class="card-body bg-transparent border border-0">
             <h5 class="event-title fs-2 fw-bold m-0 p-0">
                 <a href="{% url 'info:resource' resource.id %}" class="text-white text-decoration-none">{{ resource.resource_name }}</a>
