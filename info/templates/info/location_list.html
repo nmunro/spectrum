@@ -10,8 +10,8 @@
 
 {% block dashboard_content %}
 <div class="row">
-  <div class="col-md-4 mb-4">
-    <div class="card p-2 p-md-4 card-primary text-white">
+  <div class="col-md-6 col-lg-6 col-xl-4 mt-4">
+    <div class="card h-100 p-2 p-md-4 card-primary text-white">
       <div class="card-body bg-transparent border border-0">
         <h5 class="event-title fs-2 fw-bold m-0 p-0">Create New</h5>
         <p>Create A New Location</p>
@@ -26,8 +26,8 @@
   </div>
 
 {% for location in locations %}
-  <div class="col-md-4 mb-4">
-    <div class="card p-2 p-md-4 {% cycle 'card-secondary' 'card-primary' %} text-white">
+  <div class="col-md-6 col-lg-6 col-xl-4 mt-4">
+    <div class="card h-100 p-2 p-md-4 {% cycle 'card-secondary' 'card-primary' %} text-white">
       <div class="card-body bg-transparent border border-0">
         <h5>{{ location.venue_name }}</h5>
         <p>{{ location.address }}, {{ location.post_code }}</p>
