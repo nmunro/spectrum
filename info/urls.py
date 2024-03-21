@@ -60,7 +60,7 @@ urlpatterns = [
     ),
     path(
         "dashboard/resources/",
-        login_required(views.ResourceListView.as_view()),
+        login_required(views.DashboardResourceListView.as_view()),
         name="dashboard_resources",
     ),
     path(
