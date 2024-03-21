@@ -1,9 +1,7 @@
 {% extends "base.html" %}
-{% load static %}
-{% block stylesheets %}
-    <link rel="stylesheet" href="{% static 'info/css/sidebar.css' %}">
-{% endblock %}
-{% block resource-active %}active active-background{% endblock %}
+
+{% block resources-class %}active active-background{% endblock %}
+
 {% block nav %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb mx-3 mt-3">
