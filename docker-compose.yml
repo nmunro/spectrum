@@ -28,7 +28,7 @@ services:
     volumes:
       - type: bind
         source: .
-        target: /app/resourcedb
+        target: /app/spectrum
       - type: bind
         source: /tmp
         target: /app/tmp
@@ -51,7 +51,7 @@ services:
     volumes:
       - type: bind
         source: .
-        target: /app/resourcedb
+        target: /app/spectrum
       - type: bind
         source: /tmp
         target: /app/tmp
@@ -63,5 +63,4 @@ services:
 
 volumes:
   postgres_data:
-  resourcedb:
-
+  spectrum:
