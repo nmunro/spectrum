@@ -63,3 +63,7 @@ body {
 .event-day {
   font-size: 32px;
 }
+
+.active-background {
+  background-color:grey;
+}

@@ -13,13 +13,13 @@ files = [
 
 [[package]]
 name = "asgiref"
-version = "3.8.0"
+version = "3.8.1"
 description = "ASGI specs, helper code, and adapters"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "asgiref-3.8.0-py3-none-any.whl", hash = "sha256:30fc07797ad71a0abb8fe34aa03c8043308a8389abc7942d797ea9911540bc28"},
-    {file = "asgiref-3.8.0.tar.gz", hash = "sha256:ec75d9d0f04e2dbfedef1f20ee73a6594af80c333df47cdd31f37e6701f7c53a"},
+    {file = "asgiref-3.8.1-py3-none-any.whl", hash = "sha256:3e1e3ecc849832fe52ccf2cb6686b7a55f82bb1d6aee72a58826471390335e47"},
+    {file = "asgiref-3.8.1.tar.gz", hash = "sha256:c343bd80a0bec947a9860adb4c432ffa7db769836c64238fc34bdc3fec84d590"},
 ]
 
 [package.extras]
@@ -1693,6 +1693,41 @@ files = [
 ]
 
 [[package]]
+name = "python-lsp-black"
+version = "2.0.0"
+description = "Black plugin for the Python LSP Server"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "python-lsp-black-2.0.0.tar.gz", hash = "sha256:8286d2d310c566844b3c116b824ada6fccfa6ba228b1a09a0526b74c04e0805f"},
+    {file = "python_lsp_black-2.0.0-py3-none-any.whl", hash = "sha256:d5efdee45f5fa9e5241f5d4d396cd46127f45c85817916b1fd92c2986652bf7e"},
+]
+
+[package.dependencies]
+black = ">=23.11.0"
+python-lsp-server = ">=1.4.0"
+
+[package.extras]
+dev = ["flake8", "isort (>=5.0)", "mypy", "pre-commit", "pytest", "types-pkg-resources", "types-setuptools"]
+
+[[package]]
+name = "python-lsp-isort"
+version = "0.1"
+description = "isort plugin for the Python LSP Server"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "python-lsp-isort-0.1.tar.gz", hash = "sha256:f02948bc8e7549905032100e772f03464f7548afa96f07d744ff1f93cc58339a"},
+]
+
+[package.dependencies]
+isort = ">=5.0"
+python-lsp-server = "*"
+
+[package.extras]
+dev = ["pytest"]
+
+[[package]]
 name = "python-lsp-jsonrpc"
 version = "1.1.2"
 description = "JSON RPC 2.0 server library"
@@ -2379,4 +2414,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "474db0eaa4a906246a07eec5d5657f480cadb309061836212587ca9656131899"
+content-hash = "17601773d7d44be5a78e90238adf7a022d48e37a9b9854d3b1da89d221cec4de"
