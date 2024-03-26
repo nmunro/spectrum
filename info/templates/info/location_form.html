@@ -9,14 +9,13 @@
 {% block locations-class %}active{% endblock %}
 
 {% block dashboard_content %}
-  <div class="row px=5 row-cols-auto">
-    <div class="col col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-      <form method="POST">
+
+      <form method="POST" class="col-lg-8 col-xl-8 col-md-8 col-sm-12  mx-auto border shadow p-5 m-5 text-center 
+      fw-bold text-uppercase">
         {% csrf_token %}
         {{ form|crispy }}
         <input type="submit" class="btn btn-primary" value="Save"/>
         <a href="{% url 'info:dashboard_locations' %}" class="btn btn-danger">Cancel</a>
       </form>
-    </div>
-  </div>
+
 {% endblock %}

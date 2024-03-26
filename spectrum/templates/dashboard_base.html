@@ -7,50 +7,48 @@
 {% endblock %}
 
 {% block content %}
-<main class="d-flex flex-nowrap">
-  <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px;">
-    <span class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-      <span class="fs-4">{{ user.username }}</span>
-    </span>
-
-    <hr>
-
-    <ul class="nav nav-pills flex-column mb-auto">
-      <li>
-        <a href="{% url 'info:dashboard' %}" class="nav-link {% block organisations-class %}{% endblock %} link-body-emphasis">
-          <span class="fa fa-sitemap"></span>
-          &nbsp;Organisations
-        </a>
-      </li>
-      <li>
-        <a href="{% url 'info:dashboard_events' %}" class="nav-link {% block events-class %}{% endblock %} link-body-emphasis">
-          <span class="fa fa-calendar"></span>
-          &nbsp;Events
-        </a>
-      </li>
-      <li>
-        <a href="{% url 'info:dashboard_resources' %}" class="nav-link {% block resources-class %}{% endblock %} link-body-emphasis">
-          <span class="fa fa-vector-square"></span>
-          &nbsp;Resources
-        </a>
-      </li>
-      <li>
-        <a href="{% url 'info:dashboard_contacts' %}" class="nav-link {% block contacts-class %}{% endblock %} link-body-emphasis" aria-current="page">
-          <span class="fa fa-person"></span>
-          &nbsp;Contacts
-        </a>
-      </li>
-      <li>
-        <a href="{% url 'info:dashboard_locations' %}" class="nav-link {% block locations-class %}{% endblock %} link-body-emphasis">
-          <span class="fa fa-location"></span>
-          &nbsp;Locations
-        </a>
-      </li>
-    </ul>
+<div class="row">
+  <div class="col-lg-2 col-xs-12">
+    <div class="bg-body-tertiary">
+      <span class="fs-4 text-uppercase">{{ user.username }}</span>
+      <hr>
+      <ul class="nav nav-pills d-flex flex-xl-column flex-lg-column 
+      flex-md-row flex-sm-row">
+        <li>
+          <a href="{% url 'info:dashboard' %}" class="nav-link {% block organisations-class %}{% endblock %} link-body-emphasis">
+            <span class="fa fa-sitemap"></span>
+            &nbsp;Organisations
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'info:dashboard_events' %}" class="nav-link {% block events-class %}{% endblock %} link-body-emphasis">
+            <span class="fa fa-calendar"></span>
+            &nbsp;Events
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'info:dashboard_resources' %}" class="nav-link {% block resources-class %}{% endblock %} link-body-emphasis">
+            <span class="fa fa-vector-square"></span>
+            &nbsp;Resources
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'info:dashboard_contacts' %}" class="nav-link {% block contacts-class %}{% endblock %} link-body-emphasis" aria-current="page">
+            <span class="fa fa-person"></span>
+            &nbsp;Contacts
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'info:dashboard_locations' %}" class="nav-link {% block locations-class %}{% endblock %} link-body-emphasis">
+            <span class="fa fa-location"></span>
+            &nbsp;Locations
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
-
-  <div class="container-fluid overflow-auto">
+  <div style ="height:100vh;" class="col-lg-10 col-xs-12 mb-5 overflow-auto">
     {% block dashboard_content %}{% endblock %}
   </div>
-</main>
+
 {% endblock %}

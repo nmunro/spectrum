@@ -9,8 +9,9 @@
 {% block organisations-class %}active{% endblock %}
 
 {% block dashboard_content %}
-<h2>{{ org.name }}</h2>
-<form method="POST" action="{% url 'info:dashboard_org' org.slug %}">
+<h2 class="text-center">{{ org.name }}</h2>
+<form method="POST" class="col-lg-8 col-xl-8 col-md-8 col-sm-12  mx-auto border shadow p-5 m-5 text-center 
+fw-bold text-uppercase" action="{% url 'info:dashboard_org' org.slug %}">
   {% csrf_token %}
   {{ form|crispy }}
   <input type="submit" class="btn btn-primary" value="Save"/>

@@ -10,13 +10,12 @@
 
 {% block dashboard_content %}
 <div class="row">
-  <div class="col-md-4 mb-4">
-    <div class="card p-2 p-md-4 card-primary text-white">
+  <div class="col-md-6 col-lg-6 col-xl-4 mt-4">
+    <div  style = "height: 300px" class = "card p-2 p-md-4 card-primary text-white">
       <div class="card-body bg-transparent border border-0">
         <h5 class="event-title fs-2 fw-bold m-0 p-0">Create New</h5>
         <p>Create A New Event</p>
       </div>
-
       <div class="card-footer bg-transparent border border-0 d-flex flex-row justify-content-between align-items-center">
         <div class="event-button">
           <a href="{% url 'info:new_dashboard_event' %}" class="btn text-white fs-5 border border-2 px-2 m-0"><i class="fa fa-plus"></i> Create New</a>
@@ -24,23 +23,22 @@
       </div>
     </div>
   </div>
-
 {% for event in events %}
-  <div class="col-md-4 mb-4">
-    <div class="card p-2 p-md-4 {% cycle 'card-secondary' 'card-primary' %} text-white">
-      <div class="card-body">
-        <h5 class="event-title fs-2 fw-bold m-0 p-0">{{ event.event_name }}</h5>
-        <p>{{ event.description }}</p>
-      </div>
 
-      <div class="card-footer bg-transparent border border-0 d-flex flex-row justify-content-between align-items-center">
-        <div class="event-button">
-          <a href="{% url 'info:dashboard_event' event.id %}" class="btn text-white fs-5 border border-2 px-2 m-0"><i class="fa fa-edit"></i> Edit</a>
-          <a href="{% url 'info:delete_dashboard_event' event.id %}" class="btn text-white fs-5 border border-2 px-2 m-0" id="delete-event"><i class="fa fa-cancel"></i> Delete</a>
-        </div>
-      </div>
+<div class="col-md-6 col-lg-6 col-xl-4 mt-4">
+  <div style = "height: 300px" class="card p-2 p-md-4 {% cycle 'card-secondary' 'card-primary' %} text-white">
+    <div class="card-body overflow-auto">
+      <h5 class="event-title fs-2 fw-bold m-0 p-0">{{ event.event_name }}</h5>
+      <p>{{ event.description }}</p>
+    </div>
+
+    <div class="card-footer bg-transparent border border-0 d-flex flex-row justify-content-between align-items-center">
+       <a href="{% url 'info:dashboard_event' event.id %}" class=" btn btn-sm text-white fs-5 border border-2"><i class="fa fa-edit"></i> Edit</a>
+        <a href="{% url 'info:delete_dashboard_event' event.id %}" class="btn btn-sm text-white fs-5 border border-2" id="delete-event"><i class="fa fa-cancel"></i> Delete</a>
     </div>
   </div>
+</div>
+
 {% endfor %}
 </div>
 
