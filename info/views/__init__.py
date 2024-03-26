@@ -15,9 +15,9 @@ from .organisations import OrganisationDetailView, OrganisationListView
 from .resources import (
     DashboardResourceCreateView,
     DashboardResourceDeleteView,
-    DashboardResourceListview,
+    DashboardResourceListView,
     DashboardResourceUpdateView,
     OrganisationResourceListView,
     ResourceDetailView,
-    ResourceListView
+    ResourceListView,
 )

@@ -2,6 +2,8 @@
 {% load static %}
 {% load tags %}
 
+{% block help-class %}active active-background{% endblock %}
+
 {% block nav %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb mx-3 mt-3">
@@ -20,7 +22,7 @@
   </div>
 
   <div class="row px-5">
-    <div class="col-md-12 mb-12">
+    <div class="col-md-12 mb-12" style="text-align: justify;">
       <p>Contacts are a required part of <a href="{% url 'help:events' %}">events</a>, contacts will be used for people to reach out to a designated individual responsible for managing the <a href="{% url 'help:events' %}">event</a> in question. An <a href="{% url 'help:organisations' %}">organisation</a> may have many contacts, and may allocate different contacts to different <a href="{% url 'help:events' %}">events</a>.</p>
       <p>Before creating an <a href="{% url 'help:events' %}">event</a>, an <a href="{% url 'help:organisations' %}">organisation</a> will need to have at least one contact saved.</p>
       <p>From the interface below, you will be able to view, <a href="{% url 'help:contacts_add' %}">add</a>, <a href="{% url 'help:contacts_edit' %}">edit</a>, and <a href="{% url 'help:contacts_delete' %}">delete</a> contacts from an <a href="{% url 'help:organisations' %}">organisation</a>.</p>

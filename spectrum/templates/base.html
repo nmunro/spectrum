@@ -22,24 +22,24 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'info:index' %}">Spectrum</a>
+        <a class="navbar-brand" href="{% url 'info:index' %}"><h2>Spectrum</h2></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="{% url 'info:organisations' %}">Organisations</a>
+                <a class="nav-link {% block orgs-class %}{% endblock %}" aria-current="page" href="{% url 'info:organisations' %}">Organisations</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"   href="{% url 'info:resources' %}">Resources</a>
+                <a class="nav-link {% block resources-class %}{% endblock %}"  href="{% url 'info:resources' %}">Resources</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'info:events' %}">Events</a>
+                <a class="nav-link {% block events-class %}{% endblock %}" href="{% url 'info:events' %}">Events</a>
             </li>
             {% if user.is_authenticated %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'help:overview' %}">Help</a>
+                <a class="nav-link {% block help-class %}{% endblock %}" href="{% url 'help:overview' %}">Help</a>
             </li>
             {% endif %}
           </ul>
@@ -65,5 +65,9 @@
 
     {% block js %}
     {% endblock %}
+
+    <nav class="bg-light text-center fixed-bottom p-1 mt-5">
+      <span>Supported by <a href="https://www.spiritofchristmas.org.uk/">Spirit Of Christmas</a>&nbsp;&copy;&nbsp;(Charity #1185011)</span>
+    </nav>
   </body>
 </html>

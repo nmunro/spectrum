@@ -13,10 +13,14 @@ services:
     build: 
         context: .
         target: dev
-    command: ["poetry", "run", "python", "-O", "manage.py", "runserver", "0.0.0.0:8000", "--settings=spectrum.settings.dev"]
+    command: ["poetry", "run", "gunicorn", "--bind", ":8000", "--workers", "3", "spectrum.wsgi:application", "--env", "DJANGO_SETTINGS_MODULE=spectrum.settings.dev"]
     ports:
       - target: 8000
         published: 8000
+        protocol: tcp
+        mode: host
+      - target: 5678
+        published: 5678
         protocol: tcp
         mode: host
     depends_on:
@@ -24,7 +28,7 @@ services:
     volumes:
       - type: bind
         source: .
-        target: /app/resourcedb
+        target: /app/spectrum
       - type: bind
         source: /tmp
         target: /app/tmp
@@ -36,7 +40,7 @@ services:
 
   web:
     build: .
-    command: ["python", "-O", "manage.py", "runserver", "0.0.0.0:8000", "--settings=spectrum.settings.prod"]
+    command: ["poetry", "run", "gunicorn", "--bind", ":8000", "--workers", "3", "spectrum.wsgi:application", "--env", "DJANGO_SETTINGS_MODULE=spectrum.settings.prod"]
     ports:
       - target: 8000
         published: 8000
@@ -47,7 +51,7 @@ services:
     volumes:
       - type: bind
         source: .
-        target: /app/resourcedb
+        target: /app/spectrum
       - type: bind
         source: /tmp
         target: /app/tmp
@@ -59,5 +63,4 @@ services:
 
 volumes:
   postgres_data:
-  resourcedb:
-
+  spectrum:

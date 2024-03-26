@@ -2,6 +2,8 @@
 {% load static %}
 {% load tags %}
 
+{% block help-class %}active active-background{% endblock %}
+
 {% block nav %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb mx-3 mt-3">
@@ -20,7 +22,7 @@
   </div>
 
   <div class="row px-5">
-    <div class="col-md-12 mb-12">
+    <div class="col-md-12 mb-12" style="text-align: justify;">
       <p>Locations are a required part of <a href="{% url 'help:events' %}">events</a>, locations will inform people where a given <a href="{% url 'help:events' %}">event</a> will take place. An <a href="{% url 'help:organisations' %}">organisation</a> may have many locations, and may allocate different locations to different <a href="{% url 'help:events' %}">events</a>.</p>
       <p>Before creating an event, an <a href="{% url 'help:organisations' %}">organisation</a> will need to have at least one location saved.</p>
       <p>From the interface below, you will be able to view, <a href="{% url 'help:locations_add' %}">add</a>, <a href="{% url 'help:locations_edit' %}">edit</a>, and <a href="{% url 'help:locations_delete' %}">delete</a> locations from an <a href="{% url 'help:organisations' %}">organisation</a>.</p>

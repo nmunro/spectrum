@@ -2,6 +2,8 @@
 {% load static %}
 {% load tags %}
 
+{% block help-class %}active active-background{% endblock %}
+
 {% block nav %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb mx-3 mt-3">
@@ -20,7 +22,7 @@
   </div>
 
   <div class="row px-5">
-    <div class="col-md-12 mb-12">
+    <div class="col-md-12 mb-12" style="text-align: justify;">
       <p>Events are a type of object that an <a href="{% url 'help:organisations' %}">organisation</a> may make available. An event is, as it sounds, an event that members of the public may attend. It may be ticketed or not, and may be marked as such to inform people to ensure they have tickets prior to attending.</p>
       <p>From the interface below, you will be able to view, <a href="{% url 'help:events_add' %}">add</a>, <a href="{% url 'help:events_edit' %}">edit</a>, and <a href="{% url 'help:events_delete' %}">delete</a> events from an <a href="{% url 'help:organisations' %}">organisation</a>.</p>
       <img class="img-fluid" src="{% static 'help/events.png' %}"></img>

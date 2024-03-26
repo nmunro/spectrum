@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block events-class %}active active-background{% endblock %}
+
 {% block nav %}
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb mx-3 mt-3">
@@ -20,8 +22,8 @@
   {% include "pagination.html" %}
   <div class="row">
     {% for event in page_obj %}
-      <div class="col-md-4 mb-4">
-        <div class="card p-2 p-md-4 {% cycle "card-primary" "card-secondary" %} text-white">
+      <div class="col-md-6 col-xl-4 col-lg-6 col-sm-12 mb-4">
+        <div class="card h-100 p-2 p-md-4 {% cycle 'card-primary' 'card-secondary' %} text-white">
           <div class="card-header bg-transparent border border-0">
             <p class="event-month text-uppercase fw-medium m-0 p-0">{{ event.start_date_time|date:"M - Y" }}</p>
             <p class="event-day fw-bold m-0 p-0">{{ event.start_date_time|date:"d" }}</p>
@@ -47,9 +49,7 @@
       <h2>No Events</h2>
     </div>
     {% endfor %}
+    {% include "pagination.html" %}
   </div>
 </div>
-
-{% include "pagination.html" %}
-
 {% endblock %}
