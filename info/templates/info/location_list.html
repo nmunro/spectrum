@@ -9,6 +9,7 @@
 {% block locations-class %}active{% endblock %}
 
 {% block dashboard_content %}
+{% include "pagination.html" %}
 <div class="row">
   <div class="col-md-6 col-lg-6 col-xl-4 mt-4">
     <div class="card h-100 p-2 p-md-4 card-primary text-white">
@@ -43,4 +44,5 @@
   </div>
 {% endfor %}
 </div>
+{% include "pagination.html" %}
 {% endblock %}
