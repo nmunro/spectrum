@@ -9,6 +9,7 @@
 {% block organisations-class %}active{% endblock %}
 
 {% block dashboard_content %}
+{% include "pagination.html" %}
 {% for org in orgs %}
 <div class="col-md-6 col-lg-6 col-xl-4 mt-4">
   <div  class="card p-2 p-md-4 h-100 {% cycle 'card-primary' 'card-secondary' %} text-white">
@@ -27,10 +28,10 @@
   </div>
   &nbsp;
 </div>
-
 {% empty %}
   <div class="col-md-12">
     <h2>No Organisations</h2>
   </div>
 {% endfor %}
+{% include "pagination.html" %}
 {% endblock %}

@@ -45,15 +45,14 @@ class OrganisationEventListView(ListView):
 
 class DashboardEventListView(ListView):
     model = models.Event
+    paginate_by = 100
+    context_object_name = "events"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["events"] = models.Event.objects.filter(
+    def get_queryset(self, **kwargs):
+        return models.Event.objects.filter(
             organisation__admin=self.request.user,
             start_date_time__gte=timezone.now(),
-        )
-
-        return context
+        ).order_by("start_date_time")
 
 
 class DashboardEventCreateView(CreateView):

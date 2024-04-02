@@ -29,7 +29,7 @@ class OrganisationResourceListView(ListView):
     def get_queryset(self, **kwargs):
         return models.Resource.objects.filter(
             organisation=get_object_or_404(models.Organisation, slug=self.kwargs["org"])
-        )
+        ).order_by("resource_name")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -41,14 +41,12 @@ class OrganisationResourceListView(ListView):
 class DashboardResourceListView(ListView):
     model = models.Resource
     paginate_by = 100
+    context_object_name = "resources"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["resources"] = models.Resource.objects.filter(
+    def get_queryset(self, **kwargs):
+        return models.Resource.objects.filter(
             organisation__admin=self.request.user
-        )
-
-        return context
+        ).order_by("resource_name")
 
 
 class DashboardResourceCreateView(CreateView):

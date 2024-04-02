@@ -1,22 +1,18 @@
-from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
-from .. import forms
 from .. import models
 
 
 class LocationListView(ListView):
     model = models.Location
+    paginate_by = 100
+    context_object_name = "locations"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["locations"] = models.Location.objects.filter(organisation__admin=self.request.user)
-
-        return context
+    def get_queryset(self, **kwargs):
+        return models.Location.objects.filter(organisation__admin=self.request.user).order_by("venue_name")
 
 class LocationCreateView(CreateView):
     model = models.Location
