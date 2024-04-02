@@ -10,52 +10,50 @@
 {% endblock %}
 
 {% block content %}
-    <h1 class="text-center">Spectrum</h1>
-    <!--  -->
+  <h1 class="text-center">Spectrum</h1>
   <form method="GET">
-  <div class="d-flex justify-content-center col-lg-4 col-md-6 col-xs-12 mx-auto">
-      <input type="text" name="search" placeholder="search..." class="form-control" />
-      <button type="submit" class="btn btn-outline-success ms-2">Search</button>
-  </div>
-  <div class="d-flex justify-content-center">
-    <div class="form-check form-check-inline p-4">
-      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="all">
-      <label class="form-check-label fw-bold fs-5" for="inlineRadio1"><i class="fa fa-magnifying-glass"></i>All</label>
+    <div class="d-flex justify-content-center col-lg-4 col-md-6 col-xs-12 mx-auto">
+        <input type="text" name="search" placeholder="search..." class="form-control" value="{{ query }}" />
+        <button type="submit" class="btn btn-outline-success ms-2">Search</button>
     </div>
-    <div class="form-check form-check-inline p-4">
-      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="events">
-      <label class="form-check-label fw-bold fs-5" for="inlineRadio2"><span class="fa fa-calendar"></span>Events</label>
+    <div class="d-flex justify-content-center">
+      <div class="form-check form-check-inline p-4">
+        <input class="form-check-input" type="radio" name="search-type" id="search-type-all" value="all" {% if search_type == "all" %}checked{% endif %}>
+        <label class="form-check-label fw-bold fs-5" for="search-type"><i class="fa fa-magnifying-glass"></i>&nbsp;All</label>
+      </div>
+      <div class="form-check form-check-inline p-4">
+        <input class="form-check-input" type="radio" name="search-type" id="search-type-events" value="events" {% if search_type == "events" %}checked{% endif %}>
+        <label class="form-check-label fw-bold fs-5" for="search-type"><span class="fa fa-calendar"></span>&nbsp;Events</label>
+      </div>
+      <div class="form-check form-check-inline p-4">
+        <input class="form-check-input" type="radio" name="search-type" id="search-type-resources" value="resources" {% if search_type == "resources" %}checked{% endif %}>
+        <label class="form-check-label fw-bold fs-5" for="search-type"><span class="fa fa-vector-square"></span>&nbsp;Resources</label>
+      </div>
     </div>
-    <div class="form-check form-check-inline p-4">
-      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="resources">
-      <label class="form-check-label fw-bold fs-5" for="inlineRadio3"><span class="fa fa-vector-square"></span>Resources</label>
-    </div>
-    </div>
-  
   </form>
-    {% if page_obj %}
-      {% include "pagination.html" %}
-      <table class="table table-striped">
-        <thead>
-          <th>Organisation</th>
-          <th>Name</th>
-          <th>Type</th>
-        </thead>
-        <tbody>
-          {% for result in page_obj %}
-            <tr>
-              <td><a href="{% url 'info:organisation' result.organisation.slug %}">{{ result.organisation.name }}</a></td>
-              <td><a href="{{ result.get_absolute_url }}">{{ result.name }}</a></td>
-              <td><a href="{{ result.get_list_url }}">{{ result|class_name }}</a></td>
-            </tr>
-          {% endfor %}
-        </tbody>
-        <tfooter>
-          <th>Organisation</th>
-          <th>Name</th>
-          <th>Type</th>
-        </tfooter>
-      </table>
+  {% if page_obj %}
     {% include "pagination.html" %}
-    {% endif %}
+    <table class="table table-striped">
+      <thead>
+        <th>Organisation</th>
+        <th>Name</th>
+        <th>Type</th>
+      </thead>
+      <tbody>
+        {% for result in page_obj %}
+          <tr>
+            <td><a href="{% url 'info:organisation' result.organisation.slug %}">{{ result.organisation.name }}</a></td>
+            <td><a href="{{ result.get_absolute_url }}">{{ result.name }}</a></td>
+            <td><a href="{{ result.get_list_url }}">{{ result|class_name }}</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+      <tfooter>
+        <th>Organisation</th>
+        <th>Name</th>
+        <th>Type</th>
+      </tfooter>
+    </table>
+  {% include "pagination.html" %}
+  {% endif %}
 {% endblock %}
