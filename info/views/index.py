@@ -5,6 +5,7 @@ from django.contrib.postgres.aggregates import StringAgg
 from django.contrib.postgres.search import TrigramStrictWordSimilarity as TSWS
 from django.core.paginator import Paginator
 from django.http import FileResponse, HttpRequest, HttpResponse
+from django.utils import timezone
 from django.views.generic.base import TemplateView
 
 from .. import forms, models
@@ -31,6 +32,7 @@ class IndexView(TemplateView):
             )
             .filter(
                 similarity__gte=self.similarity,
+                start_date_time__gte=timezone.now(),
                 hide=False,
             )
             .order_by("-similarity")
