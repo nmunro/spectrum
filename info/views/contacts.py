@@ -3,18 +3,16 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
-from .. import forms
 from .. import models
 
 
 class ContactListView(ListView):
     model = models.Contact
+    paginate_by = 100
+    context_object_name = "contacts"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["contacts"] = models.Contact.objects.filter(organisation__admin=self.request.user)
-
-        return context
+    def get_queryset(self, **kwargs):
+        return models.Contact.objects.filter(organisation__admin=self.request.user).order_by("contact_name")
 
 class ContactCreateView(CreateView):
     model = models.Contact

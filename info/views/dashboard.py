@@ -1,30 +1,19 @@
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_list_or_404, render, get_object_or_404
-from django.views.generic.base import TemplateView
+from django.shortcuts import render, get_object_or_404
+from django.views.generic.list import ListView
 
 from .. import forms
 from .. import models
 
 
-class DashboardView(TemplateView):
+class DashboardView(ListView):
     template_name = "info/dashboard.html"
     model = models.Organisation
-    context_object_name = "organisations"
+    paginate_by = 100
+    context_object_name = "orgs"
 
-    def setup(self, request, *args, **kwargs):
-        super().setup(request, *args, **kwargs)
-        self.user = request.user
+    def get_queryset(self, **kwargs):
+        return models.Organisation.objects.filter(admin=self.request.user).order_by("organisation_name")
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["orgs"] = get_list_or_404(models.Organisation, admin=self.user)
-        context["user"] = self.request.user
-        return context
-
-    def get(self, request):
-        return self.render_to_response(self.get_context_data())
-
-@login_required
 def dashboard_org(request, org):
     org = get_object_or_404(models.Organisation, slug=org)
 

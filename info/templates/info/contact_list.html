@@ -9,7 +9,8 @@
 {% block contacts-class %}active{% endblock %}
 
 {% block dashboard_content %}
-<div class="row px-5">
+{% include "pagination.html" %}
+<div class="row">
   <div class="col-md-6 col-lg-6 col-xl-4 mt-4">
     <div class="card h-100 p-2 p-md-4 card-primary text-white">
       <div class="card-body bg-transparent border border-0">
@@ -43,4 +44,5 @@
   </div>
 </div>
 {% endfor %}
+{% include "pagination.html" %}
 {% endblock %}
