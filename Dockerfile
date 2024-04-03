@@ -20,7 +20,7 @@ RUN python3 -m venv $POETRY_VENV \
 ENV PATH="${PATH}:${POETRY_VENV}/bin"
 
 COPY . /app/spectrum
-RUN poetry install && poetry lock && poetry export -f requirements.txt --output requirements.txt
+RUN poetry install && poetry lock --no-update && poetry export -f requirements.txt --output requirements.txt
 RUN groupadd -r docker && useradd -r -m -g docker docker
 RUN chown -R docker /opt
 ENV PYTHONPATH $PYTHONPATH:/app

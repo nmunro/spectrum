@@ -38,15 +38,18 @@
         <p>{{ event.location.post_code }}</p>
       </div>
       <div>
-        <span><a href="tel:{{ event.contact.phone_number}}">{{ event.contact.phone_number}}</a>
-        <a href="mailto:{{ event.contact.email}}">{{ event.contact.email}}</a></span>
+        <span>
+          {% if event.contact.phone_number %}
+            <a href="tel:{{ event.contact.phone_number }}">{{ event.contact.phone_number}}</a>
+          {% endif %}
+          <a href="mailto:{{ event.contact.email }}">{{ event.contact.email}}</a>
+        </span>
       </div>
       <div>
         <p>
           {% for tag in event.tags.all %}
-            <a href="{% url 'info:index' %}?search={{ tag }}">{{ tag }}</a>{% if not forloop.last %},&nbsp;{% endif %}
+            <a href="{% url 'info:index' %}?search={{ tag }}&search-type=all">{{ tag }}</a>{% if not forloop.last %},&nbsp;{% endif %}
           {% endfor %}
-
         </p>
       </div>
     </div>

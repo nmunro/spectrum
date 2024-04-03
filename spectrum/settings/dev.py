@@ -10,3 +10,5 @@ DATABASES = {
         "PORT": 5432,  # default postgres port
     }
 }
+
+SENDGRID_SANDBOX_MODE_IN_DEBUG = config("SENDGRID_SANDBOX_MODE_IN_DEBUG", cast=bool)
