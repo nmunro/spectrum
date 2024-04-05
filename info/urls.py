@@ -29,6 +29,11 @@ urlpatterns = [
     path("events/", views.EventListView.as_view(), name="events"),
     path("events/<int:pk>/", views.EventDetailView.as_view(), name="event"),
     path(
+        "dashboard/profile/<int:pk>/",
+        login_required(views.DashboardProfileView.as_view()),
+        name="dashboard_profile",
+    ),
+    path(
         "dashboard/organisations/",
         login_required(views.DashboardView.as_view()),
         name="dashboard",
