@@ -10,8 +10,7 @@
 
 {% block dashboard_content %}
 
-    <form method="POST" class="col-lg-8 col-xl-8 col-md-8 col-sm-12  mx-auto border shadow p-5 m-5 text-center 
-    fw-bold text-uppercase">
+    <form method="POST" class="col-lg-8 col-xl-8 col-md-8 col-sm-12  mx-auto border shadow p-5 m-5 text-center fw-bold text-uppercase">
       {% csrf_token %}
       {{ form|crispy }}
       <input type="submit" class="btn btn-primary" value="Save"/>
