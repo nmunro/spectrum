@@ -12,6 +12,7 @@ from .events import (
 from .index import IndexView, favicon
 from .locations import LocationCreateView, LocationDeleteView, LocationDetailView, LocationListView, LocationUpdateView
 from .organisations import OrganisationDetailView, OrganisationListView
+from .profile import DashboardProfileView
 from .resources import (
     DashboardResourceCreateView,
     DashboardResourceDeleteView,
