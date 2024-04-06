@@ -1,4 +1,4 @@
-.PHONY: build clean clean-docker clean-docs docs repl test shell start stop lint migrate migrations dev-tools-check logs static poetry create-super-user restart reschedule lock
+.PHONY: build clean clean-docker clean-docs docs repl test shell start stop lint migrate migrations dev-tools-check logs static poetry startapp create-super-user restart reschedule locAPP-NAME
 .DEFAULT_GOAL: build
 
 REPORT := $(or $(REPORT),report -m)
@@ -115,6 +115,13 @@ lock: dev-tools-check
 ifeq ($(SERVICE),web-dev)
 	@[ ! -d "poetry.lock" ] && rm poetry.lock || true
 	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) /bin/bash -c "poetry lock --no-update"
+else
+	$(error Command not available for service: '$(SERVICE)')
+endif
+
+startapp: dev-tools-check
+ifeq ($(SERVICE),web-dev)
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py startapp $(APP-NAME)
 else
 	$(error Command not available for service: '$(SERVICE)')
 endif
