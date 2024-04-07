@@ -35,6 +35,7 @@ class Organisation(models.Model):
     description = models.TextField()
     admin = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     slug = models.SlugField(max_length=255)
+    active = models.BooleanField(default=True)
 
     @property
     def name(self) -> str:

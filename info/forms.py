@@ -1,60 +1,28 @@
-from django.forms import DateTimeInput, ModelForm
+from django import forms
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
-from .models import Contact, Event, Location, Organisation, Resource
+from .models import Organisation
 
 
-class ContactForm(ModelForm):
+class OrganisationForm(forms.ModelForm):
     class Meta:
-        model = Contact
+        model = Organisation
         fields = [
-            "organisation",
-            "contact_name",
+            "description",
+            "region",
             "email",
+            "website",
             "phone_number",
         ]
 
 
-class OrgForm(ModelForm):
+class RegisterForm(UserCreationForm):
     class Meta:
-        model = Organisation
-        fields = ["description", "region", "email", "website", "phone_number"]
-
-
-class EventForm(ModelForm):
-    class Meta:
-        model = Event
+        model = User
         fields = [
-            "organisation",
-            "event_name",
-            "description",
-            "location",
-            "contact",
-            "ticketed",
-            "hide",
-            "start_date_time",
-            "end_date_time",
-            "price",
-            "tags",
-        ]
-
-
-class ResourceForm(ModelForm):
-    class Meta:
-        model = Resource
-        fields = [
-            "organisation",
-            "resource_name",
-            "description",
-            "tags",
-        ]
-
-
-class LocationForm(ModelForm):
-    class Meta:
-        model = Location
-        fields = [
-            "organisation",
-            "venue_name",
-            "address",
-            "post_code",
+            "username",
+            "email",
+            "password1",
+            "password2",
         ]

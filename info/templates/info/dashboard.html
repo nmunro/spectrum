@@ -9,29 +9,39 @@
 {% block organisations-class %}active{% endblock %}
 
 {% block dashboard_content %}
-{% include "pagination.html" %}
-{% for org in orgs %}
-<div class="col-md-6 col-lg-6 col-xl-4 mt-4">
-  <div  class="card p-2 p-md-4 h-100 {% cycle 'card-primary' 'card-secondary' %} text-white">
-    <div class="card-body bg-transparent border border-0">
-      <h5 class="event-title fs-2 fw-bold m-0 p-0">
-        <a href="{% url 'info:organisation' org.slug %}" class="text-white text-decoration-none">{{ org.organisation_name }}</a>
-      </h5>
-      <p class="event-text mt-2">{{ org.description|slice:":80" }}</p>
-    </div>
-
-    <div class="card-footer bg-transparent border border-0 d-flex flex-row justify-content-between align-items-center">
-      <div class="event-button">
-        <a class="btn text-white fs-5 border border-2 px-2 m-0" href="{% url 'info:dashboard_org' org.slug %}"><i class="fa fa-edit"></i> Edit</a>
+  {% include "pagination.html" %}
+  <div class="row">
+    <div class="col-md-6 col-lg-6 col-xl-4 mt-4">
+      <div  style = "height: 300px" class = "card p-2 p-md-4 card-primary text-white">
+        <div class="card-body bg-transparent border border-0">
+          <h5 class="event-title fs-2 fw-bold m-0 p-0">Create New</h5>
+          <p>Create A New Organisation</p>
+        </div>
+        <div class="card-footer bg-transparent border border-0 d-flex flex-row justify-content-between align-items-center">
+          <div class="event-button">
+            <a href="{% url 'info:new_dashboard_organisation' %}" class="btn text-white fs-5 border border-2 px-2 m-0"><i class="fa fa-plus"></i> Create New</a>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  &nbsp;
-</div>
-{% empty %}
-  <div class="col-md-12">
-    <h2>No Organisations</h2>
-  </div>
-{% endfor %}
-{% include "pagination.html" %}
+  {% for org in orgs %}
+    <div class="col-md-6 col-lg-6 col-xl-4 mt-4">
+      <div  class="card p-2 p-md-4 h-100 {% cycle 'card-secondary' 'card-primary' %} text-white">
+        <div class="card-body bg-transparent border border-0">
+          <h5 class="event-title fs-2 fw-bold m-0 p-0">
+            <a href="{% url 'info:organisation' org.slug %}" class="text-white text-decoration-none">{{ org.organisation_name }}</a>
+          </h5>
+          <p class="event-text mt-2">{{ org.description|slice:":80" }}</p>
+        </div>
+
+        <div class="card-footer bg-transparent border border-0 d-flex flex-row justify-content-between align-items-center">
+          <div class="event-button">
+            <a class="btn text-white fs-5 border border-2 px-2 m-0" href="{% url 'info:dashboard_organisation' org.slug %}"><i class="fa fa-edit"></i> Edit</a>
+          </div>
+        </div>
+      </div>
+      &nbsp;
+    </div>
+  {% endfor %}
+  {% include "pagination.html" %}
 {% endblock %}
