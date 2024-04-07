@@ -29,7 +29,7 @@ def dashboard_org(request, org):
         "info/dashboard_org.html",
         {
             "org": org,
-            "form": forms.OrgForm(instance=org),
+            "form": forms.OrganisationForm(instance=org),
             "resources": models.Resource.objects.filter(organisation=org),
             "events": models.Event.objects.filter(organisation=org),
             "contacts": models.Contact.objects.filter(organisation=org),

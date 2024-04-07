@@ -8,6 +8,7 @@ app_name = "info"
 urlpatterns = [
     path("", views.IndexView.as_view(), name="index"),
     path("favicon.ico", views.favicon, name="favicon"),
+    path("register/", views.UserCreateView.as_view(), name="register"),
     path("organisations/", views.OrganisationListView.as_view(), name="organisations"),
     path(
         "organisations/<slug:org>/",
@@ -29,9 +30,9 @@ urlpatterns = [
     path("events/", views.EventListView.as_view(), name="events"),
     path("events/<int:pk>/", views.EventDetailView.as_view(), name="event"),
     path(
-        "dashboard/profile/<int:pk>/",
-        login_required(views.DashboardProfileView.as_view()),
-        name="dashboard_profile",
+        "dashboard/user/<int:pk>/",
+        login_required(views.DashboardUserView.as_view()),
+        name="dashboard_user",
     ),
     path(
         "dashboard/organisations/",
