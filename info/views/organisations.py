@@ -7,7 +7,7 @@ from django.views.generic.edit import CreateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
-from spectrum.settings.base import DEFAULT_FROM_EMAIL
+from spectrum.settings.base import DEFAULT_FROM_EMAIL, ADMIN_EMAIL_LIST
 from .. import models
 
 
@@ -50,9 +50,9 @@ class DashboardOrganisationCreateView(CreateView):
 
         send_mail(
             "Pending Organisation",
-            f"'{self.request.user}' has requested to create the organisation '{self.object.slug}', check it out {url}",
+            f"'{self.request.user}' has requested to create the organisation '{self.object.slug}', check it out {url}.",
             DEFAULT_FROM_EMAIL,
-            [DEFAULT_FROM_EMAIL],
+            ADMIN_EMAIL_LIST,
             fail_silently=False,
         )
 
