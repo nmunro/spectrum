@@ -1,6 +1,6 @@
 from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 
 from .. import models
@@ -12,7 +12,10 @@ class ContactListView(ListView):
     context_object_name = "contacts"
 
     def get_queryset(self, **kwargs):
-        return models.Contact.objects.filter(organisation__admin=self.request.user).order_by("contact_name")
+        return models.Contact.objects.filter(
+            organisation__admin=self.request.user, organisation__active=True
+        ).order_by("contact_name")
+
 
 class ContactCreateView(CreateView):
     model = models.Contact
@@ -28,7 +31,10 @@ class ContactCreateView(CreateView):
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
-        form.fields["organisation"].queryset = models.Organisation.objects.filter(admin=self.request.user)
+        form.fields["organisation"].queryset = models.Organisation.objects.filter(
+            admin=self.request.user, active=True
+        )
+
         return form
 
 
@@ -46,7 +52,9 @@ class ContactUpdateView(UpdateView):
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
-        form.fields["organisation"].queryset = models.Organisation.objects.filter(admin=self.request.user)
+        form.fields["organisation"].queryset = models.Organisation.objects.filter(
+            admin=self.request.user, active=True
+        )
         return form
 
 

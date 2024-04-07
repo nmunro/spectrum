@@ -45,7 +45,8 @@ class DashboardResourceListView(ListView):
 
     def get_queryset(self, **kwargs):
         return models.Resource.objects.filter(
-            organisation__admin=self.request.user
+            organisation__admin=self.request.user,
+            organisation__active=True,
         ).order_by("resource_name")
 
 
@@ -59,8 +60,10 @@ class DashboardResourceCreateView(CreateView):
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         form.fields["organisation"].queryset = models.Organisation.objects.filter(
-            admin=self.request.user
-        )
+            admin=self.request.user,
+            active=True,
+        ).order_by("organisation_name")
+
         return form
 
 
@@ -74,8 +77,10 @@ class DashboardResourceUpdateView(UpdateView):
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         form.fields["organisation"].queryset = models.Organisation.objects.filter(
-            admin=self.request.user
-        )
+            admin=self.request.user,
+            active=True,
+        ).order_by("organisation_name")
+
         return form
 
 

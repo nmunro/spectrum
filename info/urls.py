@@ -8,6 +8,7 @@ app_name = "info"
 urlpatterns = [
     path("", views.IndexView.as_view(), name="index"),
     path("favicon.ico", views.favicon, name="favicon"),
+    path("register/", views.UserCreateView.as_view(), name="register"),
     path("organisations/", views.OrganisationListView.as_view(), name="organisations"),
     path(
         "organisations/<slug:org>/",
@@ -29,19 +30,24 @@ urlpatterns = [
     path("events/", views.EventListView.as_view(), name="events"),
     path("events/<int:pk>/", views.EventDetailView.as_view(), name="event"),
     path(
-        "dashboard/profile/<int:pk>/",
-        login_required(views.DashboardProfileView.as_view()),
-        name="dashboard_profile",
+        "dashboard/user/<int:pk>/",
+        login_required(views.DashboardUserView.as_view()),
+        name="dashboard_user",
     ),
     path(
         "dashboard/organisations/",
-        login_required(views.DashboardView.as_view()),
-        name="dashboard",
+        login_required(views.DashboardOrganisationView.as_view()),
+        name="dashboard_organisations",
+    ),
+    path(
+        "dashboard/organisations/new/",
+        login_required(views.DashboardOrganisationCreateView.as_view()),
+        name="new_dashboard_organisation",
     ),
     path(
         "dashboard/organisations/<str:org>/",
-        login_required(views.dashboard_org),
-        name="dashboard_org",
+        login_required(views.dashboard_organisation),
+        name="dashboard_organisation",
     ),
     path(
         "dashboard/events/",

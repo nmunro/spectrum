@@ -9,9 +9,8 @@
 {% block profile-class %}active{% endblock %}
 
 {% block dashboard_content %}
-    <h2 class="text-center">Edit Profile</h2>
-
     <form method="post" class="col-lg-6 col-sm-12 mx-auto border shadow p-5 text-center fw-bold text-uppercase">
+        <h2 class="text-center">Edit Profile</h2>
         {% csrf_token %}
         {{ form|crispy }}
         <a href="{% url 'password_change' %}">Change Password</a>
