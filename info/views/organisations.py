@@ -10,13 +10,10 @@ class OrganisationListView(ListView):
     model = models.Organisation
     paginate_by = 100
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["organisations"] = models.Organisation.objects.all().order_by(
+    def get_queryset(self, **kwargs):
+        return models.Organisation.objects.filter(active=True).order_by(
             "organisation_name"
         )
-
-        return context
 
 
 class OrganisationDetailView(DetailView):

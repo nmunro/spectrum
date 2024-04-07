@@ -45,7 +45,7 @@
           </ul>
           <div class="d-flex" role="actions">
             {% if user.is_authenticated %}
-              <a href="{% url 'info:dashboard' %}" class="btn btn-primary" role="button">Dashboard</a>
+              <a href="{% url 'info:dashboard_organisations' %}" class="btn btn-primary" role="button">Dashboard</a>
               &nbsp;
               <a href="{% url 'logout' %}" class="btn btn-primary" role="button">Logout</a>
             {% else %}

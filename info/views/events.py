@@ -31,6 +31,7 @@ class OrganisationEventListView(ListView):
             organisation=get_object_or_404(
                 models.Organisation,
                 slug=self.kwargs["org"],
+                active=True,
             ),
             hide=False,
             start_date_time__gte=timezone.now(),
@@ -51,6 +52,7 @@ class DashboardEventListView(ListView):
     def get_queryset(self, **kwargs):
         return models.Event.objects.filter(
             organisation__admin=self.request.user,
+            organisation__active=True,
             start_date_time__gte=timezone.now(),
         ).order_by("start_date_time")
 
@@ -76,8 +78,10 @@ class DashboardEventCreateView(CreateView):
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         form.fields["organisation"].queryset = models.Organisation.objects.filter(
-            admin=self.request.user
-        )
+            admin=self.request.user,
+            active=True,
+        ).order_by("organisation_name")
+
         return form
 
 
@@ -103,8 +107,10 @@ class DashboardEventUpdateView(UpdateView):
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         form.fields["organisation"].queryset = models.Organisation.objects.filter(
-            admin=self.request.user
-        )
+            admin=self.request.user,
+            active=True,
+        ).order_by("organisation_name")
+
         return form
 
 

@@ -1,5 +1,5 @@
 from .contacts import ContactCreateView, ContactDeleteView, ContactDetailView, ContactListView, ContactUpdateView
-from .dashboard import DashboardView, dashboard_org
+from .dashboard import DashboardOrganisationCreateView, DashboardOrganisationView, dashboard_organisation
 from .events import (
     DashboardEventCreateView,
     DashboardEventDeleteView,
@@ -12,7 +12,7 @@ from .events import (
 from .index import IndexView, favicon
 from .locations import LocationCreateView, LocationDeleteView, LocationDetailView, LocationListView, LocationUpdateView
 from .organisations import OrganisationDetailView, OrganisationListView
-from .profile import UserCreateView, DashboardUserView
+from .profile import DashboardUserView, UserCreateView
 from .resources import (
     DashboardResourceCreateView,
     DashboardResourceDeleteView,
@@ -20,5 +20,5 @@ from .resources import (
     DashboardResourceUpdateView,
     OrganisationResourceListView,
     ResourceDetailView,
-    ResourceListView,
+    ResourceListView
 )

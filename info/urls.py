@@ -36,13 +36,18 @@ urlpatterns = [
     ),
     path(
         "dashboard/organisations/",
-        login_required(views.DashboardView.as_view()),
-        name="dashboard",
+        login_required(views.DashboardOrganisationView.as_view()),
+        name="dashboard_organisations",
+    ),
+    path(
+        "dashboard/organisations/new/",
+        login_required(views.DashboardOrganisationCreateView.as_view()),
+        name="new_dashboard_organisation",
     ),
     path(
         "dashboard/organisations/<str:org>/",
-        login_required(views.dashboard_org),
-        name="dashboard_org",
+        login_required(views.dashboard_organisation),
+        name="dashboard_organisation",
     ),
     path(
         "dashboard/events/",

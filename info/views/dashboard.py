@@ -1,20 +1,46 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse_lazy
+from django.utils.text import slugify
+from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 
-from .. import forms
-from .. import models
+from .. import forms, models
 
 
-class DashboardView(ListView):
+class DashboardOrganisationView(ListView):
     template_name = "info/dashboard.html"
     model = models.Organisation
     paginate_by = 100
     context_object_name = "orgs"
 
     def get_queryset(self, **kwargs):
-        return models.Organisation.objects.filter(admin=self.request.user).order_by("organisation_name")
+        return models.Organisation.objects.filter(
+            admin=self.request.user, active=True
+        ).order_by("organisation_name")
 
-def dashboard_org(request, org):
+
+class DashboardOrganisationCreateView(CreateView):
+    model = models.Organisation
+    fields = [
+        "organisation_name",
+        "region",
+        "email",
+        "website",
+        "phone_number",
+        "description",
+    ]
+
+    def get_success_url(self) -> str:
+        return reverse_lazy("info:dashboard_organisations")
+
+    def form_valid(self, form):
+        form.instance.admin = self.request.user
+        form.instance.active = False
+        form.instance.slug = slugify(form.instance.organisation_name)
+        return super().form_valid(form)
+
+
+def dashboard_organisation(request, org):
     org = get_object_or_404(models.Organisation, slug=org)
 
     if request.method == "POST":
