@@ -12,20 +12,21 @@
 {% block content %}
   <h1 class="text-center">Spectrum</h1>
   <form method="GET">
-    <div class="d-flex justify-content-center col-lg-4 col-md-6 col-xs-12 mx-auto">
+    <div class=" d-flex justify-content-center p-2 col-lg-4 col-md-6 col-xs-12 mx-auto">
         <input type="text" name="search" placeholder="search..." class="form-control" value="{{ query }}" />
         <button type="submit" class="btn btn-outline-success ms-2">Search</button>
     </div>
+
     <div class="d-flex justify-content-center">
-      <div class="form-check form-check-inline p-4">
+      <div class="form-check form-check-inline">
         <input class="form-check-input" type="radio" name="search-type" id="search-type-all" value="all" {% if search_type == "all" %}checked{% endif %}>
         <label class="form-check-label fw-bold fs-5" for="search-type"><i class="fa fa-magnifying-glass"></i>&nbsp;All</label>
+     </div>
+     <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="search-type" id="search-type-events" value="events" {% if search_type == "events" %}checked{% endif %}>
+      <label class="form-check-label fw-bold fs-5" for="search-type"><span class="fa fa-calendar"></span>&nbsp;Events</label>
       </div>
-      <div class="form-check form-check-inline p-4">
-        <input class="form-check-input" type="radio" name="search-type" id="search-type-events" value="events" {% if search_type == "events" %}checked{% endif %}>
-        <label class="form-check-label fw-bold fs-5" for="search-type"><span class="fa fa-calendar"></span>&nbsp;Events</label>
-      </div>
-      <div class="form-check form-check-inline p-4">
+      <div class="form-check form-check-inline">
         <input class="form-check-input" type="radio" name="search-type" id="search-type-resources" value="resources" {% if search_type == "resources" %}checked{% endif %}>
         <label class="form-check-label fw-bold fs-5" for="search-type"><span class="fa fa-vector-square"></span>&nbsp;Resources</label>
       </div>
