@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block about-class %}active active-background{% endblock %}
+
+{% block nav %}
+<div class="overflow-auto mb-5 pb-5" style="height: 100vh; text-align: justify;">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb mx-3 mt-3">
+      <li class="breadcrumb-item fw-bold text-uppercase"><a href="{% url 'info:index' %}">Home</a></li>
+      <li class="breadcrumb-item fw-bold text-uppercase"><a href="{% url 'about:about' %}">About</a></li>
+      <li class="breadcrumb-item text-uppercase">NMunro</li>
+    </ol>
+  </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="row px-5 text-center">
+      <h2>NMunro</h2>
+      <p>NMunro (Neil Munro) is Computer Scientist with a combined 24 years of education and employment in developing software. He started writing code at 14 years old tinkering around with building websites. He has worked in many different industries and on many different projects, from digital print to digital archiving, to Cheminformatics. He is currently the head of back end engineering at Elixir, the products he works on help the worlds scientists in their work.</p>
+    </div>
+{% endblock %}
