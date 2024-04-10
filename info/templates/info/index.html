@@ -19,15 +19,15 @@
 
     <div class="d-lg-flex d-xl-flex d-md-flex justify-content-center 
      d-sm-flex d-xs-block">
-      <div class="form-check form-inline">
+      <div class="form-check form-inline m-2">
         <input class="form-check-input" type="radio" name="search-type" id="search-type-all" value="all" {% if search_type == "all" %}checked{% endif %}>
         <label class="form-check-label fw-bold fs-5" for="search-type"><i class="fa fa-magnifying-glass"></i>&nbsp;All</label>
      </div>
-     <div class="form-check form-inline">
+     <div class="form-check form-inline m-2">
       <input class="form-check-input" type="radio" name="search-type" id="search-type-events" value="events" {% if search_type == "events" %}checked{% endif %}>
       <label class="form-check-label fw-bold fs-5" for="search-type"><span class="fa fa-calendar"></span>&nbsp;Events</label>
       </div>
-      <div class="form-check form-inline">
+      <div class="form-check form-inline m-2">
         <input class="form-check-input" type="radio" name="search-type" id="search-type-resources" value="resources" {% if search_type == "resources" %}checked{% endif %}>
         <label class="form-check-label fw-bold fs-5" for="search-type"><span class="fa fa-vector-square"></span>&nbsp;Resources</label>
       </div>
