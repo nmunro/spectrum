@@ -1,11 +1,12 @@
+from django.shortcuts import render
+from django.template.exceptions import TemplateDoesNotExist
 from django.views.generic import TemplateView
 
 
 class AboutView(TemplateView):
-    template_name = "about/about.html"
+    def get(self, request, *args, **kwargs):
+        try:
+            return render(request, f"about/{request.GET.get('developer')}.html")
 
-class NMunroView(TemplateView):
-    template_name = "about/nmunro.html"
-
-class BhosalePriyanka(TemplateView):
-    template_name = "about/bhosalepriyanka.html"
+        except TemplateDoesNotExist:
+            return render(request, "about/about.html")
