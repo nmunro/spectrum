@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block about-class %}active active-background{% endblock %}
+
+{% block nav %}
+<div class="overflow-auto mb-5 pb-5" style="height: 100vh; text-align: justify;">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb mx-3 mt-3">
+      <li class="breadcrumb-item fw-bold text-uppercase"><a href="{% url 'info:index' %}">Home</a></li>
+      <li class="breadcrumb-item text-uppercase">About</li>
+    </ol>
+  </nav>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12 col-lg-12 col-xl-12 mt-12 text-center">
+        <h2>Spectrum was built by the following people:</h2>
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6 col-lg-6 col-xl-4 mt-4">
+    <div  style = "height: 300px" class = "card p-2 p-md-4 card-primary text-white">
+      <div class="card-body bg-transparent border border-0">
+        <h5 class="event-title fs-2 fw-bold m-0 p-0">NMunro</h5>
+      </div>
+      <div class="card-footer bg-transparent border border-0 d-flex flex-row justify-content-between align-items-center">
+        <div class="event-button">
+          <a href="{% url 'about:about' %}?developer=nmunro" class="btn text-white fs-5 border border-2 px-2 m-0">NMunro</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-lg-6 col-xl-4 mt-4">
+      <div  style = "height: 300px" class = "card p-2 p-md-4 card-secondary text-white">
+        <div class="card-body bg-transparent border border-0">
+          <h5 class="event-title fs-2 fw-bold m-0 p-0">BhosalePriyanka</h5>
+        </div>
+        <div class="card-footer bg-transparent border border-0 d-flex flex-row justify-content-between align-items-center">
+          <div class="event-button">
+            <a href="{% url 'about:about' %}?developer=bhosalepriyanka" class="btn text-white fs-5 border border-2 px-2 m-0">BhosalePriyanka</a>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock %}

@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "taggit",
     "help",
     "info",
+    "about",
     "whitenoise.runserver_nostatic",
 ]
 

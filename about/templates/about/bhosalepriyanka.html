@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block about-class %}active active-background{% endblock %}
+
+{% block nav %}
+<div class="overflow-auto mb-5 pb-5" style="height: 100vh; text-align: justify;">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb mx-3 mt-3">
+      <li class="breadcrumb-item fw-bold text-uppercase"><a href="{% url 'info:index' %}">Home</a></li>
+      <li class="breadcrumb-item fw-bold text-uppercase"><a href="{% url 'about:about' %}">About</a></li>
+      <li class="breadcrumb-item text-uppercase">BhosalePriyanka</li>
+    </ol>
+  </nav>
+{% endblock %}
+
+{% block content %}
+  <div class="row px-5 text-center">
+    <h2>BhosalePriyanka</h2>
+    <p>I'm Priyanka Bhosale a passionate Web Developer with over 3 years of experience, specialising in React, JavaScript, HTML, and CSS. Proven track record in delivering engaging user interfaces and contributing to user experience enhancements. completed Masters in Computer Science.I expanded my scope to backend and worked on many backend technologies as well like Node, APIs, Web Server, databases etc. Worked on XAMP framework and designed effective websites.</p>
+
+    <p>I have extensive experience in building multi platform  websites using Responsive web design. One of my greatest asset is problem solving skills and with the help of this I like to troubleshoot the impediments in projects.</p>
+
+    <p>I am very keen on learning new technologies and frameworks. <a target = "_blank" href="https://bhosalepriyanka.github.io/PriyankaPortfolio/">My Portfolio</a></p>
+
+    <p>In my spare time, I enjoy playing with my daughter and like to do crafting with her also I love to cook.</p>
+  </div>
+{% endblock %}

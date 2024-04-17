@@ -37,6 +37,9 @@
             <li class="nav-item">
                 <a class="nav-link {% block events-class %}{% endblock %}" href="{% url 'info:events' %}">Events</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link {% block about-class %}{% endblock %}" href="{% url 'about:about' %}">About</a>
+            </li>
             {% if user.is_authenticated %}
             <li class="nav-item">
                 <a class="nav-link {% block help-class %}{% endblock %}" href="{% url 'help:overview' %}">Help</a>
