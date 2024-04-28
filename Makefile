@@ -110,6 +110,7 @@ create-super-user:
 
 requirements:
 	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry export -f requirements.txt -o requirements.txt
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry export --with dev -f requirements.txt -o requirements-dev.txt
 
 lock: dev-tools-check
 ifeq ($(SERVICE),web-dev)
