@@ -22,7 +22,6 @@ cron-converter = "^1.0.2"
 poetry-plugin-export = "^1.7.0"
 django-taggit = "^5.0.1"
 django-sendgrid-v5 = "^1.2.3"
-coverage-badge = "^1.1.1"
 
 
 [tool.poetry.dev-dependencies]
@@ -39,6 +38,7 @@ pylsp-mypy = "^0.6.8"
 python-lsp-isort = "^0.1"
 python-lsp-black = "^2.0.0"
 lxml = "^5.2.1"
+coverage-badge = "^1.1.1"
 
 [build-system]
 requires = ["poetry>=0.12"]
