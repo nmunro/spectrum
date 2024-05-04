@@ -79,11 +79,15 @@ jobs:
         sed -i '/^\!\[Coverage\](.*)$/d' README.md
         cat coverage_badge.md >> README.md
 
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ github.head_ref }}
+
     - name: Commit and Push Changes
       run: |
         git config --global user.email "github-actions@github.com"
         git config --global user.name "GitHub Actions"
-        git checkout ${{ github.head_ref }}
         git add README.md
         git commit -m "Update README with coverage badge"
         git push origin ${{ github.head_ref }}
