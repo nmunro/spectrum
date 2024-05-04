@@ -65,7 +65,7 @@ jobs:
     - name: Calculate Coverage Percentage
       id: calculate_coverage
       run: |
-        COVERAGE_PERCENTAGE=$(coverage report | grep -oP '^TOTAL\s+\K(\d+\%)')
+        COVERAGE_PERCENTAGE=$(coverage report | awk '/^TOTAL/ {print $4}')
         echo "::set-output name=coverage_percentage::$COVERAGE_PERCENTAGE"
 
     - name: Generate Coverage Badge
