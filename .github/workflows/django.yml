@@ -62,23 +62,27 @@ jobs:
         ADMIN_EMAIL_LIST: ${{ secrets.ADMIN_EMAIL_LIST }}
         SITE_URL: ${{ secrets.SITE_URL }}
 
-    - name: Generate Coverage Badge
-      run: |
-        coverage-badge -f -o coverage.svg \
-          --coverage-report=coverage.xml \
-          --total-coverage-percentage
-      env:
-        COVERAGE_BADGE_TOTAL: ${{ steps.calculate_coverage.outputs.coverage_percentage }}
-
     - name: Calculate Coverage Percentage
       id: calculate_coverage
       run: |
-        python -m coverage xml -o coverage.xml
-        python -c "import xml.etree.ElementTree as ET; root = ET.parse('coverage.xml').getroot(); total = float(root.find('totals').get('percent')); print(total)"
-      shell: bash
+        COVERAGE_PERCENTAGE=$(coverage report | grep -oP '^TOTAL\s+\K(\d+\%)')
+        echo "::set-output name=coverage_percentage::$COVERAGE_PERCENTAGE"
 
-    - name: Upload coverage badge
-      uses: actions/upload-artifact@v2
-      with:
-        name: coverage-badge
-        path: coverage.svg
+    - name: Generate Coverage Badge
+      run: |
+        COVERAGE_PERCENTAGE=${{ steps.calculate_coverage.outputs.coverage_percentage }}
+        BADGE_URL="https://img.shields.io/badge/Coverage-$COVERAGE_PERCENTAGE-brightgreen"
+        echo "![Coverage]($BADGE_URL)" > coverage_badge.md
+
+    - name: Update README with Coverage Badge
+      run: |
+        sed -i '/^\!\[Coverage\](.*)$/d' README.md
+        cat coverage_badge.md >> README.md
+
+    - name: Commit and Push Changes
+      run: |
+        git config --global user.email "github-actions@github.com"
+        git config --global user.name "GitHub Actions"
+        git add README.md
+        git commit -m "Update README with coverage badge"
+        git push
