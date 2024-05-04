@@ -406,6 +406,20 @@ files = [
 toml = ["tomli"]
 
 [[package]]
+name = "coverage-badge"
+version = "1.1.1"
+description = "Generate coverage badges for Coverage.py."
+optional = false
+python-versions = "*"
+files = [
+    {file = "coverage-badge-1.1.1.tar.gz", hash = "sha256:42252df917404af6147380861228a4ace3d9a29804df8fc2d34a22b2bc4f45b6"},
+    {file = "coverage_badge-1.1.1-py2.py3-none-any.whl", hash = "sha256:1d8e566ad47c37910fa2bbc74ea19972b171b5b4e40624b31b3e2f2d93680266"},
+]
+
+[package.dependencies]
+coverage = "*"
+
+[[package]]
 name = "crashtest"
 version = "0.4.1"
 description = "Manage Python errors with ease"
@@ -2639,4 +2653,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "57cb427b21c1d44b210c6e13cd934663958c8eea14baf281acb2b86f408ee5e1"
+content-hash = "2178687be5f51fb22f9a8d638c795bddc4ebdde89a7b16400384585a5833c496"

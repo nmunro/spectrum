@@ -46,7 +46,6 @@ jobs:
       run: |
         coverage run --branch ./manage.py test --settings=spectrum.settings.ci --no-input --parallel
         coverage report -m
-        coverage xml
 
       env:
         DATABASE_NAME: postgres
@@ -63,8 +62,23 @@ jobs:
         ADMIN_EMAIL_LIST: ${{ secrets.ADMIN_EMAIL_LIST }}
         SITE_URL: ${{ secrets.SITE_URL }}
 
-    - name: Upload coverage report
+    - name: Generate Coverage Badge
+      run: |
+        coverage-badge -f -o coverage.svg \
+          --coverage-report=coverage.xml \
+          --total-coverage-percentage
+      env:
+        COVERAGE_BADGE_TOTAL: ${{ steps.calculate_coverage.outputs.coverage_percentage }}
+
+    - name: Calculate Coverage Percentage
+      id: calculate_coverage
+      run: |
+        python -m coverage xml -o coverage.xml
+        python -c "import xml.etree.ElementTree as ET; root = ET.parse('coverage.xml').getroot(); total = float(root.find('totals').get('percent')); print(total)"
+      shell: bash
+
+    - name: Upload coverage badge
       uses: actions/upload-artifact@v2
       with:
-        name: coverage-report
-        path: coverage.xml
+        name: coverage-badge
+        path: coverage.svg
