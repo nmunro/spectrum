@@ -46,6 +46,7 @@ jobs:
       run: |
         coverage run --branch ./manage.py test --settings=spectrum.settings.ci --no-input --parallel
         coverage report -m
+        coverage xml
 
       env:
         DATABASE_NAME: postgres
@@ -62,26 +63,8 @@ jobs:
         ADMIN_EMAIL_LIST: ${{ secrets.ADMIN_EMAIL_LIST }}
         SITE_URL: ${{ secrets.SITE_URL }}
 
-    - name: Coverage Badge
-      uses: tj-actions/coverage-badge-py@v2
-
-    - name: Verify Changed files
-      uses: tj-actions/verify-changed-files@v16
-      id: verify-changed-files
+    - name: Upload coverage report
+      uses: actions/upload-artifact@v2
       with:
-        files: coverage.svg
-
-    - name: Commit files
-      if: steps.verify-changed-files.outputs.files_changed == 'true'
-      run: |
-        git config --local user.email "github-actions[bot]@users.noreply.github.com"
-        git config --local user.name "github-actions[bot]"
-        git add coverage.svg
-        git commit -m "Updated coverage.svg"
-
-    - name: Push changes
-      if: steps.verify-changed-files.outputs.files_changed == 'true'
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ github.token }}
-        branch: ${{ github.ref }}
+        name: coverage-report
+        path: coverage.xml
