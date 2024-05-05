@@ -45,7 +45,7 @@ jobs:
     - name: Run Tests
       run: |
         coverage run --branch ./manage.py test --settings=spectrum.settings.ci --no-input --parallel
-        coverage report -m
+        coverage json
 
       env:
         DATABASE_NAME: postgres
@@ -62,34 +62,56 @@ jobs:
         ADMIN_EMAIL_LIST: ${{ secrets.ADMIN_EMAIL_LIST }}
         SITE_URL: ${{ secrets.SITE_URL }}
 
-    - name: Calculate Coverage Percentage
-      id: calculate_coverage
-      run: |
-        COVERAGE_PERCENTAGE=$(coverage report | awk '/^TOTAL/ {print $4}')
-        echo "::set-output name=coverage_percentage::$COVERAGE_PERCENTAGE"
 
-    - name: Generate Coverage Badge
-      run: |
-        COVERAGE_PERCENTAGE=${{ steps.calculate_coverage.outputs.coverage_percentage }}
-        BADGE_URL="https://img.shields.io/badge/Coverage-$COVERAGE_PERCENTAGE-brightgreen"
-        echo "![Coverage]($BADGE_URL)" > coverage_badge.md
-
-    - name: Update README with Coverage Badge
-      run: |
-        sed -i '/^\!\[Coverage\](.*)$/d' README.md
-        cat coverage_badge.md >> README.md
-
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+    - name: "Upload coverage data"
+      uses: actions/upload-artifact@v3
       with:
-        ref: ${{ github.head_ref }}
+        name: covdata
+        path: coverage.json
 
-    - name: Commit and Push Changes
-      run: |
-        git config --global user.email "github-actions@github.com"
-        git config --global user.name "GitHub Actions"
-        git add README.md
-        git commit -m "Update README with coverage badge"
-        git push origin ${{ github.head_ref }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  coverage:
+    name: Coverage
+    needs: tests
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.12]
+
+    steps:
+      - name: "Check out the repo"
+        uses: "actions/checkout@v2"
+
+      - name: "Set up Python"
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: "Install dependencies"
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      - name: "Download coverage data"
+        uses: actions/download-artifact@v3
+        with:
+          name: covdata
+
+      - name: "Combine"
+        run: |
+          export TOTAL=$(python -c "import json;print(json.load(open('coverage.json'))['totals']['percent_covered_display'])")
+          echo "total=$TOTAL" >> $GITHUB_ENV
+          echo "### Total coverage: ${TOTAL}%" >> $GITHUB_STEP_SUMMARY
+
+      - name: "Make badge"
+        uses: schneegans/dynamic-badges-action@v1.4.0
+        with:
+          # GIST_TOKEN is a GitHub personal access token with scope "gist".
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: c2cbaee75336b04ba14c7315cb0a1e27
+          filename: coverage.json
+          label: Coverage
+          message: ${{ env.total }}%
+          minColorRange: 50
+          maxColorRange: 90
+          valColorRange: ${{ env.total }}
