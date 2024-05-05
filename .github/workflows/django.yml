@@ -70,6 +70,7 @@ jobs:
       run: |
         git config --global user.email "nmunro@duck.com"
         git config --global user.name "Neil Munro"
+        git checkout ${{ github.head_ref || github.ref_name }}
         git add badge.svg
         git commit -m "Updating badge"
         git push origin ${{ github.head_ref || github.ref_name }}
