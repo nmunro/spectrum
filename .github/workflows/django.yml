@@ -62,3 +62,16 @@ jobs:
         SENDGRID_SANDBOX_MODE_IN_DEBUG: ${{ secrets.SENDGRID_SANDBOX_MODE_IN_DEBUG }}
         ADMIN_EMAIL_LIST: ${{ secrets.ADMIN_EMAIL_LIST }}
         SITE_URL: ${{ secrets.SITE_URL }}
+
+    - name: Update Badge
+      uses: EndBug/add-and-commit@v9 # You can change this to use a specific version.
+      with:
+        add: 'badge.svg'
+        author_name: Github Actions
+        committer_name: Github Actions
+        fetch: false
+        message: 'Updating badge'
+        pathspec_error_handling: ignore
+        pull: '--rebase --autostash ...'
+        push: false
+        tag_push: '--force'
