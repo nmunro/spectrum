@@ -1,4 +1,4 @@
-.PHONY: build clean clean-docker clean-docs docs repl test shell start stop lint migrate migrations dev-tools-check logs static poetry startapp create-super-user restart reschedule lock update
+.PHONY: analyse build clean clean-docker clean-docs docs repl test shell start stop lint migrate migrations dev-tools-check logs static poetry startapp create-super-user restart reschedule lock update
 .DEFAULT_GOAL: build
 
 REPORT := $(or $(REPORT),report -m)
@@ -37,6 +37,13 @@ start: dev-tools-check
 
 stop: dev-tools-check
 	@docker compose -f $(COMPOSE_FILE) down $(SERVICE)
+
+analyse: dev-tools-check
+ifeq ($(SERVICE),web-dev)
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run mypy .
+else
+	$(error Command not available for service: '$(SERVICE)')
+endif
 
 restart: stop start
 

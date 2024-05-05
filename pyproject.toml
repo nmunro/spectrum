@@ -37,6 +37,8 @@ python-lsp-server = "^1.11.0"
 pylsp-mypy = "^0.6.8"
 python-lsp-isort = "^0.1"
 python-lsp-black = "^2.0.0"
+lxml = "^5.2.1"
+coverage-badge = "^1.1.1"
 
 [build-system]
 requires = ["poetry>=0.12"]
