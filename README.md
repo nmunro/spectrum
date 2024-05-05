@@ -2,7 +2,7 @@
 
 A database of shared resources
 
-![Coverage](./coverage.svg)
+[![Spectrum](https://github.com/spirit-of-christmas/spectrum/actions/workflows/django.yml/badge.svg)](https://github.com/spirit-of-christmas/spectrum/actions/workflows/django.yml)
 
 ## Getting Started
 
