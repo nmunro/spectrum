@@ -29,7 +29,7 @@ class UserCreateView(CreateView):
             messages.success(request, "You have singed up successfully.")
             login(request, user)
 
-            return redirect("info:dashboard")
+            return redirect("info:dashboard_organisations")
 
         return render(request, "info/register.html", {"form": RegisterForm()})
 
