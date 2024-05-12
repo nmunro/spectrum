@@ -1,0 +1,10 @@
+Pending Organisation Request
+
+Dear {{user}},
+
+Your request to add '{{org}}' has been submitted for review.
+
+For security reasons organisations cannot be added by any user and there is no guarantee that any organisation will be approved. We try to review organisations within 5 business days, so please check regularly to see if your organisation has been approved. If after 5 business days your organisation has not become active, please reply to this email.
+
+Thanks,
+The Spectrum Neurodiversity team
