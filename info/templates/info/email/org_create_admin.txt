@@ -1,0 +1,8 @@
+New Organisation Request
+
+Dear Admin,
+
+The user '{{user}}' has requested to create the organisation '{{org}}', check it out {{url}}.
+
+Thanks,
+The EMail subsystem

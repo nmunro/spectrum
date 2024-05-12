@@ -1,0 +1,58 @@
+name: Django CI
+
+on:
+  push:
+    branches: [ "main", "production" ]
+  pull_request:
+    branches: [ "main", "production" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.12]
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps tcp port 5432 on service container to the host
+          - 5432:5432
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements-dev.txt
+    - name: Run Tests
+      run: |
+        coverage run --branch ./manage.py test --settings=spectrum.settings.ci --no-input --parallel
+      env:
+        DATABASE_NAME: postgres
+        DATABASE_USER: postgres
+        DATABASE_PASS: postgres
+        DATABASE_HOST: postgres
+        DATABASE_PORT: 5432
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
+        DEBUG: ${{ secrets.DEBUG }}
+        SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+        DEFAULT_FROM_EMAIL: ${{ secrets.DEFAULT_FROM_EMAIL }}
+        SENDGRID_SANDBOX_MODE_IN_DEBUG: ${{ secrets.SENDGRID_SANDBOX_MODE_IN_DEBUG }}
+        ADMIN_EMAIL_LIST: ${{ secrets.ADMIN_EMAIL_LIST }}
+        SITE_URL: ${{ secrets.SITE_URL }}

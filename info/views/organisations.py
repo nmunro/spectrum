@@ -1,12 +1,12 @@
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, render
+from django.template.loader import get_template
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.utils.text import slugify
 from django.views.generic.edit import CreateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
-
 from spectrum.settings.base import DEFAULT_FROM_EMAIL, ADMIN_EMAIL_LIST
 from .. import models
 
@@ -47,12 +47,22 @@ class DashboardOrganisationCreateView(CreateView):
     def post(self, request):
         post = super().post(request)
         url = request.build_absolute_uri(reverse_lazy("admin:info_organisation_change", args=[self.object.pk]))
+        print(f"{request.user = }")
+        context = {"user": request.user, "org": self.object.slug, "url": url}
 
         send_mail(
-            "Pending Organisation",
-            f"'{self.request.user}' has requested to create the organisation '{self.object.slug}', check it out {url}.",
+            "New Pending Organisation",
+            get_template("info/email/org_create_admin.txt").render(context),
             DEFAULT_FROM_EMAIL,
             ADMIN_EMAIL_LIST,
+            fail_silently=False,
+        )
+
+        send_mail(
+            "Spectrum: New Organisation",
+            get_template("info/email/org_create_user.txt").render(context),
+            DEFAULT_FROM_EMAIL,
+            [request.user.email],
             fail_silently=False,
         )
 
