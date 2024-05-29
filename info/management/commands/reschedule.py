@@ -14,12 +14,21 @@ class Command(BaseCommand):
         cron = Cron(schedule.cron)
         cron_schedule = cron.schedule(event.start_date_time)
         schedules = [s.id for s in event.schedules.all()]
+
         next_date = cron_schedule.next().isoformat()
+
+        # Remember to skip, if necessary
+        if datetime.strptime(next_date, "%Y-%m-%dT%H:%M:%S%z") == event.start_date_time:
+            next_date = cron_schedule.next().isoformat()
+
         tag_names = event.tags.names()
         event.pk = None
         diff = event.end_date_time - event.start_date_time
         event.start_date_time = datetime.strptime(next_date, "%Y-%m-%dT%H:%M:%S%z")
         event.end_date_time = event.start_date_time + diff
+
+        self.stdout.write(self.style.SUCCESS(f"Attempting to create new event '{event}' scheduled for: {next_date}"))
+
         event.save()
         event.tags.set(tag_names)
         event.save()
