@@ -23,12 +23,19 @@
     <div class="row p-2 p-md-4 card-primary text-white">
       <div class="col bg-transparent">
         <p>{{ organisation.description }}</p>
+
         <p><a href="mailto:{{ organisation.email }}">{{ organisation.email }}</a></p>
+
         {% if organisation.website %}
           <p><a href="{{ organisation.website }}">{{ organisation.website }}</a></p>
         {% endif %}
+
         {% if organisation.phone_number %}
           <p>{{ organisation.phone_number }}</p>
+        {% endif %}
+
+        {% if organisation.accepting_volunteers %}
+          <p>{{ organisation.accepting_volunteers }}</p>
         {% endif %}
       </div>
     </div>

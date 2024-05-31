@@ -11,6 +11,7 @@ def dashboard_organisation(request, org):
         org.region = models.Region.objects.get(pk=int(request.POST["region"]))
         org.email = request.POST["email"]
         org.website = request.POST["website"]
+        org.accepting_volunteers = request.POST.get("accepting_volunteers", "off") == "on"
         org.save()
 
     return render(

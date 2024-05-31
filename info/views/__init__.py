@@ -27,3 +27,4 @@ from .resources import (
     ResourceDetailView,
     ResourceListView
 )
+from .volunteer import volunteer
