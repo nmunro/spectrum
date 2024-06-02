@@ -1,0 +1,10 @@
+Dear {{org.organisation_name}},
+
+{{user}} has applied to volunteer with your organisation, please see below their introduction:
+
+{{message}}
+
+You can contact them on {{email}}, we hope you'll be in touch with them.
+
+Have a great day,
+The Spectrum team

@@ -32,12 +32,13 @@ class DashboardOrganisationCreateView(CreateView):
         "website",
         "phone_number",
         "description",
+        "accepting_volunteers",
     ]
 
     def get_success_url(self) -> str:
         return reverse_lazy("info:dashboard_organisations")
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> bool:
         form.instance.admin = self.request.user
         form.instance.active = False
         form.instance.slug = slugify(form.instance.organisation_name)
@@ -47,7 +48,6 @@ class DashboardOrganisationCreateView(CreateView):
     def post(self, request):
         post = super().post(request)
         url = request.build_absolute_uri(reverse_lazy("admin:info_organisation_change", args=[self.object.pk]))
-        print(f"{request.user = }")
         context = {"user": request.user, "org": self.object.slug, "url": url}
 
         send_mail(

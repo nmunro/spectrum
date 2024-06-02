@@ -36,6 +36,7 @@ class Organisation(models.Model):
     admin = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     slug = models.SlugField(max_length=255)
     active = models.BooleanField(default=True)
+    accepting_volunteers = models.BooleanField(default=False)
 
     @property
     def name(self) -> str:
@@ -126,7 +127,6 @@ class Event(models.Model):
     ticketed = models.BooleanField(default=False)
     schedules = models.ManyToManyField("Scheduler", related_name="events", blank=True)
     hide = models.BooleanField(default=False)
-
     tags = TaggableManager()
 
     class Meta:
