@@ -37,6 +37,10 @@
         {% if organisation.accepting_volunteers %}
           <p>{{ organisation.accepting_volunteers }}</p>
         {% endif %}
+        <button class="btn btn-warning">
+           <a href= "{% url 'info:organisation_volunteer' organisation.slug %}">Accetpting Volunteer
+           </a>
+        </button>
       </div>
     </div>
   </div>
