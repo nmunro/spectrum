@@ -35,12 +35,13 @@
         {% endif %}
 
         {% if organisation.accepting_volunteers %}
-          <p>{{ organisation.accepting_volunteers }}</p>
+          
+            <a href= "{% url 'info:organisation_volunteer' organisation.slug %}"> <button class = "btn btn-warning"> Accepting Volunteer</button></a>
+           
         {% endif %}
-        <button class="btn btn-warning">
-           <a href= "{% url 'info:organisation_volunteer' organisation.slug %}">Accetpting Volunteer
-           </a>
-        </button>
+
+       
+      
       </div>
     </div>
   </div>
