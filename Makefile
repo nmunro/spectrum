@@ -1,4 +1,4 @@
-.PHONY: build clean clean-docker clean-docs docs repl test shell start stop lint migrate migrations dev-tools-check logs static poetry startapp create-super-user restart reschedule lock update
+.PHONY: build clean clean-docker clean-docs docs repl test shell start stop lint migrate migrations dev-tools-check logs static poetry startapp create-super-user restart reschedule lock update update-requirements
 .DEFAULT_GOAL: build
 
 REPORT := $(or $(REPORT),report -m)
@@ -112,6 +112,8 @@ requirements:
 	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry export -f requirements.txt -o requirements.txt
 	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry export --with dev -f requirements.txt -o requirements-dev.txt
 
+update-requirements: update requirements
+
 lock: dev-tools-check
 ifeq ($(SERVICE),web-dev)
 	@[ ! -d "poetry.lock" ] && rm poetry.lock || true
@@ -124,7 +126,6 @@ update: dev-tools-check
 ifeq ($(SERVICE),web-dev)
 	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry update
 	@make lock
-	@make requirements
 else
 	$(error Command not available for service: '$(SERVICE)')
 endif
