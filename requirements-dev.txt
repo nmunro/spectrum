@@ -308,9 +308,9 @@ django-phone-field==1.8.1 ; python_version >= "3.11" and python_version < "4.0" 
 django-sendgrid-v5==1.2.3 ; python_version >= "3.11" and python_version < "4.0" \
     --hash=sha256:2d2fa8a085d21c95e5f97fc60b61f199ccc57a27df8da90cd3f29a5702346dc6 \
     --hash=sha256:3887aafbb10d5b808efc2c1031dcd96fd357d542eb5affe38fef07cc0f3cfae9
-django-stubs-ext==4.2.7 ; python_version >= "3.11" and python_version < "4.0" \
-    --hash=sha256:45a5d102417a412e3606e3c358adb4744988a92b7b58ccf3fd64bddd5d04d14c \
-    --hash=sha256:519342ac0849cda1559746c9a563f03ff99f636b0ebe7c14b75e816a00dfddc3
+django-stubs-ext==5.0.2 ; python_version >= "3.11" and python_version < "4.0" \
+    --hash=sha256:409c62585d7f996cef5c760e6e27ea3ff29f961c943747e67519c837422cad32 \
+    --hash=sha256:8d8efec5a86241266bec94a528fe21258ad90d78c67307f3ae5f36e81de97f12
 django-taggit==5.0.1 ; python_version >= "3.11" and python_version < "4.0" \
     --hash=sha256:a0ca8a28b03c4b26c2630fd762cb76ec39b5e41abf727a7b66f897a625c5e647 \
     --hash=sha256:edcd7db1e0f35c304e082a2f631ddac2e16ef5296029524eb792af7430cab4cc
