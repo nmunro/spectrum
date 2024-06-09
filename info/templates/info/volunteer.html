@@ -15,9 +15,9 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Volunteer with {{ org.name }}</h1>
+    <h1 class="text-center">Volunteer with {{ org.name }}</h1>
 
-    <form method="POST" class="col-lg-8 col-xl-8 col-md-8 col-sm-12  mx-auto border shadow p-5 m-5 text-center fw-bold text-uppercase" action="{% url 'info:organisation_volunteer' org.slug %}">
+    <form method="POST" class="col-lg-6 col-xl-6 col-md-8 col-sm-12  mx-auto border shadow p-5 m-5 text-center fw-bold text-uppercase" action="{% url 'info:organisation_volunteer' org.slug %}">
         {% csrf_token %}
         {{ form|crispy }}
         <input type="submit" class="btn btn-primary" value="Save"/>
