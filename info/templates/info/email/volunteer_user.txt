@@ -1,0 +1,6 @@
+Dear {{user}},
+
+Thanks for applying to volunteer with {{org.organisation_name}}, volunteer positions are not directly managed by Spectrum and we can't guarantee that they will respond to your application, but we have forwarded your application message on to them and hopefully they'll get back to you soon.
+
+Have a great day,
+The Spectrum team

@@ -14,6 +14,7 @@ class OrganisationForm(forms.ModelForm):
             "email",
             "website",
             "phone_number",
+            "accepting_volunteers",
         ]
 
 
@@ -26,3 +27,10 @@ class RegisterForm(UserCreationForm):
             "password1",
             "password2",
         ]
+
+
+class VolunteerForm(forms.Form):
+    organisation = forms.CharField(widget=forms.HiddenInput())
+    name = forms.CharField(label="Your Name", max_length=255)
+    email = forms.EmailField()
+    message = forms.CharField(widget=forms.Textarea())

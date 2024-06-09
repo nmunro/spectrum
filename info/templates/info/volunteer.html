@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load tags %}
+{% load crispy_forms_tags %}
+
+{% block nav %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb mx-3 mt-3">
+      <li class="breadcrumb-item fw-bold"><a href="{% url 'info:index' %}" class="text-uppercase text-decoration-none">Home</a></li>
+      <li class="breadcrumb-item fw-bold"><a href="{% url 'info:organisations' %}" class="text-uppercase text-decoration-none">Organisations</a></li>
+      <li class="breadcrumb-item fw-bold"><a href="{% url 'info:organisation' org.slug %}" class="text-uppercase text-decoration-none">{{ org.name }}</a></li>
+      <li class="breadcrumb-item fw-bold">Volunteer</li>
+    </ol>
+</nav>
+
+{% endblock %}
+
+{% block content %}
+    <h1 class="text-center">Volunteer with {{ org.name }}</h1>
+
+    <form method="POST" class="col-lg-6 col-xl-6 col-md-8 col-sm-12  mx-auto border shadow p-5 m-5 text-center fw-bold text-uppercase" action="{% url 'info:organisation_volunteer' org.slug %}">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" class="btn btn-primary" value="Save"/>
+        <a href="{% url 'info:organisation' org.slug %}" class="btn btn-danger">Cancel</a>
+    </form>
+{% endblock %}
