@@ -32,6 +32,14 @@
             &nbsp;Events
           </a>
         </li>
+
+        <li>
+          <a href="{% url 'info:dashboard_schedules' %}" class="nav-link {% block schedule-class %}{% endblock %} link-body-emphasis">
+            <span class="fa fa-calendar"></span>
+            &nbsp;Scheduler
+          </a>
+        </li>
+
         <li>
           <a href="{% url 'info:dashboard_resources' %}" class="nav-link {% block resources-class %}{% endblock %} link-body-emphasis">
             <span class="fa fa-vector-square"></span>

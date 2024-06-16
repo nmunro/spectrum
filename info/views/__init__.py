@@ -27,4 +27,10 @@ from .resources import (
     ResourceDetailView,
     ResourceListView
 )
+from .schedule import (
+    DashboardScheduleCreateView,
+    DashboardScheduleDeleteView,
+    DashboardScheduleListView,
+    DashboardScheduleUpdateView,
+)
 from .volunteer import volunteer

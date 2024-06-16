@@ -1,0 +1,23 @@
+{% extends "dashboard_base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{% static 'info/css/sidebar.css' %}">
+{% endblock %}
+
+{% block schedule-class %}active{% endblock %}
+
+{% block dashboard_content %}
+<div class="row px-5">
+  <div class="col">
+    <h2>{{ schedule.label }}</h2>
+    <form method="post">{% csrf_token %}
+      <p>Are you sure you want to delete "{{ object }}"?</p>
+      {{ form }}
+      <input type="submit" class="btn btn-danger" value="Confirm">
+      <a href="{% url 'info:dashboard_schedules' %}" class="btn btn-primary">Cancel</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

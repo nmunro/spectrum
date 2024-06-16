@@ -75,6 +75,26 @@ urlpatterns = [
         name="delete_dashboard_event",
     ),
     path(
+        "dashboard/schedule/",
+        login_required(views.DashboardScheduleListView.as_view()),
+        name="dashboard_schedules",
+    ),
+    path(
+        "dashboard/schedule/new/",
+        login_required(views.DashboardScheduleCreateView.as_view()),
+        name="new_dashboard_schedule",
+    ),
+    path(
+        "dashboard/schedule/<int:pk>/",
+        login_required(views.DashboardScheduleUpdateView.as_view()),
+        name="dashboard_schedule",
+    ),
+    path(
+        "dashboard/schedule/<int:pk>/delete/",
+        login_required(views.DashboardScheduleDeleteView.as_view()),
+        name="delete_dashboard_schedule",
+    ),
+    path(
         "dashboard/resources/",
         login_required(views.DashboardResourceListView.as_view()),
         name="dashboard_resources",
