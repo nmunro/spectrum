@@ -1,4 +1,4 @@
-.PHONY: build clean clean-docker clean-docs docs repl test shell start stop lint migrate migrations dev-tools-check logs static poetry startapp create-super-user restart reschedule lock update update-requirements
+.PHONY: build clean clean-docker clean-docs docs repl test shell start stop lint migrate migrations dev-tools-check logs static poetry startapp create-super-user restart reschedule lock update update-requirements db-shell
 .DEFAULT_GOAL: build
 
 REPORT := $(or $(REPORT),report -m)
@@ -133,6 +133,13 @@ endif
 startapp: dev-tools-check
 ifeq ($(SERVICE),web-dev)
 	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py startapp $(APP-NAME)
+else
+	$(error Command not available for service: '$(SERVICE)')
+endif
+
+db-shell: dev-tools-check
+ifeq ($(SERVICE),web-dev)
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py dbshell --settings=spectrum.settings.dev
 else
 	$(error Command not available for service: '$(SERVICE)')
 endif

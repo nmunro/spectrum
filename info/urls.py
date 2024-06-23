@@ -76,22 +76,22 @@ urlpatterns = [
     ),
     path(
         "dashboard/schedule/",
-        login_required(views.DashboardScheduleListView.as_view()),
+        login_required(views.DashboardiCalScheduleListView.as_view()),
         name="dashboard_schedules",
     ),
     path(
         "dashboard/schedule/new/",
-        login_required(views.DashboardScheduleCreateView.as_view()),
+        login_required(views.DashboardiCalScheduleCreateView.as_view()),
         name="new_dashboard_schedule",
     ),
     path(
         "dashboard/schedule/<int:pk>/",
-        login_required(views.DashboardScheduleUpdateView.as_view()),
+        login_required(views.DashboardiCalScheduleUpdateView.as_view()),
         name="dashboard_schedule",
     ),
     path(
         "dashboard/schedule/<int:pk>/delete/",
-        login_required(views.DashboardScheduleDeleteView.as_view()),
+        login_required(views.DashboardiCalScheduleDeleteView.as_view()),
         name="delete_dashboard_schedule",
     ),
     path(

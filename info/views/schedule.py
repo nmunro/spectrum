@@ -9,17 +9,17 @@ from django.views.generic.list import ListView
 from .. import models
 
 
-class DashboardScheduleListView(ListView):
-    model = models.Schedule
+class DashboardiCalScheduleListView(ListView):
+    model = models.iCalSchedule
     paginate_by = 100
     context_object_name = "schedules"
 
     def get_queryset(self, **kwargs):
-        return models.Schedule.objects.all()
+        return models.iCalSchedule.objects.all()
 
 
-class DashboardScheduleCreateView(CreateView):
-    model = models.Schedule
+class DashboardiCalScheduleCreateView(CreateView):
+    model = models.iCalSchedule
     fields = [
         "label",
         "rrule",
@@ -29,8 +29,8 @@ class DashboardScheduleCreateView(CreateView):
         return reverse_lazy("info:dashboard_schedules")
 
 
-class DashboardScheduleUpdateView(UpdateView):
-    model = models.Schedule
+class DashboardiCalScheduleUpdateView(UpdateView):
+    model = models.iCalSchedule
     fields = [
         "label",
         "rrule",
@@ -40,13 +40,13 @@ class DashboardScheduleUpdateView(UpdateView):
         return reverse_lazy("info:dashboard_schedules")
 
 
-class ScheduleDetailView(DetailView):
-    model = models.Schedule
+class iCalScheduleDetailView(DetailView):
+    model = models.iCalSchedule
 
     def get_success_url(self) -> str:
         return reverse_lazy("info:dashboard_schedule")
 
 
-class DashboardScheduleDeleteView(DeleteView):
-    model = models.Schedule
+class DashboardiCalScheduleDeleteView(DeleteView):
+    model = models.iCalSchedule
     success_url = reverse_lazy("info:dashboard_schedules")

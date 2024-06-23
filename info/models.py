@@ -189,9 +189,13 @@ class Scheduler(models.Model):
         return f"{self.label}: {self.cron}"
 
 
-class Schedule(models.Model):
+class iCalSchedule(models.Model):
     label = models.CharField(max_length=255)
     rrule = models.CharField(max_length=1024)
+
+    class Meta:
+        verbose_name = "iCalSchedule"
+        verbose_name_plural = "iCalSchedules"
 
     def __repr__(self) -> str:
         return f"<Schedule: {str(self)}>"
