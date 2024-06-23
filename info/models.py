@@ -37,6 +37,7 @@ class Organisation(models.Model):
     slug = models.SlugField(max_length=255)
     active = models.BooleanField(default=True)
     accepting_volunteers = models.BooleanField(default=False)
+    enable_scheduler = models.BooleanField(default=False)
 
     @property
     def name(self) -> str:
@@ -182,7 +183,22 @@ class Scheduler(models.Model):
             raise ValidationError({"cron": "Invalid cron expression"})
 
     def __repr__(self) -> str:
-        return f"<Schedule: {str(self)}>"
+        return f"<Scheduler: {str(self)}>"
 
     def __str__(self) -> str:
         return f"{self.label}: {self.cron}"
+
+
+class iCalSchedule(models.Model):
+    label = models.CharField(max_length=255)
+    rrule = models.CharField(max_length=1024)
+
+    class Meta:
+        verbose_name = "iCalSchedule"
+        verbose_name_plural = "iCalSchedules"
+
+    def __repr__(self) -> str:
+        return f"<Schedule: {str(self)}>"
+
+    def __str__(self) -> str:
+        return f"{self.label}: {self.rrule}"
