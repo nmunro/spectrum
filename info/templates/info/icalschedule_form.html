@@ -4,6 +4,8 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{% static 'info/css/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'info/css/schedule.css' %}">
+    <script src="{% static 'info/js/schedule.js' %}"></script>
 {% endblock %}
 
 {% block schedule-class %}active{% endblock %}
@@ -11,9 +13,163 @@
 {% block dashboard_content %}
     <form method="POST" class="col-lg-8 col-xl-8 col-md-8 col-sm-12  mx-auto border shadow p-5 m-5 text-center fw-bold text-uppercase">
       {% csrf_token %}
-      {{ form|crispy }}
+      <div id="rrule" class="border border-dark w-100 mx-auto text-center" style="max-width:700px;">
+        <div id="rrule-freq">
+          <select class="frequency p-2">
+            <option value="YEARLY">YEARLY</option>
+            <option value="MONTHLY">MONTHLY</option>
+            <option value="WEEKLY">WEEKLY</option>
+            <option value="DAILY">DAILY</option>
+          </select>
+        </div>
+        <div class="yearly">
+          <select class="type p-2">
+            <option value="on">By Date in Month</option>
+            <option value="onthe">By Day in Month</option>
+          </select>
+          <span class="yearly-on" data-selector="yearly-on">
+            <select class="month p-2">
+              <option value="1">January</option>
+              <option value="2">February</option>
+              <option value="3">March</option>
+              <option value="4">April</option>
+              <option value="5">May</option>
+              <option value="6">June</option>
+              <option value="7">July</option>
+              <option value="8">August</option>
+              <option value="9">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+            <select class="monthday p-2"></select>
+          </span>
+          <span class="yearly-onthe" data-selector="yearly-onthe">
+            <select class="nth p-2">
+              <option value="1">1st</option>
+              <option value="2">2nd</option>
+              <option value="3">3rd</option>
+              <option value="4">4th</option>
+              <option value="-1">Last</option>
+            </select>
+            <select class="day p-2">
+              <option value="SU">Sunday</option>
+              <option value="MO">Monday</option>
+              <option value="TU">Tuesday</option>
+              <option value="WE">Wednesday</option>
+              <option value="TH">Thursday</option>
+              <option value="FR">Friday</option>
+              <option value="SA">Saturday</option>
+            </select>
+            <span> of </span>
+            <select class="month p-2">
+              <option value="1">January</option>
+              <option value="2">February</option>
+              <option value="3">March</option>
+              <option value="4">April</option>
+              <option value="5">May</option>
+              <option value="6">June</option>
+              <option value="7">July</option>
+              <option value="8">August</option>
+              <option value="9">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+          </span>
+        </div>
+        <div class="monthly">
+          <p>Every <input type="number" class="interval" value="1" style="width:50px;" /> month(s)</p>
+          <select class="type p-2">
+            <option value="on">By Date in Month</option>
+            <option value="onthe">By Day in Month</option>
+          </select>
+          <span class="monthly-on" data-selector="monthly-on">
+            <select class="monthday p-2">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+              <option value="24">24</option>
+              <option value="25">25</option>
+              <option value="26">26</option>
+              <option value="27">27</option>
+              <option value="28">28</option>
+              <option value="29">29</option>
+              <option value="30">30</option>
+              <option value="31">31</option>
+            </select>
+          </span>
+          <span class="monthly-onthe" data-selector="monthly-onthe">
+            <select class="nth p-2">
+              <option value="1">1st</option>
+              <option value="2">2nd</option>
+              <option value="3">3rd</option>
+              <option value="4">4th</option>
+              <option value="-1">Last</option>
+            </select>
+            <select class="day p-2">
+              <option value="SU">Sunday</option>
+              <option value="MO">Monday</option>
+              <option value="TU">Tuesday</option>
+              <option value="WE">Wednesday</option>
+              <option value="TH">Thursday</option>
+              <option value="FR">Friday</option>
+              <option value="SA">Saturday</option>
+            </select>
+          </span>
+        </div>
+        <div class="weekly" data-selector="weekly">
+          <p>Every <input type="number" class="interval" value="1"  style="width:50px;" /> week(s)</p>
+          <div class="days d-flex justify-content-center">
+            <p class="p-1"><label>Sunday</label> <input type="checkbox" value="SU" /></p>
+            <p class="p-1"><label>Monday</label> <input type="checkbox" value="MO" /></p>
+            <p class="p-1"><label>Tuesday</label> <input type="checkbox" value="TU" /></p>
+            <p class="p-1"><label>Wednesday</label> <input type="checkbox" value="WE" /></p>
+            <p class="p-1"><label>Thursday</label> <input type="checkbox" value="TH" /></p>
+            <p class="p-1"><label>Friday</label> <input type="checkbox" value="FR" /></p>
+            <p class="p-1"><label>Saturday</label> <input type="checkbox" value="SA" /></p>
+          </div>
+          
+        </div>
+        <div class="daily" data-selector="daily">
+          <p>Every <input type="number" class="interval" value="1"  style="width:50px;" /> day(s)</p>
+        </div>
+        <div id="rrules-end">
+          <select class="ends p-2">
+            <option value="never">Never Ends</option>
+            <option value="count">Ends After</option>
+            <option value="until">Ends on Date</option>
+          </select>
+          <span class="count"><input type="number" class="interval p-2"  style="width:50px;" value="1" /> instance(s)</span>
+          <span class="until"><input type="text" class="date p-2" data-provide="datepicker" value="" /></span>
+        </div>
+      </div>
+      <div id="result" class="mx-auto text-center d-none">
+        FREQ=YEARLY;BYMONTH=1;BYMONTHDAY=1
+        </div>
       <input type="submit" class="btn btn-primary" value="Save"/>
-      <a href="{% url 'info:dashboard_schedules' %}" class="btn btn-danger">Cancel</a>
+      <a href="{% url 'info:dashboard_schedules' %}" class="btn btn-danger m-2">Cancel</a>
+      {{ form|crispy }}
     </form>
 
 {% endblock %}

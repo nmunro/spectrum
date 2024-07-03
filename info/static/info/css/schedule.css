@@ -1,0 +1,9 @@
+.yearly .yearly-onthe { display: none; }
+.monthly .monthly-onthe { display: none; }
+.monthly { display: none; }
+.weekly { display: none; }
+.daily { display: none; }
+.hourly { display: none; }
+input[type="number"] { width: 2em; }
+#rrules-end > span { display: none; }
+#rrule { padding: 1em; }
