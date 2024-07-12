@@ -5,7 +5,6 @@
 {% block stylesheets %}
     <link rel="stylesheet" href="{% static 'info/css/sidebar.css' %}">
     <link rel="stylesheet" href="{% static 'info/css/schedule.css' %}">
-    <script src="{% static 'info/js/schedule.js' %}"></script>
 {% endblock %}
 
 {% block schedule-class %}active{% endblock %}
@@ -166,10 +165,14 @@
       </div>
       <div id="result" class="mx-auto text-center d-none">
         FREQ=YEARLY;BYMONTH=1;BYMONTHDAY=1
-        </div>
+      </div>
       <input type="submit" class="btn btn-primary" value="Save"/>
       <a href="{% url 'info:dashboard_schedules' %}" class="btn btn-danger m-2">Cancel</a>
-      {{ form|crispy }}
+      <!-- {{ form|crispy }} -->
     </form>
+{% endblock %}
 
+{% block js_scripts %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js" integrity="sha512-LsnSViqQyaXpD4mBBdRYeP6sRwJiJveh2ZIbW41EBrNmKxgr/LFZIiWT6yr+nycvhvauz8c2nYMhrP80YhG7Cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="{% static 'info/js/schedule.js' %}"></script>
 {% endblock %}
