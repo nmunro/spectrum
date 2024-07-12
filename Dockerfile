@@ -1,4 +1,4 @@
-FROM python:3.12 as DEV
+FROM python:3.12 AS dev
 # Configure Poetry
 
 ENV PYTHONUNBUFFERED=1
@@ -26,7 +26,7 @@ RUN groupadd -r docker && useradd -r -m -g docker docker
 RUN chown -R docker /opt
 ENV PYTHONPATH $PYTHONPATH:/app
 
-FROM python:3.12 as PROD
+FROM python:3.12 AS prod
 
 ENV PYTHONUNBUFFERED=1
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
