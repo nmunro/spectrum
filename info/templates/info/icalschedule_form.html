@@ -14,8 +14,9 @@
       {% csrf_token %}
       <div id="rrule" class="border border-dark w-100 mx-auto text-center" style="max-width:700px;">
         <div id="rrule-name">
-          <label for="name" class="form-label">Name:</label>
-          <input type="text" class="form-control p-2" name="name"></input>
+          <label for="label" class="form-label">Name:</label>
+          <input type="text" class="form-control p-2" name="label"></input>
+          <input type="hidden" name="rrule" id="rrule-output" value="FREQ=YEARLY;BYMONTH=1;BYMONTHDAY=1"/>
         </div>
         <div id="rrule-freq">
             <label for="frequency" class="form-label">Frequency:</label>
@@ -182,7 +183,6 @@
                 <input type="date" class="date form-control" id="end-date" value="" />
             </div>
         </div>
-        <input type="hidden" name="rrule" id="rrule-output" value="FREQ=YEARLY;BYMONTH=1;BYMONTHDAY=1"/>
         <input type="submit" class="btn btn-primary mt-3" value="Save"/>
         <a href="{% url 'info:dashboard_schedules' %}" class="btn btn-danger mt-3">Cancel</a>
   </form>
