@@ -16,15 +16,15 @@
         <div id="rrule-name">
           <label for="label" class="form-label">Name:</label>
           <input type="text" class="form-control p-2" name="label" value="{{ object.label }}"></input>
-          <input type="hidden" name="rrule" id="rrule-output" value="FREQ=YEARLY;BYMONTH=1;BYMONTHDAY=1"/>
+          <input type="hidden" name="rrule" id="rrule-output" value="{{ object.rrule }}"/>
         </div>
         <div id="rrule-freq">
             <label for="frequency" class="form-label">Frequency:</label>
             <select class="frequency form-select p-2" id="frequency">
-                <option value="YEARLY">Yearly</option>
-                <option value="MONTHLY">Monthly</option>
-                <option value="WEEKLY">Weekly</option>
-                <option value="DAILY">Daily</option>
+                <option value="YEARLY" id="freq-yearly">Yearly</option>
+                <option value="MONTHLY" id="freq-monthly">Monthly</option>
+                <option value="WEEKLY" id="freq-weekly">Weekly</option>
+                <option value="DAILY" id="freq-daily">Daily</option>
             </select>
         </div>
         <div class="yearly">
