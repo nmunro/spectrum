@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(function() {
     // Populate day dropdowns
     for (let i = 1; i <= 31; i++) {
         $('.monthday').append(`<option value="${i}">${i}</option>`);
@@ -11,13 +11,58 @@ $(document).ready(function() {
         $(`.${freq.toLowerCase()}`).show();
     }).trigger('change');
 
+    $("#yearly-type").change(function() {
+      const type = $(this).val();
+      const parent = $(this).closest('div');
+
+      parent.find('[data-selector]').hide();
+      parent.find(`[data-selector=${type}]`).show();
+
+      if ($(this).val() === "on") {
+        $(".yearly-on").show();
+        $(".yearly-onthe").hide();
+      } else if ($(this).val() === "onthe") {
+        $(".yearly-on").hide();
+        $(".yearly-onthe").show();
+      }
+    }).trigger("change");
+
+    $("#monthly-type").change(function() {
+      const type = $(this).val();
+      const parent = $(this).closest('div');
+
+      parent.find('[data-selector]').hide();
+      parent.find(`[data-selector=${type}]`).show();
+
+      if ($(this).val() === "on") {
+        $(".monthly-on").show();
+        $(".monthly-onthe").hide();
+        console.log("on");
+      } else if ($(this).val() === "onthe") {
+        $(".monthly-on").hide();
+        $(".monthly-onthe").show();
+      }
+    }).trigger("change");
+
+
     // Show/hide options for yearly and monthly types
-    $('#yearly-type, #monthly-type').change(function() {
-        const type = $(this).val();
-        const parent = $(this).closest('div');
-        parent.find('[data-selector]').hide();
-        parent.find(`[data-selector=${type}]`).show();
-    }).trigger('change');
+    // $('#yearly-type, #monthly-type').change(function() {
+    //     const type = $(this).val();
+    //     const parent = $(this).closest('div');
+
+    //     if ($(this).val() === "on") {
+    //       $("#yearly-on").show();
+    //       $("#yearly-onthe").hide();
+    //       console.log("on");
+    //     } else if ($(this).val() === "onthe") {
+    //       $("#yearly-on").hide();
+    //       $("#yearly-onthe").show();
+    //       console.log("onthe");
+    //     }
+
+    //     // parent.find('[data-selector]').hide();
+    //     // parent.find(`[data-selector=${type}]`).show();
+    // }).trigger('change');
 
     // Show/hide end options
     $('#ends').change(function() {
