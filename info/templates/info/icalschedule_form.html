@@ -15,7 +15,7 @@
       <div id="rrule" class="border border-dark w-100 mx-auto text-center" style="max-width:700px;">
         <div id="rrule-name">
           <label for="label" class="form-label">Name:</label>
-          <input type="text" class="form-control p-2" name="label"></input>
+          <input type="text" class="form-control p-2" name="label" value="{{ object.label }}"></input>
           <input type="hidden" name="rrule" id="rrule-output" value="FREQ=YEARLY;BYMONTH=1;BYMONTHDAY=1"/>
         </div>
         <div id="rrule-freq">
