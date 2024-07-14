@@ -202,4 +202,4 @@ class iCalSchedule(models.Model):
         return f"<Schedule: {str(self)}>"
 
     def __str__(self) -> str:
-        return f"{self.label}: {self.rrule}"
+        return self.label

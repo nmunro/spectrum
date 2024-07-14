@@ -68,6 +68,7 @@ class DashboardEventCreateView(CreateView):
         "ticketed",
         "start_date_time",
         "end_date_time",
+        "ical_rrules",
         "price",
         "tags",
     ]
@@ -97,6 +98,7 @@ class DashboardEventUpdateView(UpdateView):
         "hide",
         "start_date_time",
         "end_date_time",
+        "ical_rrules",
         "price",
         "tags",
     ]
