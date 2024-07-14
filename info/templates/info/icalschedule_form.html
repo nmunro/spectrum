@@ -18,6 +18,18 @@
           <input type="text" class="form-control p-2" name="label" value="{{ object.label }}"></input>
           <input type="hidden" name="rrule" id="rrule-output" value="{{ object.rrule }}"/>
         </div>
+        <div id="rrule-org">
+            <label for="rrule-organisation" class="form-label">Organisation:</label>
+            <select class="type form-select p-2" id="rrule-organisation-select" name="organisation">
+              {% for org in orgs %}
+                {% if org.slug == object.organisation.slug %}
+                  <option value="{{ org.pk }}" selected>{{ org.name }}</option>
+                {% else %}
+                  <option value="{{ org.pk }}">{{ org.name }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+        </div>
         <div id="rrule-freq">
             <label for="frequency" class="form-label">Frequency:</label>
             <select class="frequency form-select p-2" id="frequency">

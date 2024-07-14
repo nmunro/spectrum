@@ -37,7 +37,7 @@ class OrganisationEventListView(ListView):
             start_date_time__gte=timezone.now(),
         ).order_by("start_date_time")
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
         context["org"] = get_object_or_404(models.Organisation, slug=self.kwargs["org"])
 

@@ -29,7 +29,7 @@
 <div class="col-md-6 col-lg-6 col-xl-4 mt-4">
   <div style = "height: 300px" class="card p-2 p-md-4 {% cycle 'card-secondary' 'card-primary' %} text-white">
     <div class="card-body overflow-auto">
-      <h5 class="schedule-title fs-2 fw-bold m-0 p-0">{{ schedule.label }}</h5>
+      <h5 class="schedule-title fs-2 fw-bold m-0 p-0">{{ schedule.organisation.name }} - {{ schedule.label }}</h5>
       <p>Used by {{ schedule.events.count }} events.</p>
     </div>
 

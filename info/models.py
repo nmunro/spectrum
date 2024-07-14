@@ -127,7 +127,9 @@ class Event(models.Model):
     price = MoneyField(max_digits=19, decimal_places=4, default_currency="GBP")
     ticketed = models.BooleanField(default=False)
     schedules = models.ManyToManyField("Scheduler", related_name="events", blank=True)
-    ical_rrules = models.ManyToManyField("iCalSchedule", related_name="events", blank=True)
+    ical_rrules = models.ManyToManyField(
+        "iCalSchedule", related_name="events", blank=True
+    )
     hide = models.BooleanField(default=False)
     tags = TaggableManager()
 
@@ -191,6 +193,7 @@ class Scheduler(models.Model):
 
 
 class iCalSchedule(models.Model):
+    organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE)
     label = models.CharField(max_length=255)
     rrule = models.CharField(max_length=1024)
 
@@ -202,4 +205,4 @@ class iCalSchedule(models.Model):
         return f"<Schedule: {str(self)}>"
 
     def __str__(self) -> str:
-        return self.label
+        return f"{self.organisation.name} - {self.label}"
