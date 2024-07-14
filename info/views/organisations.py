@@ -1,5 +1,5 @@
 from django.core.mail import send_mail
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import render
 from django.template.loader import get_template
 from django.urls import reverse_lazy
 from django.utils import timezone
@@ -46,27 +46,39 @@ class DashboardOrganisationCreateView(CreateView):
         return super().form_valid(form)
 
     def post(self, request):
-        post = super().post(request)
-        url = request.build_absolute_uri(reverse_lazy("admin:info_organisation_change", args=[self.object.pk]))
-        context = {"user": request.user, "org": self.object.slug, "url": url}
+        try:
+            post = super().post(request)
+            context = {
+                "user": request.user,
+                "org": self.object.slug,
+                "url": request.build_absolute_uri(reverse_lazy("admin:info_organisation_change", args=[self.object.pk])),
+            }
 
-        send_mail(
-            "New Pending Organisation",
-            get_template("info/email/org_create_admin.txt").render(context),
-            DEFAULT_FROM_EMAIL,
-            ADMIN_EMAIL_LIST,
-            fail_silently=False,
-        )
+            send_mail(
+                "New Pending Organisation",
+                get_template("info/email/org_create_admin.txt").render(context),
+                DEFAULT_FROM_EMAIL,
+                ADMIN_EMAIL_LIST,
+                fail_silently=False,
+            )
 
-        send_mail(
-            "Spectrum: New Organisation",
-            get_template("info/email/org_create_user.txt").render(context),
-            DEFAULT_FROM_EMAIL,
-            [request.user.email],
-            fail_silently=False,
-        )
+            send_mail(
+                "Spectrum: New Organisation",
+                get_template("info/email/org_create_user.txt").render(context),
+                DEFAULT_FROM_EMAIL,
+                [request.user.email],
+                fail_silently=False,
+            )
 
-        return post
+            return post
+
+        except AttributeError:
+            return render(
+                request,
+                "info/dashboard_org_exists.html",
+                {"org": request.POST.get("organisation_name")},
+                status=409,
+            )
 
 
 class OrganisationListView(ListView):
