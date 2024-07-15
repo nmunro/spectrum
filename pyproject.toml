@@ -6,7 +6,7 @@ authors = ["Neil Munro (NMunro)"]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-django = "^4.2.3"
+django = "^5.0.7"
 django-money = "^3.2.0"
 pillow = "^10.3.0"
 django-crispy-forms = "^2.0"
