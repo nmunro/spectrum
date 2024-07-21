@@ -37,7 +37,7 @@ class OrganisationEventListView(ListView):
             start_date_time__gte=timezone.now(),
         ).order_by("start_date_time")
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
         context["org"] = get_object_or_404(models.Organisation, slug=self.kwargs["org"])
 
@@ -68,6 +68,7 @@ class DashboardEventCreateView(CreateView):
         "ticketed",
         "start_date_time",
         "end_date_time",
+        "ical_rrules",
         "price",
         "tags",
     ]
@@ -97,6 +98,7 @@ class DashboardEventUpdateView(UpdateView):
         "hide",
         "start_date_time",
         "end_date_time",
+        "ical_rrules",
         "price",
         "tags",
     ]

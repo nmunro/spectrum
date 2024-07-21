@@ -1,7 +1,4 @@
-from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
-from django.utils import timezone
-from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
@@ -21,9 +18,19 @@ class DashboardiCalScheduleListView(ListView):
 class DashboardiCalScheduleCreateView(CreateView):
     model = models.iCalSchedule
     fields = [
+        "organisation",
         "label",
         "rrule",
     ]
+
+    def get_context_data(self, **kwargs) -> dict:
+        context = super().get_context_data(**kwargs)
+        context["orgs"] = models.Organisation.objects.filter(
+            admin=self.request.user,
+            active=True,
+            enable_scheduler=True,
+        ).order_by("organisation_name")
+        return context
 
     def get_success_url(self) -> str:
         return reverse_lazy("info:dashboard_schedules")
@@ -32,9 +39,19 @@ class DashboardiCalScheduleCreateView(CreateView):
 class DashboardiCalScheduleUpdateView(UpdateView):
     model = models.iCalSchedule
     fields = [
+        "organisation",
         "label",
         "rrule",
     ]
+
+    def get_context_data(self, **kwargs) -> dict:
+        context = super().get_context_data(**kwargs)
+        context["orgs"] = models.Organisation.objects.filter(
+            admin=self.request.user,
+            active=True,
+            enable_scheduler=True,
+        ).order_by("organisation_name")
+        return context
 
     def get_success_url(self) -> str:
         return reverse_lazy("info:dashboard_schedules")

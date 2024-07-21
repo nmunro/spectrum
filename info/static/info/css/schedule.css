@@ -1,0 +1,18 @@
+/* schedule.css */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#rrule {
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.form-control, .form-select {
+    margin-bottom: 10px;
+}

@@ -4,16 +4,204 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{% static 'info/css/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'info/css/schedule.css' %}">
 {% endblock %}
 
 {% block schedule-class %}active{% endblock %}
 
 {% block dashboard_content %}
-    <form method="POST" class="col-lg-8 col-xl-8 col-md-8 col-sm-12  mx-auto border shadow p-5 m-5 text-center fw-bold text-uppercase">
+    <form method="POST" class="col-lg-8 col-xl-8 col-md-8 col-sm-12 mx-auto border shadow p-5 m-5 text-center fw-bold text-uppercase">
       {% csrf_token %}
-      {{ form|crispy }}
-      <input type="submit" class="btn btn-primary" value="Save"/>
-      <a href="{% url 'info:dashboard_schedules' %}" class="btn btn-danger">Cancel</a>
-    </form>
+      <div id="rrule" class="border border-dark w-100 mx-auto text-center" style="max-width:700px;">
+        <div id="rrule-name">
+          <label for="label" class="form-label">Name:</label>
+          <input type="text" class="form-control p-2" name="label" value="{{ object.label }}"></input>
+          <input type="hidden" name="rrule" id="rrule-output" value="{{ object.rrule }}"/>
+        </div>
+        <div id="rrule-org">
+            <label for="rrule-organisation" class="form-label">Organisation:</label>
+            <select class="type form-select p-2" id="rrule-organisation-select" name="organisation">
+              {% for org in orgs %}
+                {% if org.slug == object.organisation.slug %}
+                  <option value="{{ org.pk }}" selected>{{ org.name }}</option>
+                {% else %}
+                  <option value="{{ org.pk }}">{{ org.name }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+        </div>
+        <div id="rrule-freq">
+            <label for="frequency" class="form-label">Frequency:</label>
+            <select class="frequency form-select p-2" id="frequency">
+                <option value="YEARLY" id="freq-yearly">Yearly</option>
+                <option value="MONTHLY" id="freq-monthly">Monthly</option>
+                <option value="WEEKLY" id="freq-weekly">Weekly</option>
+                <option value="DAILY" id="freq-daily">Daily</option>
+            </select>
+        </div>
+        <div class="yearly">
+            <label for="yearly-type" class="form-label">Type:</label>
+            <select class="type form-select p-2" id="yearly-type">
+                <option value="on">By Date in Month</option>
+                <option value="onthe">By Day in Month</option>
+            </select>
+            <div class="yearly-on" data-selector="yearly-on">
+                <label for="yearly-month" class="form-label">Month:</label>
+                <select class="month form-select p-2" id="yearly-month">
+                    <option value="1">January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
+                <label for="yearly-monthday" class="form-label">Day:</label>
+                <select class="monthday form-select p-2" id="yearly-monthday">
+                    <!-- Options for days 1 to 31 will be added dynamically -->
+                </select>
+            </div>
+            <div class="yearly-onthe" data-selector="yearly-onthe">
+                <label for="yearly-nth" class="form-label">Nth:</label>
+                <select class="nth form-select p-2" id="yearly-nth">
+                    <option value="1">1st</option>
+                    <option value="2">2nd</option>
+                    <option value="3">3rd</option>
+                    <option value="4">4th</option>
+                    <option value="-1">Last</option>
+                </select>
+                <label for="yearly-day" class="form-label">Day:</label>
+                <select class="day form-select p-2" id="yearly-day">
+                    <option value="SU">Sunday</option>
+                    <option value="MO">Monday</option>
+                    <option value="TU">Tuesday</option>
+                    <option value="WE">Wednesday</option>
+                    <option value="TH">Thursday</option>
+                    <option value="FR">Friday</option>
+                    <option value="SA">Saturday</option>
+                </select>
+                <label for="yearly-onthe-month" class="form-label">of Month:</label>
+                <select class="month form-select p-2" id="yearly-onthe-month">
+                    <option value="1">January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
+            </div>
+        </div>
+        <div class="monthly">
+            <label for="monthly-interval" class="form-label">Every:</label>
+            <input type="number" class="interval form-control" id="monthly-interval" value="1" style="width:100px;" />
+            <span>month(s)</span>
+            <label for="monthly-type" class="form-label">Type:</label>
+            <select class="type form-select p-2" id="monthly-type">
+                <option value="on">By Date in Month</option>
+                <option value="onthe">By Day in Month</option>
+            </select>
+            <div class="monthly-on" data-selector="monthly-on">
+                <label for="monthly-monthday" class="form-label">Day:</label>
+                <select class="monthday form-select p-2" id="monthly-monthday">
+                    <!-- Options for days 1 to 31 will be added dynamically -->
+                </select>
+            </div>
+            <div class="monthly-onthe" data-selector="monthly-onthe">
+                <label for="monthly-nth" class="form-label">Nth:</label>
+                <select class="nth form-select p-2" id="monthly-nth">
+                    <option value="1">1st</option>
+                    <option value="2">2nd</option>
+                    <option value="3">3rd</option>
+                    <option value="4">4th</option>
+                    <option value="-1">Last</option>
+                </select>
+                <label for="monthly-day" class="form-label">Day:</label>
+                <select class="day form-select p-2" id="monthly-day">
+                    <option value="SU">Sunday</option>
+                    <option value="MO">Monday</option>
+                    <option value="TU">Tuesday</option>
+                    <option value="WE">Wednesday</option>
+                    <option value="TH">Thursday</option>
+                    <option value="FR">Friday</option>
+                    <option value="SA">Saturday</option>
+                </select>
+            </div>
+        </div>
+        <div class="weekly">
+            <label for="weekly-interval" class="form-label">Every:</label>
+            <input type="number" class="interval form-control" id="weekly-interval" value="1" style="width:100px;" />
+            <span>week(s)</span>
+            <div class="days d-flex justify-content-center">
+                <div class="form-check p-1">
+                    <input class="form-check-input" type="checkbox" value="SU" id="weekly-su">
+                    <label class="form-check-label" for="weekly-sunday">Sunday</label>
+                </div>
+                <div class="form-check p-1">
+                    <input class="form-check-input" type="checkbox" value="MO" id="weekly-mo">
+                    <label class="form-check-label" for="weekly-monday">Monday</label>
+                </div>
+                <div class="form-check p-1">
+                    <input class="form-check-input" type="checkbox" value="TU" id="weekly-tu">
+                    <label class="form-check-label" for="weekly-tuesday">Tuesday</label>
+                </div>
+                <div class="form-check p-1">
+                    <input class="form-check-input" type="checkbox" value="WE" id="weekly-we">
+                    <label class="form-check-label" for="weekly-wednesday">Wednesday</label>
+                </div>
+                <div class="form-check p-1">
+                    <input class="form-check-input" type="checkbox" value="TH" id="weekly-th">
+                    <label class="form-check-label" for="weekly-thursday">Thursday</label>
+                </div>
+                <div class="form-check p-1">
+                    <input class="form-check-input" type="checkbox" value="FR" id="weekly-fr">
+                    <label class="form-check-label" for="weekly-friday">Friday</label>
+                </div>
+                <div class="form-check p-1">
+                    <input class="form-check-input" type="checkbox" value="SA" id="weekly-sa">
+                    <label class="form-check-label" for="weekly-saturday">Saturday</label>
+                </div>
+            </div>
+        </div>
+        <div class="daily">
+            <label for="daily-interval" class="form-label">Every:</label>
+            <input type="number" class="interval form-control" id="daily-interval" value="1" style="width:100px;" />
+            <span>day(s)</span>
+        </div>
+        <div id="rrules-end" class="mt-3">
+            <label for="ends" class="form-label">Ends:</label>
+            <select class="ends form-select p-2" id="ends">
+                <option value="never">Never Ends</option>
+                <option value="count">Ends After</option>
+                <option value="until">Ends on Date</option>
+            </select>
+            <div class="count mt-2" style="display:none;">
+              <label for="end-count" class="form-label">Occurrences:</label>
+              <input type="number" class="interval form-control" id="end-count" value="1" style="width:100px;" />
+              <span>instance(s)</span>
+            </div>
+            <div class="until mt-2" style="display:none;">
+                <label for="end-date" class="form-label">Date:</label>
+                <input type="date" class="date form-control" id="end-date" value="" />
+            </div>
+        </div>
+        <input type="submit" class="btn btn-primary mt-3" value="Save"/>
+        <a href="{% url 'info:dashboard_schedules' %}" class="btn btn-danger mt-3">Cancel</a>
+  </form>
 
+{% endblock %}
+
+{% block js_scripts %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js" integrity="sha512-LsnSViqQyaXpD4mBBdRYeP6sRwJiJveh2ZIbW41EBrNmKxgr/LFZIiWT6yr+nycvhvauz8c2nYMhrP80YhG7Cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="{% static 'info/js/schedule.js' %}"></script>
 {% endblock %}
