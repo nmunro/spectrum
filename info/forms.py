@@ -14,6 +14,7 @@ class OrganisationForm(forms.ModelForm):
             "email",
             "website",
             "phone_number",
+            "enable_scheduler",
             "accepting_volunteers",
         ]
 
