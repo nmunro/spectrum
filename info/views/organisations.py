@@ -33,7 +33,7 @@ class DashboardOrganisationCreateView(CreateView):
         "phone_number",
         "description",
         "accepting_volunteers",
-        "enable_schedules",
+        "enable_scheduler",
     ]
 
     def get_success_url(self) -> str:

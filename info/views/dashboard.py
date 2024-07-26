@@ -12,6 +12,7 @@ def dashboard_organisation(request, org):
         org.email = request.POST["email"]
         org.website = request.POST["website"]
         org.accepting_volunteers = request.POST.get("accepting_volunteers", "off") == "on"
+        org.enable_scheduler = request.POST.get("enable_scheduler", "off") == "on"
         org.save()
 
     return render(
