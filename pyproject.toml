@@ -22,6 +22,7 @@ cron-converter = "^1.0.2"
 poetry-plugin-export = "^1.7.0"
 django-taggit = "^5.0.1"
 django-sendgrid-v5 = "^1.2.3"
+python-dateutil = "^2.9.0.post0"
 
 
 [tool.poetry.dev-dependencies]

@@ -150,16 +150,7 @@ class Event(models.Model):
 
     @property
     def ends_today(self) -> bool:
-        now = timezone.now()
-
-        return all(
-            [
-                self.schedules,
-                now.year == self.end_date_time.year,
-                now.month == self.end_date_time.month,
-                now.day == self.end_date_time.day,
-            ]
-        )
+        return bool(self.schedules and timezone.now().date() == self.end_date_time.date())
 
     def get_absolute_url(self) -> str:
         return reverse("info:event", kwargs={"pk": self.pk})
