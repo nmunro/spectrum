@@ -1,4 +1,4 @@
-.PHONY: build clean clean-docker clean-docs docs repl test shell start stop lint migrate migrations dev-tools-check logs static poetry startapp create-super-user restart reschedule lock update update-requirements db-shell
+.PHONY: build clean clean-docker clean-docs docs repl test shell start stop lint migrate migrations dev-tools-check logs static poetry startapp create-super-user restart reschedule reschedule2 lock update update-requirements db-shell
 .DEFAULT_GOAL: build
 
 REPORT := $(or $(REPORT),report -m)
@@ -77,6 +77,9 @@ endif
 
 reschedule:
 	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py reschedule --settings=spectrum.settings.dev
+
+reschedule2:
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py scheduler_2 --settings=spectrum.settings.dev
 
 clean:
 	@docker container prune -f
