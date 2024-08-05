@@ -583,13 +583,13 @@ django = ">=4.2"
 
 [[package]]
 name = "django-money"
-version = "3.5.2"
+version = "3.5.3"
 description = "Adds support for using money and currency fields in django models and forms. Uses py-moneyed as the money implementation."
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "django_money-3.5.2-py3-none-any.whl", hash = "sha256:ef51437178e0e15fb1072776556614828ce6239a49ca5b3c3b9bf1370e46d03d"},
-    {file = "django_money-3.5.2.tar.gz", hash = "sha256:161f79dc523b1f57c21b5f46b345f5e5f5b9c5bb40965fd3f6cfe3e41d7dce35"},
+    {file = "django_money-3.5.3-py3-none-any.whl", hash = "sha256:3020c0f6b77eb4c30bdd711c7c660af67ed4b7a4750fdbdf5894788848dc6fc6"},
+    {file = "django_money-3.5.3.tar.gz", hash = "sha256:cb8ef1adea8c682b792cc565ace45ace9525de26e3b116290951cd78c7393eab"},
 ]
 
 [package.dependencies]
@@ -2483,4 +2483,4 @@ test = ["big-O", "importlib-resources", "jaraco.functools", "jaraco.itertools", 
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "378fca890127a7d510e7e77bfdd9924e19b86e24c6cee106d84da5d3e6a9929c"
+content-hash = "30c208fd5d6d4d4956c2ae6a9a439fe0f36e48703bc57c64688ecc90c0f82204"
