@@ -29,4 +29,8 @@ urlpatterns = [
     path("contacts/add/", views.contacts_add, name="contacts_add"),
     path("contacts/edit/", views.contacts_edit, name="contacts_edit"),
     path("contacts/delete/", views.contacts_delete, name="contacts_delete"),
+
+    path("schedules/", views.schedules, name="schedules"),
+    path("schedules/add/", views.schedules_add, name="schedules_add"),
+    path("schedules/delete/", views.schedules_delete, name="schedules_delete"),
 ]
