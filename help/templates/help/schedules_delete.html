@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+{% load tags %}
+
+{% block help-class %}active active-background{% endblock %}
+
+{% block nav %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb mx-3 mt-3">
+      <li class="breadcrumb-item fw-bold text-uppercase"><a href="{% url 'info:index' %}">Home</a></li>
+      <li class="breadcrumb-item fw-bold text-uppercase"><a href="{% url 'help:overview' %}">Help</a></li>
+      <li class="breadcrumb-item fw-bold text-uppercase"><a href="{% url 'help:schedules' %}">Schedules</a></li>
+      <li class="breadcrumb-item text-uppercase">Delete</li>
+    </ol>
+  </nav>
+{% endblock %}
+
+{% block content %}
+  <div class="row px-5">
+    <div class="col-md-4 mb-4">
+      <h1>Help: Delete Schedule</h1>
+    </div>
+  </div>
+
+  <div class="row px-5">
+    <div class="col-md-12 mb-12" style="text-align: justify;">
+      <p>Deleting a schedule is a two step process, from the <a href="{% url 'help:schedules' %}">list of schedules</a>, select the schedule you wish to delete and click the delete button.</p>
+      <img class="img-fluid" src="{% static 'help/schedules.png' %}"></img>
+
+      <p>The user will be asked to confirm the deletion of a schedule.</p>
+      <img class="img-fluid" src="{% static 'help/schedules_delete.png' %}"></img>
+
+      <p>The user may cancel this to prevent the deletion. Confirming the delete will return the user to the <a href="{% url 'help:schedules' %}">list of schedules</a>.</p>
+      <img class="img-fluid" src="{% static 'help/schedules.png' %}"></img>
+    </div>
+  </div>
+{% endblock %}

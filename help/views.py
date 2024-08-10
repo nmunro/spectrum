@@ -56,3 +56,12 @@ def contacts_edit(request):
 
 def contacts_delete(request):
     return render(request, "help/contacts_delete.html", {})
+
+def schedules(request):
+    return render(request, "help/schedules.html", {})
+
+def schedules_add(request):
+    return render(request, "help/schedules_add.html", {})
+
+def schedules_delete(request):
+    return render(request, "help/schedules_delete.html", {})
