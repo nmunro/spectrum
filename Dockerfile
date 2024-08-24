@@ -18,6 +18,7 @@ RUN python3 -m venv $POETRY_VENV \
     && $POETRY_VENV/bin/pip install -U pip setuptools wheel \
     && $POETRY_VENV/bin/pip install poetry==${POETRY_VERSION}
 
+RUN poetry config warnings.export false
 # Add `poetry` to PATH
 
 COPY . /app/spectrum

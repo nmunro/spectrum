@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     "phone_field",
     "taggit",
+    "cookie_consent",
     "help",
     "info",
     "about",
