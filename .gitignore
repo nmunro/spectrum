@@ -211,4 +211,4 @@ pyrightconfig.json
 coverage
 media/*
 
-spectrum/static/*
+# spectrum/static/*
