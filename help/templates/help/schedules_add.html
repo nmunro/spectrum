@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% load static %}
+{% load tags %}
+
+{% block help-class %}active active-background{% endblock %}
+
+{% block nav %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb mx-3 mt-3">
+      <li class="breadcrumb-item fw-bold text-uppercase"><a href="{% url 'info:index' %}">Home</a></li>
+      <li class="breadcrumb-item fw-bold text-uppercase"><a href="{% url 'help:overview' %}">Help</a></li>
+      <li class="breadcrumb-item fw-bold text-uppercase"><a href="{% url 'help:schedules' %}">Schedules</a></li>
+      <li class="breadcrumb-item text-uppercase">Add</li>
+    </ol>
+  </nav>
+{% endblock %}
+
+{% block content %}
+  <div class="row px-5">
+    <div class="col-md-12 mb-12">
+      <h1>Help: Add Schedule</h1>
+    </div>
+  </div>
+
+  <div class="row px-5">
+    <div class="col-md-12 mb-12" style="text-align: justify;">
+        <h2>Introduction</h2>
+        <p>
+          The Schedule Wizard allows you to create recurring events with various configurations. Below are the steps for each scheduling option: Yearly, Monthly, Weekly, and Daily. Each option comes with different permutations and end conditions to meet your scheduling needs.
+        </p>
+
+        <h2>Yearly Schedule</h2>
+        <p>To create a yearly schedule:</p>
+        <ol>
+          <li>Set the frequency to <strong>Yearly</strong>.</li>
+          <li>Select the type of yearly recurrence:
+            <ul>
+              <li><strong>By Date in Month:</strong> Choose the specific month and day.</li>
+              <li><strong>By Day in Month:</strong> Choose the specific occurrence of a weekday (e.g., 3rd Friday) in a particular month.</li>
+            </ul>
+          </li>
+          <li>Set the end condition:
+            <ul>
+              <li><strong>Never Ends:</strong> The event will continue indefinitely.</li>
+              <li><strong>Ends After:</strong> Specify the number of occurrences after which the event ends.</li>
+              <li><strong>Ends on Date:</strong> Select a specific end date for the schedule.</li>
+            </ul>
+          </li>
+          <li>Click <strong>Save</strong> to create the schedule.</li>
+        </ol>
+
+        <h3>Example of yearly by date in month<h3>
+        <img class="img-fluid" src="{% static 'help/schedules_add_yearly_by_date.png' %}"></img>
+
+        <h3>Example of yearly by day in month<h3>
+        <img class="img-fluid" src="{% static 'help/schedules_add_yearly_by_day.png' %}"></img>
+
+        <h2>Monthly Schedule</h2>
+        <p>To create a monthly schedule:</p>
+        <ol>
+          <li>Set the frequency to <strong>Monthly</strong>.</li>
+          <li>Select the type of monthly recurrence:
+            <ul>
+              <li><strong>By Date in Month:</strong> Choose a specific day of the month.</li>
+              <li><strong>By Day in Month:</strong> Choose the nth occurrence of a weekday within the month (e.g., 2nd Tuesday).</li>
+            </ul>
+          </li>
+          <li>Set the interval (e.g., every 1 month, every 2 months).</li>
+          <li>Set the end condition:
+            <ul>
+              <li><strong>Never Ends:</strong> The event will continue indefinitely.</li>
+              <li><strong>Ends After:</strong> Specify the number of occurrences after which the event ends.</li>
+              <li><strong>Ends on Date:</strong> Select a specific end date for the schedule.</li>
+            </ul>
+          </li>
+          <li>Click <strong>Save</strong> to create the schedule.</li>
+        </ol>
+
+        <h3>Example of monthly by date in month<h3>
+        <img class="img-fluid" src="{% static 'help/schedules_add_monthly_by_date.png' %}"></img>
+
+        <h3>Example of monthly by day in month<h3>
+        <img class="img-fluid" src="{% static 'help/schedules_add_monthly_by_day.png' %}"></img>
+
+        <h2>Weekly Schedule</h2>
+        <p>To create a weekly schedule:</p>
+        <ol>
+          <li>Set the frequency to <strong>Weekly</strong>.</li>
+          <li>Select the interval (e.g., every 1 week, every 2 weeks).</li>
+          <li>Select the days of the week when the event should occur (e.g., Monday, Wednesday, Friday).</li>
+          <li>Set the end condition:
+            <ul>
+              <li><strong>Never Ends:</strong> The event will continue indefinitely.</li>
+              <li><strong>Ends After:</strong> Specify the number of occurrences after which the event ends.</li>
+              <li><strong>Ends on Date:</strong> Select a specific end date for the schedule.</li>
+            </ul>
+          </li>
+          <li>Click <strong>Save</strong> to create the schedule.</li>
+        </ol>
+
+        <h3>Example of weekly by day in month<h3>
+        <img class="img-fluid" src="{% static 'help/schedules_add_weekly.png' %}"></img>
+
+        <h2>Daily Schedule</h2>
+        <p>To create a daily schedule:</p>
+        <ol>
+          <li>Set the frequency to <strong>Daily</strong>.</li>
+          <li>Select the interval (e.g., every day, every 2 days).</li>
+          <li>Set the end condition:
+            <ul>
+              <li><strong>Never Ends:</strong> The event will continue indefinitely.</li>
+              <li><strong>Ends After:</strong> Specify the number of occurrences after which the event ends.</li>
+              <li><strong>Ends on Date:</strong> Select a specific end date for the schedule.</li>
+            </ul>
+          </li>
+          <li>Click <strong>Save</strong> to create the schedule.</li>
+        </ol>
+
+        <h3>Example of daily by day in month<h3>
+        <img class="img-fluid" src="{% static 'help/schedules_add_daily.png' %}"></img>
+
+        <h2>End Conditions</h2>
+        <p>
+          Regardless of the frequency you choose, setting the end condition is crucial to ensure the schedule meets your requirements. You can choose from:
+        </p>
+        <ul>
+          <li><strong>Never Ends:</strong> Ideal for ongoing events without a predetermined conclusion.</li>
+          <li><strong>Ends After:</strong> Useful when you know the number of occurrences required (e.g., a 10-week course).</li>
+          <li><strong>Ends on Date:</strong> Best for events with a definite end date (e.g., a project deadline).</li>
+        </ul>
+
+        <h2>Common Issues and Considerations</h2>
+        <p>
+          When configuring schedules, be mindful of the following potential issues:
+        </p>
+        <ul>
+          <li>
+            <strong>Date Skipping:</strong> Schedules set for a specific day, like the 31st of each month, will not be generated in months that lack that day (e.g., February, April, June, September, November). For continuous monthly schedules, consider choosing the "Last Day" of each month to avoid skipping months.
+          </li>
+          <li>
+            <strong>Irregular Weekday Occurrences:</strong> When scheduling events like the "3rd Friday of each month," the schedule might skip months with fewer occurrences of that weekday. For example, in a 4-week month, this might not apply.
+          </li>
+          <li>
+            <strong>Time Zone Sensitivity:</strong> Recurrence times may vary based on the time zone of participants. Ensure that all users are aware of the time zone in which the schedule was created.
+          </li>
+        </ul>
+      </div>
+    <p>&nbsp;</p>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+{% load tags %}
+
+{% block help-class %}active active-background{% endblock %}
+
+{% block nav %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb mx-3 mt-3">
+      <li class="breadcrumb-item fw-bold text-uppercase"><a href="{% url 'info:index' %}">Home</a></li>
+      <li class="breadcrumb-item fw-bold text-uppercase"><a href="{% url 'help:overview' %}">Help</a></li>
+      <li class="breadcrumb-item text-uppercase">Schedules</li>
+    </ol>
+  </nav>
+{% endblock %}
+
+{% block content %}
+  <div class="row px-5">
+    <div class="col-md-12 mb-12">
+      <h1>Help: Schedules</h1>
+    </div>
+  </div>
+
+  <div class="row px-5">
+    <div class="col-md-12 mb-12" style="text-align: justify;">
+      <h2>Introduction to the Schedule Wizard</h2>
+      <p>
+        The Schedule Wizard is a user-friendly tool designed to help you create and manage recurring schedules effortlessly.
+        This wizard simplifies the process by guiding you through a series of intuitive steps to schedule your events.
+      </p>
+      <p>
+        At its core, the Schedule Wizard generates a recurrence rule (RRULE) that defines the pattern and frequency of an event. This rule is then stored in the database in a format compatible with the iCalendar standard, a widely used specification for calendar data.
+        However, as a user, you don't need to worry about the technical details of the RRULE. Instead, you interact with a straightforward interface that translates your preferences into the correct format behind the scenes.
+      </p>
+
+      <h3>Key Features:</h3>
+      <ul>
+        <li><strong>Customizable Frequency:</strong> Choose how often the event recurs, whether it’s yearly, monthly, weekly, or daily.</li>
+        <li><strong>Specific Date and Day Selection:</strong> Specify exact dates, days of the week, or even the nth occurrence of a particular day in a month.</li>
+        <li><strong>Flexible End Conditions:</strong> Set your schedule to continue indefinitely, end after a certain number of occurrences, or conclude on a specific date.</li>
+      </ul>
+
+      <h3>Common RRULE Considerations:</h3>
+      <p>
+        While the Schedule Wizard is designed to handle most scheduling needs, there are a few important considerations to keep in mind when setting up your schedules:
+      </p>
+      <ul>
+        <li>
+          <strong>Date Skipping:</strong> When scheduling events on a specific date, such as the 31st of each month, the rule will skip months that do not have 31 days. For example, an event set for the 31st will not occur in February, April, June, September, or November. To avoid skipped months, consider setting the event for the "Last Day" of each month, which the system will automatically adjust.
+        </li>
+        <li>
+          <strong>Weekday Limitations:</strong> If you schedule an event to occur on a specific day of the week (e.g., the 3rd Friday of each month), the event might occasionally skip a month if that weekday does not occur three times in that month. This is particularly common in months with only four weeks.
+        </li>
+      </ul>
+
+      <h3>How It Works:</h3>
+      <p>
+        The wizard presents you with a series of dropdowns, checkboxes, and input fields. As you make selections, the wizard dynamically adjusts to display relevant
+        options based on your previous choices. For example, selecting a "Yearly" frequency will reveal options to choose the month and day, while choosing a
+        "Weekly" frequency allows you to pick specific days of the week.
+      </p>
+      <p>
+        Once all preferences are set, you can save the schedule, which will be automatically translated into a recurring event pattern and stored in the system.
+        This process eliminates the complexity of manual schedule creation and ensures that your events are consistently and accurately scheduled.
+      </p>
+      <p>
+        The Schedule Wizard is an essential tool for managing repetitive tasks and events, saving you time and reducing the potential for scheduling errors.
+      </p>
+
+      <h3>Getting started:</h3>
+        <p>From the interface below, you will be able to view, <a href="{% url 'help:schedules_add' %}">add/edit</a>, and <a href="{% url 'help:schedules_delete' %}">delete</a> schedules for an <a href="{% url 'help:organisations' %}">organisation</a>.</p>
+    </div>
+  </div>
+{% endblock %}
