@@ -146,7 +146,6 @@ LOGGING = {
     },
 }
 
-STATICFILES_DIRS = [BASE_DIR / "static" / "spectrum"]
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL")
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
