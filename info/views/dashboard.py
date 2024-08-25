@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render
 from .. import forms, models
 
 
-def dashboard_organisation(request, org):
+def dashboard_organisation(request, org: str):
     org = get_object_or_404(models.Organisation, slug=org)
 
     if request.method == "POST":

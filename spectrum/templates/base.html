@@ -17,19 +17,19 @@
     <link rel="stylesheet" href="{% static 'info/css/global.css' %}">
     <link rel="stylesheet" href="{% static 'info/css/events.css' %}">
     <link rel="stylesheet" href="{% static 'info/css/cookies.css' %}">
-    <script src="https://kit.fontawesome.com/0b4fbfd8b7.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/{{ FONT_AWESOME_API_KEY }}.js" crossorigin="anonymous"></script>
     {% block stylesheets %}{% endblock %}
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <script type="text/javascript" src="{% static 'cookie_consent/cookiebar.js' %}"></script>
     {% if request|cookie_group_accepted:"Analytical" %}
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-9VGV904FBF"></script>
+      <script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_TAG_MANAGER_API_KEY }}"></script>
       <script type="{% js_type_for_cookie_consent request "social" "*:.google.com" %}">
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
-        gtag('config', 'G-9VGV904FBF');
+        gtag('config', '{{ GOOGLE_TAG_MANAGER_API_KEY }}');
       </script>
     {% endif %}
   </head>
