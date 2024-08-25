@@ -78,6 +78,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "info.context_processors.api_keys",
             ],
         },
     },
@@ -120,7 +121,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 MEDIA_ROOT = BASE_DIR / Path("media")
-STATIC_ROOT = BASE_DIR / Path("static")
+STATIC_ROOT = BASE_DIR / Path("staticfiles")
 STATIC_URL = "/static/"
 MEDIA_URL = "/media/"
 
@@ -147,7 +148,6 @@ LOGGING = {
 }
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
 DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL")
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 SENDGRID_API_KEY = config("SENDGRID_API_KEY")

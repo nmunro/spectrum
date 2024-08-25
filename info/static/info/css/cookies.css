@@ -10,4 +10,5 @@ body.with-cookie-bar {
     height: 45px;
     line-height: 25px;
     background: black;
+    color: white;
 }
