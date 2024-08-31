@@ -24,7 +24,7 @@
     <script type="text/javascript" src="{% static 'cookie_consent/cookiebar.js' %}"></script>
     {% if request|cookie_group_accepted:"Analytical" %}
       <script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_TAG_MANAGER_API_KEY }}"></script>
-      <script type="{% js_type_for_cookie_consent request 'social' '*:.google.com' %}">
+      <script type="text/javascript">
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
