@@ -63,6 +63,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    "cookie_consent.middleware.CleanCookiesMiddleware",
 ]
 
 ROOT_URLCONF = "spectrum.urls"
