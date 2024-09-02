@@ -841,9 +841,9 @@ python-lsp-isort==0.1 ; python_version >= "3.11" and python_version < "4.0" \
 python-lsp-jsonrpc==1.1.2 ; python_version >= "3.11" and python_version < "4.0" \
     --hash=sha256:4688e453eef55cd952bff762c705cedefa12055c0aec17a06f595bcc002cc912 \
     --hash=sha256:7339c2e9630ae98903fdaea1ace8c47fba0484983794d6aafd0bd8989be2b03c
-python-lsp-server==1.11.0 ; python_version >= "3.11" and python_version < "4.0" \
-    --hash=sha256:278cb41ea69ca9f84ec99d4edc96ff5f2f9e795d240771dc46dc1653f56ddfe3 \
-    --hash=sha256:89edd6fb3f7852e4bf5a3d1d95ea41484d1a28fa94b6e3cbff12b9db123b8e86
+python-lsp-server==1.12.0 ; python_version >= "3.11" and python_version < "4.0" \
+    --hash=sha256:2e912c661881d85f67f2076e4e66268b695b62bf127e07e81f58b187d4bb6eda \
+    --hash=sha256:b6a336f128da03bd9bac1e61c3acca6e84242b8b31055a1ccf49d83df9dc053b
 pytz==2024.1 ; python_version >= "3.11" and python_version < "4.0" \
     --hash=sha256:2a29735ea9c18baf14b448846bde5a48030ed267578472d8955cd0e7443a9812 \
     --hash=sha256:328171f4e3623139da4983451950b28e95ac706e13f3f2630a879749e7a8b319
