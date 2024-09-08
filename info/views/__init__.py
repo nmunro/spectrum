@@ -1,5 +1,4 @@
 from .contacts import ContactCreateView, ContactDeleteView, ContactDetailView, ContactListView, ContactUpdateView
-from .dashboard import dashboard_organisation
 from .events import (
     DashboardEventCreateView,
     DashboardEventDeleteView,
@@ -14,6 +13,7 @@ from .locations import LocationCreateView, LocationDeleteView, LocationDetailVie
 from .organisations import (
     DashboardOrganisationCreateView,
     DashboardOrganisationView,
+    DashboardOrganisationUpdateView,
     OrganisationDetailView,
     OrganisationListView
 )
