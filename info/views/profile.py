@@ -46,4 +46,4 @@ class DashboardUserView(UpdateView):
     ]
 
     def get_success_url(self) -> str:
-        return reverse_lazy("info:dashboard_profile", kwargs={"pk": self.request.user.pk})
+        return reverse_lazy("info:dashboard_user", kwargs={"pk": self.request.user.pk})

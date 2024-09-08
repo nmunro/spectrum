@@ -51,7 +51,7 @@ urlpatterns = [
     ),
     path(
         "dashboard/organisations/<str:org>/",
-        login_required(views.dashboard_organisation),
+        login_required(views.DashboardOrganisationUpdateView.as_view()),
         name="dashboard_organisation",
     ),
     path(

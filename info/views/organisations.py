@@ -4,7 +4,7 @@ from django.template.loader import get_template
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.utils.text import slugify
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from spectrum.settings.base import DEFAULT_FROM_EMAIL, ADMIN_EMAIL_LIST
@@ -80,6 +80,24 @@ class DashboardOrganisationCreateView(CreateView):
                 {"org": request.POST.get("organisation_name")},
                 status=409,
             )
+
+
+class DashboardOrganisationUpdateView(UpdateView):
+    model = models.Organisation
+    slug_field = "slug"
+    slug_url_kwarg = "org"
+    fields = [
+        "region",
+        "email",
+        "website",
+        "phone_number",
+        "description",
+        "accepting_volunteers",
+        "enable_scheduler",
+    ]
+
+    def get_success_url(self) -> str:
+        return reverse_lazy("info:dashboard_organisations")
 
 
 class OrganisationListView(ListView):
