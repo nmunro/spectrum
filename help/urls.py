@@ -15,11 +15,6 @@ urlpatterns = [
     path("events/edit/", views.events_edit, name="events_edit"),
     path("events/delete/", views.events_delete, name="events_delete"),
 
-    path("resources/", views.resources, name="resources"),
-    path("resources/add/", views.resources_add, name="resources_add"),
-    path("resources/edit/", views.resources_edit, name="resources_edit"),
-    path("resources/delete/", views.resources_delete, name="resources_delete"),
-
     path("locations/", views.locations, name="locations"),
     path("locations/add/", views.locations_add, name="locations_add"),
     path("locations/edit/", views.locations_edit, name="locations_edit"),

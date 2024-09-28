@@ -92,30 +92,6 @@ class Contact(models.Model):
         return f"{self.contact_name}: {self.email}"
 
 
-class Resource(models.Model):
-    organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE)
-    resource_name = models.CharField(max_length=255)
-    description = models.TextField()
-
-    tags = TaggableManager()
-
-    @property
-    def name(self) -> str:
-        return str(self.resource_name)
-
-    def get_absolute_url(self) -> str:
-        return reverse("info:resource", kwargs={"pk": self.pk})
-
-    def get_list_url(self) -> str:
-        return reverse("info:resources")
-
-    def __repr__(self) -> str:
-        return f"<Resource: {str(self)}>"
-
-    def __str__(self) -> str:
-        return f"{self.organisation.organisation_name}: {self.resource_name}"
-
-
 class Event(models.Model):
     organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE)
     contact = models.ForeignKey(Contact, on_delete=models.CASCADE, null=True)

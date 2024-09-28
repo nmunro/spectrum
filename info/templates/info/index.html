@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load tags %}
 
 {% block nav %}
   <nav aria-label="breadcrumb">
@@ -16,22 +15,6 @@
         <input type="text" name="search" placeholder="search..." class="form-control" value="{{ query }}" />
         <button type="submit" class="btn btn-outline-success ms-2">Search</button>
     </div>
-
-    <div class="d-lg-flex d-xl-flex d-md-flex justify-content-center 
-     d-sm-flex d-xs-block">
-      <div class="form-check form-inline m-2">
-        <input class="form-check-input" type="radio" name="search-type" id="search-type-all" value="all" {% if search_type == "all" %}checked{% endif %}>
-        <label class="form-check-label fw-bold fs-5" for="search-type"><i class="fa fa-magnifying-glass"></i>&nbsp;All</label>
-     </div>
-     <div class="form-check form-inline m-2">
-      <input class="form-check-input" type="radio" name="search-type" id="search-type-events" value="events" {% if search_type == "events" %}checked{% endif %}>
-      <label class="form-check-label fw-bold fs-5" for="search-type"><span class="fa fa-calendar"></span>&nbsp;Events</label>
-      </div>
-      <div class="form-check form-inline m-2">
-        <input class="form-check-input" type="radio" name="search-type" id="search-type-resources" value="resources" {% if search_type == "resources" %}checked{% endif %}>
-        <label class="form-check-label fw-bold fs-5" for="search-type"><span class="fa fa-vector-square"></span>&nbsp;Resources</label>
-      </div>
-    </div>
   </form>
   {% if page_obj %}
     {% include "pagination.html" %}
@@ -39,21 +22,18 @@
       <thead>
         <th>Organisation</th>
         <th>Name</th>
-        <th>Type</th>
       </thead>
       <tbody>
         {% for result in page_obj %}
           <tr>
             <td><a href="{% url 'info:organisation' result.organisation.slug %}">{{ result.organisation.name }}</a></td>
             <td><a href="{{ result.get_absolute_url }}">{{ result.name }}</a></td>
-            <td><a href="{{ result.get_list_url }}">{{ result|class_name }}</a></td>
           </tr>
         {% endfor %}
       </tbody>
       <tfoot>
         <th>Organisation</th>
         <th>Name</th>
-        <th>Type</th>
       </tfoot>
     </table>
   {% include "pagination.html" %}
