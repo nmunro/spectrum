@@ -78,6 +78,7 @@ class DashboardEventCreateView(CreateView):
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
+        form.fields["ical_rrules"].queryset = models.iCalSchedule.objects.filter(organisation__admin=self.request.user)
         form.fields["organisation"].queryset = models.Organisation.objects.filter(
             admin=self.request.user,
             active=True,
@@ -108,6 +109,7 @@ class DashboardEventUpdateView(UpdateView):
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
+        form.fields["ical_rrules"].queryset = models.iCalSchedule.objects.filter(organisation__admin=self.request.user)
         form.fields["organisation"].queryset = models.Organisation.objects.filter(
             admin=self.request.user,
             active=True,
