@@ -12,7 +12,7 @@ class DashboardiCalScheduleListView(ListView):
     context_object_name = "schedules"
 
     def get_queryset(self, **kwargs):
-        return models.iCalSchedule.objects.all()
+        return models.iCalSchedule.objects.filter(organisation__admin=self.request.user)
 
 
 class DashboardiCalScheduleCreateView(CreateView):
