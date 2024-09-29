@@ -21,18 +21,6 @@ def events_edit(request):
 def events_delete(request):
     return render(request, "help/events_delete.html", {})
 
-def resources(request):
-    return render(request, "help/resources.html", {})
-
-def resources_add(request):
-    return render(request, "help/resources_add.html", {})
-
-def resources_edit(request):
-    return render(request, "help/resources_edit.html", {})
-
-def resources_delete(request):
-    return render(request, "help/resources_delete.html", {})
-
 def locations(request):
     return render(request, "help/locations.html", {})
 

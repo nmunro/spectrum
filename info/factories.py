@@ -51,14 +51,6 @@ class ContactFactory(factory.django.DjangoModelFactory):
     contact_name = factory.Faker("name")
     email = factory.Faker("email")
 
-class ResourceFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = models.Resource
-
-    organisation = factory.SubFactory(OrganisationFactory)
-    resource_name = factory.Faker("name")
-    description = factory.LazyAttribute(lambda r: r.resource_name)
-
 class EventFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Event

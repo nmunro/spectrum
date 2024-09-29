@@ -18,15 +18,6 @@ from .organisations import (
     OrganisationListView
 )
 from .profile import DashboardUserView, UserCreateView
-from .resources import (
-    DashboardResourceCreateView,
-    DashboardResourceDeleteView,
-    DashboardResourceListView,
-    DashboardResourceUpdateView,
-    OrganisationResourceListView,
-    ResourceDetailView,
-    ResourceListView
-)
 from .schedule import (
     DashboardiCalScheduleCreateView,
     DashboardiCalScheduleDeleteView,

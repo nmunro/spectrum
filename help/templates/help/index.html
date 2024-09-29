@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load tags %}
 
 {% block help-class %}active active-background{% endblock %}
 
@@ -27,7 +26,7 @@
 interested stakeholders together to help to promote awareness of neurodiversity in the Selby
 District. They had previously carried out a survey on existing provision and discovered that were was
 very little provision for in the district for people living with neurodiversity. The group aims to provide
-help to organisations / groups looking to set up events and resources that will help people living with
+help to organisations / groups looking to set up events that will help people living with
 neurodiversity and as part of this provision were keen to produce a directory of neurodiversity
 provision in the district.</p>
 
@@ -35,8 +34,8 @@ provision in the district.</p>
 the district from information provided by other organisations attending the meeting. However, the
 charity had a volunteer who specialises in code writing for computer programmes and this volunteer
 put together a small team who would develop an online resource where individuals could search for
-resources / events in their locality and where groups / organisations could promote what they do.
-If you are reading this introduction, then you are looking to promote resources or activities that will
+events in their locality and where groups / organisations could promote what they do.
+If you are reading this introduction, then you are looking to promote activities that will
 be of interest to people living with neurodiversity.</p>
 
       <p>Thank you for signing up to promote what you do. It is hoped that as the site grows it will help to
@@ -51,7 +50,6 @@ neurodivergent provision.</p>
       <ol>
         <li><a href="{% url 'help:organisations' %}">Organisations</a></li>
         <li><a href="{% url 'help:events' %}">Events</a></li>
-        <li><a href="{% url 'help:resources' %}">Resources</a></li>
         <li><a href="{% url 'help:locations' %}">Locations</a></li>
         <li><a href="{% url 'help:contacts' %}">Contacts</a></li>
         <li><a href="{% url 'help:schedules' %}">Schedules</a></li>
