@@ -173,3 +173,16 @@ class iCalSchedule(models.Model):
 
     def __str__(self) -> str:
         return f"{self.organisation.name} - {self.label}"
+
+
+class Reminder(models.Model):
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, null=True)
+    duration = models.DurationField()
+
+    def __repr__(self) -> str:
+        return f"<Reminder: {str(self)}>"
+
+    def __str__(self) -> str:
+        return f"{self.email} - {self.event}"

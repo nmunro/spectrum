@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
-from .models import Organisation
+from .models import Organisation, Reminder
 
 
 class OrganisationForm(forms.ModelForm):
@@ -35,3 +35,13 @@ class VolunteerForm(forms.Form):
     name = forms.CharField(label="Your Name", max_length=255)
     email = forms.EmailField()
     message = forms.CharField(widget=forms.Textarea())
+
+
+class ReminderForm(forms.Form):
+    class Meta:
+        model = Reminder
+        fields = [
+            "name",
+            "email",
+            "duration",
+        ]

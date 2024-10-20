@@ -18,6 +18,7 @@ from .organisations import (
     OrganisationListView
 )
 from .profile import DashboardUserView, UserCreateView
+from .reminder import ReminderCreateView
 from .schedule import (
     DashboardiCalScheduleCreateView,
     DashboardiCalScheduleDeleteView,

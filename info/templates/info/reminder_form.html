@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <form method="POST" class="col-lg-8 col-xl-8 col-md-8 col-sm-12  mx-auto border shadow p-5 m-5 text-center fw-bold text-uppercase">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="submit" class="btn btn-primary" value="Save"/>
+      <a href="{% url 'info:dashboard_contacts' %}" class="btn btn-danger">Cancel</a>
+    </form>
+{% endblock %}

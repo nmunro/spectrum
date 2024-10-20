@@ -27,6 +27,7 @@ urlpatterns = [
     ),
     path("events/", views.EventListView.as_view(), name="events"),
     path("events/<int:pk>/", views.EventDetailView.as_view(), name="event"),
+    path("events/<int:pk>/reminder/", views.ReminderCreateView.as_view(), name="event_reminder"),
     path(
         "dashboard/user/<int:pk>/",
         login_required(views.DashboardUserView.as_view()),
